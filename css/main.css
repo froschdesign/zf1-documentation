@@ -1,0 +1,111 @@
+/* Old manual styles */
+
+.highlight {
+    background: #ff9 none repeat scroll 0 0;
+}
+.highlighttable .code {
+    overflow: auto;
+}
+.highlighttable td {
+    padding: 0;
+}
+.highlighttable .linenos {
+    padding: 5px;
+    width: 4%;
+}
+.highlighttable {
+    border-collapse: collapse;
+    margin: 0;
+    width: 100%;
+}
+.highlight, .highlight-txt, .programlisting, .highlight-yaml pre, .highlight-python pre {
+    background: #eeffcc none repeat scroll 0 0;
+    overflow: auto;
+    padding: 5px;
+}
+.highlight .nb {
+    color: #007020;
+}
+.highlight .nv {
+    color: #bb60d5;
+}
+.highlight .o {
+    color: #666;
+}
+.highlight .m {
+    color: #208050;
+}
+.highlight .nt {
+    color: #062873;
+    font-weight: bold;
+}
+.highlight .sx {
+    color: #c65d09;
+}
+.highlight .s2 {
+    color: #4070a0;
+}
+.highlight .sd {
+    color: #4070a0;
+    font-style: italic;
+}
+.highlight .c1 {
+    color: #408090;
+    font-style: italic;
+}
+.highlight .k {
+    color: #007020;
+    font-weight: bold;
+}
+.highlighttable pre {
+    padding: 0;
+}
+.highlight pre, .highlight-txt pre {
+    background-color: transparent;
+    border: medium none;
+    margin-bottom: 0;
+    padding : 0;
+}
+
+.highlight-txt, .highlight-text, .highlight-apache, .highlight-bash, .highlight-xml, .highlight-yaml, .highlight-html, .highlight-ini, [class*="highlight-"] {
+    margin-bottom: 17px;
+    overflow: auto;
+}
+.highlight-php {
+    margin: 0 0 18px;
+    overflow: auto;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+tt, .classname, .methodname {
+    background-color: #f8f8f8;
+    border: 1px solid #eaeaea;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 0.9em;
+    margin: 0 2px;
+    padding: 0 5px;
+}
+
+.admonition.note, .admonition.warning, .admonition.versionadded .admonition.versionchanged, .admonition.deprecated, .admonition.seealso, .admonition.important, .admonition.caution {
+    background-color: #f2f2f2;
+    border: 1px solid #e6e6e6;
+    margin: 0 0 22px;
+    padding: 20px;
+}
+
+.admonition p {
+    width: 100%;
+}
+.admonition-title {
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 17px;
+}

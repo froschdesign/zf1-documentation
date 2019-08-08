@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Document Info and Metadata - Zend_Pdf &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.pdf.info" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Document Info and Metadata
+                    </h1>
+                </div>
+                <p class="para">
+                    A <acronym class="acronym">PDF</acronym> document may include general information such as the document's title, author, and creation and modification dates.
+                </p>
+                <p class="para">
+                    Historically this information is stored using special Info structure. This structure is available for read and writing as an associative array using <span class="property">properties</span> public property of <span class="classname">Zend_Pdf</span> objects:
+                </p>
+                <div class="programlisting php">
+                    <div class="phpcode">
+                        <div class="php" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$pdf</span> = Zend_Pdf::<span style="color: #006600;">load</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$pdfPath</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">properties</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'Title'</span><span style="color: #66cc66;">]</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">properties</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'Author'</span><span style="color: #66cc66;">]</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">properties</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'Title'</span><span style="color: #66cc66;">]</span> = <span style="color: #ff0000;">'New Title.'</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">save</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$pdfPath</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    The following keys are defined by <acronym class="acronym">PDF</acronym> v1.4 (Acrobat 5) standard:
+                </p>
+                <ul class="itemizedlist">
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Title</em> - string, optional, the document's title.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Author</em> - string, optional, the name of the person who created the document.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Subject</em> - string, optional, the subject of the document.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Keywords</em> - string, optional, keywords associated with the document.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Creator</em> - string, optional, if the document was converted to <acronym class="acronym">PDF</acronym> from another format, the name of the application (for example, Adobe FrameMaker&Acirc;&reg;) that created the original document from which it was converted.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Producer</em> - string, optional, if the document was converted to <acronym class="acronym">PDF</acronym> from another format, the name of the application (for example, Acrobat Distiller) that converted it to <acronym class="acronym">PDF</acronym>..
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">CreationDate</em> - string, optional, the date and time the document was created, in the following form: "D:YYYYMMDDHHmmSSOHH'mm'", where:
+                        </p>
+                        <ul class="itemizedlist">
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis">YYYY</em> is the year.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis">MM</em> is the month.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis">DD</em> is the day (01&acirc;&#128;&#147;31).
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis">HH</em> is the hour (00&acirc;&#128;&#147;23).
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis">mm</em>is the minute (00&acirc;&#128;&#147;59).
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis">SS</em> is the second (00&acirc;&#128;&#147;59).
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis">O</em> is the relationship of local time to Universal Time (UT), denoted by one of the characters +, &acirc;&#136;&#146;, or Z (see below).
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis">HH</em> followed by ' is the absolute value of the offset from UT in hours (00&acirc;&#128;&#147;23).
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis">mm</em> followed by ' is the absolute value of the offset from UT in minutes (00&acirc;&#128;&#147;59).
+                                </p>
+                            </li>
+                        </ul>The apostrophe character (') after HH and mm is part of the syntax. All fields after the year are optional. (The prefix D:, although also optional, is strongly recommended.) The default values for MM and DD are both 01; all other numerical fields default to zero values. A plus sign (+) as the value of the O field signifies that local time is later than UT, a minus sign (&acirc;&#136;&#146;) that local time is earlier than UT, and the letter Z that local time is equal to UT. If no UT information is specified, the relationship of the specified time to UT is considered to be unknown. Whether or not the time zone is known, the rest of the date should be specified in local time.
+                        <p class="para">
+                            For example, December 23, 1998, at 7:52 PM, U.S. Pacific Standard Time, is represented by the string "D:199812231952&acirc;&#136;&#146;08'00'".
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">ModDate</em> - string, optional, the date and time the document was most recently modified, in the same form as <em class="emphasis">CreationDate</em>.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Trapped</em> - boolean, optional, indicates whether the document has been modified to include trapping information.
+                        </p>
+                        <ul class="itemizedlist">
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis"><b><tt>TRUE</tt></b></em> - The document has been fully trapped; no further trapping is needed.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis"><b><tt>FALSE</tt></b></em> - The document has not yet been trapped; any desired trapping must still be done.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis"><b><tt>NULL</tt></b></em> - Either it is unknown whether the document has been trapped or it has been partly but not yet fully trapped; some additional trapping may still be needed.
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <p class="para">
+                    Since <acronym class="acronym">PDF</acronym> v 1.6 metadata can be stored in the special <acronym class="acronym">XML</acronym> document attached to the <acronym class="acronym">PDF</acronym> (XMP - <a href="http://www.adobe.com/products/xmp/" class="link external">&raquo; Extensible Metadata Platform</a>).
+                </p>
+                <p class="para">
+                    This <acronym class="acronym">XML</acronym> document can be retrieved and attached to the PDF with <span class="methodname">Zend_Pdf::getMetadata()</span> and <span class="methodname">Zend_Pdf::setMetadata($metadata)</span> methods:
+                </p>
+                <div class="programlisting php">
+                    <div class="phpcode">
+                        <div class="php" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$pdf</span> = Zend_Pdf::<span style="color: #006600;">load</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$pdfPath</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$metadata</span> = <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">getMetadata</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$metadataDOM</span> = <span style="color: #000000; font-weight: bold;">new</span> DOMDocument<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$metadataDOM</span>-&gt;<span style="color: #006600;">loadXML</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$metadata</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$xpath</span> = <span style="color: #000000; font-weight: bold;">new</span> DOMXPath<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$metadataDOM</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$pdfPreffixNamespaceURI</span> = <span style="color: #0000ff;">$xpath</span>-&gt;<span style="color: #006600;">query</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'/rdf:RDF/rdf:Description'</span><span style="color: #66cc66;">)</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -&gt;<span style="color: #006600;">item</span><span style="color: #66cc66;">(</span><span style="color: #cc66cc;">0</span><span style="color: #66cc66;">)</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -&gt;<span style="color: #006600;">lookupNamespaceURI</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'pdf'</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$xpath</span>-&gt;<span style="color: #006600;">registerNamespace</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'pdf'</span>, <span style="color: #0000ff;">$pdfPreffixNamespaceURI</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$titleNode</span> = <span style="color: #0000ff;">$xpath</span>-&gt;<span style="color: #006600;">query</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'/rdf:RDF/rdf:Description/pdf:Title'</span><span style="color: #66cc66;">)</span>-&gt;<span style="color: #006600;">item</span><span style="color: #66cc66;">(</span><span style="color: #cc66cc;">0</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$title</span> = <span style="color: #0000ff;">$titleNode</span>-&gt;<span style="color: #006600;">nodeValue</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        ...
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$titleNode</span>-&gt;<span style="color: #006600;">nodeValue</span> = <span style="color: #ff0000;">'New title'</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">setMetadata</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$metadataDOM</span>-&gt;<span style="color: #006600;">saveXML</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">save</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$pdfPath</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    Common document properties are duplicated in the Info structure and Metadata document (if presented). It's user application responsibility now to keep them synchronized.
+                </p>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.pdf.interactive-features.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.pdf.usage.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.pdf.html">Zend_Pdf</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.pdf.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.pdf.create.html">Creating and Loading PDF Documents</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.pdf.save.html">Save Changes to PDF Documents</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.pdf.pages.html">Working with Pages</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.pdf.drawing.html">Drawing</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.pdf.interactive-features.html">Interactive Features</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.pdf.info.html">Document Info and Metadata</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.pdf.usage.html">Zend_Pdf module usage example</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

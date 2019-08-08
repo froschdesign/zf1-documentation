@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    The Class Map Generator utility: bin/classmap_generator.php - Zend_Loader &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.loader.classmap-generator" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        The Class Map Generator utility: bin/classmap_generator.php
+                    </h1>
+                </div>
+                <div class="section" id="zend.loader.classmap-generator.intro">
+                    <div class="info">
+                        <h2>
+                            Overview
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The script <var class="filename">bin/classmap_generator.php</var> can be used to generate class map files for use with <a href="zend.loader.class-map-autoloader.html" class="link">the ClassMapAutoloader</a>.
+                    </p>
+                    <p class="para">
+                        Internally, it consumes both <a href="zend.console.getopt.html" class="link">Zend_Console_Getopt</a> (for parsing command-line options) and <a href="" class="link">Zend_File_ClassFileLocater</a> for recursively finding all PHP class files in a given tree.
+                    </p>
+                </div>
+                <div class="section" id="zend.loader.classmap-generator.quick-start">
+                    <div class="info">
+                        <h2>
+                            Quick Start
+                        </h2>
+                    </div>
+                    <p class="para">
+                        You may run the script over any directory containing source code. By default, it will look in the current directory, and will write the script to <var class="filename">autoload_classmap.php</var> in the directory you specify.
+                    </p>
+                    <div class="programlisting sh">
+                        <div class="shcode">
+                            <div style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            php classmap_generator.php Some/Directory/
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.loader.classmap-generator.options">
+                    <div class="info">
+                        <h2>
+                            Configuration Options
+                        </h2>
+                    </div>
+                    <dl>
+                        <dd>
+                            <div class="info">
+                                <h1 class="title">
+                                    Class Map Generator Options
+                                </h1>
+                            </div>
+                        </dd>
+                        <dt class="term">
+                            --help or -h
+                        </dt>
+                        <dd>
+                            <p class="para">
+                                Returns the usage message. If any other options are provided, they will be ignored.
+                            </p>
+                        </dd>
+                        <dt class="term">
+                            --library or -l
+                        </dt>
+                        <dd>
+                            <p class="para">
+                                Expects a single argument, a string specifying the library directory to parse. If this option is not specified, it will assume the current working directory.
+                            </p>
+                        </dd>
+                        <dt class="term">
+                            --output or -o
+                        </dt>
+                        <dd>
+                            <p class="para">
+                                Where to write the autoload class map file. If not provided, assumes "autoload_classmap.php" in the library directory.
+                            </p>
+                        </dd>
+                        <dt class="term">
+                            --overwrite or -w
+                        </dt>
+                        <dd>
+                            <p class="para">
+                                If an autoload class map file already exists with the name as specified via the <var class="varname">--output</var> option, you can overwrite it by specifying this flag. Otherwise, the script will not write the class map and return a warning.
+                            </p>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.loader.class-map-autoloader.methods.register.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.locale.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.loader.html">Zend_Loader</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.load.html">Loading Files and Classes Dynamically</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.autoloader.html">The Autoloader</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.autoloader-resource.html">Resource Autoloaders</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.pluginloader.html">Loading Plugins</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.spl-autoloader.html">The SplAutoloader Interface</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.autoloader-factory.html">The AutoloaderFactory</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.standard-autoloader.html">The StandardAutoloader</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.class-map-autoloader.html">The ClassMapAutoloader</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.loader.classmap-generator.html">The Class Map Generator utility: bin/classmap_generator.php</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

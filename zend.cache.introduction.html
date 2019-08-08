@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Introduction - Zend_Cache &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.cache.introduction" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Introduction
+                    </h1>
+                </div>
+                <p class="para">
+                    <span class="classname">Zend_Cache</span> provides a generic way to cache any data.
+                </p>
+                <p class="para">
+                    Caching in Zend Framework is operated by frontends while cache records are stored through backend adapters (<em class="emphasis">File</em>, <em class="emphasis">Sqlite</em>, <em class="emphasis">Memcache</em>...) through a flexible system of IDs and tags. Using those, it is easy to delete specific types of records afterwards (for example: "delete all cache records marked with a given tag").
+                </p>
+                <p class="para">
+                    The core of the module (<span class="classname">Zend_Cache_Core</span>) is generic, flexible and configurable. Yet, for your specific needs there are cache frontends that extend <span class="classname">Zend_Cache_Core</span> for convenience: <em class="emphasis">Output</em>, <em class="emphasis">File</em>, <em class="emphasis">Function</em> and <em class="emphasis">Class</em>.
+                </p>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #1 Getting a Frontend with Zend_Cache::factory()</b>
+                        </p>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            <span class="methodname">Zend_Cache::factory()</span> instantiates correct objects and ties them together. In this first example, we will use <em class="emphasis">Core</em> frontend together with <em class="emphasis">File</em> backend.
+                        </p>
+                    </div>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$frontendOptions</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp;<span style="color: #ff0000;">'lifetime'</span> =&gt; <span style="color: #cc66cc;">7200</span>, <span style="color: #808080; font-style: italic;">// cache lifetime of 2 hours</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp;<span style="color: #ff0000;">'automatic_serialization'</span> =&gt; <span style="color: #000000; font-weight: bold;">true</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$backendOptions</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #ff0000;">'cache_dir'</span> =&gt; <span style="color: #ff0000;">'./tmp/'</span> <span style="color: #808080; font-style: italic;">// Directory where to put the cache files</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// getting a Zend_Cache_Core object</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$cache</span> = Zend_Cache::<span style="color: #006600;">factory</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Core'</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'File'</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #0000ff;">$frontendOptions</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #0000ff;">$backendOptions</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <blockquote>
+                    <p>
+                        <b class="note">Note</b>: <span class="info"><b>Frontends and Backends Consisting of Multiple Words</b><br></span> Some frontends and backends are named using multiple words, such as 'ZendPlatform'. When specifying them to the factory, separate them using a word separator, such as a space (' '), hyphen ('-'), or period ('.').<br>
+                    </p>
+                </blockquote>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #2 Caching a Database Query Result</b>
+                        </p>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Now that we have a frontend, we can cache any type of data (we turned on serialization). for example, we can cache a result from a very expensive database query. After it is cached, there is no need to even connect to the database; records are fetched from cache and unserialized.
+                        </p>
+                    </div>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// $cache initialized in previous example</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// see if a cache already exists:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">if</span><span style="color: #66cc66;">(</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$result</span> = <span style="color: #0000ff;">$cache</span>-&gt;<span style="color: #006600;">load</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'myresult'</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> === <span style="color: #000000; font-weight: bold;">false</span> <span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// cache miss; connect to the database</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #0000ff;">$db</span> = Zend_Db::<span style="color: #006600;">factory</span><span style="color: #66cc66;">(</span> <span style="color: #66cc66;">[</span>...<span style="color: #66cc66;">]</span> <span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #0000ff;">$result</span> = <span style="color: #0000ff;">$db</span>-&gt;<span style="color: #006600;">fetchAll</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'SELECT * FROM huge_table'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #0000ff;">$cache</span>-&gt;<span style="color: #006600;">save</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$result</span>, <span style="color: #ff0000;">'myresult'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span> <span style="color: #b1b100;">else</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// cache hit! shout so that we know</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"This one is from cache!<span style="color: #000099; font-weight: bold;">\n</span><span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/print_r"><span style="color: #000066;">print_r</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$result</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #3 Caching Output with Zend_Cache Output Frontend</b>
+                        </p>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            We 'mark up' sections in which we want to cache output by adding some conditional logic, encapsulating the section within <span class="methodname">start()</span> and <span class="methodname">end()</span> methods (this resembles the first example and is the core strategy for caching).
+                        </p>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Inside, output your data as usual - all output will be cached when execution hits the <span class="methodname">end()</span> method. On the next run, the whole section will be skipped in favor of fetching data from cache (as long as the cache record is valid).
+                        </p>
+                    </div>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$frontendOptions</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp;<span style="color: #ff0000;">'lifetime'</span> =&gt; <span style="color: #cc66cc;">30</span>,&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #808080; font-style: italic;">// cache lifetime of 30 seconds</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp;<span style="color: #ff0000;">'automatic_serialization'</span> =&gt; <span style="color: #000000; font-weight: bold;">false</span>&nbsp; <span style="color: #808080; font-style: italic;">// this is the default anyways</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$backendOptions</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'cache_dir'</span> =&gt; <span style="color: #ff0000;">'./tmp/'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$cache</span> = Zend_Cache::<span style="color: #006600;">factory</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Output'</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'File'</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #0000ff;">$frontendOptions</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #0000ff;">$backendOptions</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// we pass a unique identifier to the start() method</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">if</span><span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$cache</span>-&gt;<span style="color: #006600;">start</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'mypage'</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// output as usual:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">'Hello world! '</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">'This is cached ('</span>.<a href="http://www.php.net/time"><span style="color: #000066;">time</span></a><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>.<span style="color: #ff0000;">') '</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #0000ff;">$cache</span>-&gt;<span style="color: #006600;">end</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>; <span style="color: #808080; font-style: italic;">// the output is saved and sent to the browser</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">'This is never cached ('</span>.<a href="http://www.php.net/time"><span style="color: #000066;">time</span></a><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>.<span style="color: #ff0000;">').'</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Notice that we output the result of <span class="methodname">time()</span> twice; this is something dynamic for demonstration purposes. Try running this and then refreshing several times; you will notice that the first number doesn't change while second changes as time passes. That is because the first number was output in the cached section and is saved among other output. After half a minute (we've set lifetime to 30 seconds) the numbers should match again because the cache record expired -- only to be cached again. You should try this in your browser or console.
+                        </p>
+                    </div>
+                </div>
+                <blockquote>
+                    <p>
+                        <b class="note">Note</b>: When using <span class="classname">Zend_Cache</span>, pay attention to the important cache identifier (passed to <span class="methodname">save()</span> and <span class="methodname">start()</span>). It must be unique for every resource you cache, otherwise unrelated cache records may wipe each other or, even worse, be displayed in place of the other.<br>
+                    </p>
+                </blockquote>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.cache.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.cache.theory.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.cache.html">Zend_Cache</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.cache.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.cache.theory.html">The Theory of Caching</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.cache.frontends.html">Zend_Cache Frontends</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.cache.backends.html">Zend_Cache Backends</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.cache.cache.manager.html">The Cache Manager</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

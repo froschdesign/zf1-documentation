@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Mobile_Push_Apns - Zend_Mobile_Push &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.mobile.push.apns" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Mobile_Push_Apns
+                    </h1>
+                </div>
+                <p class="para">
+                    <span class="classname">Zend_Mobile_Push_Apns</span> provides the ability to send push notifications to <acronym class="acronym">APNS</acronym> generally in conjunction with <span class="classname">Zend_Mobile_Push_Message_Apns</span>; however there is a case when it would not be utilized is when getting feedback from the APNS server.
+                </p>
+                <div class="section" id="zend.mobile.push.apns.server">
+                    <div class="info">
+                        <h2>
+                            Pushing Messages
+                        </h2>
+                    </div>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: Prior to pushing messages; you must follow the <a href="http://developer.apple.com/library/mac/#documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/ProvisioningDevelopment/ProvisioningDevelopment.html" class="link external">&raquo; provisioning and deployment steps outlined by Apple</a>.<br>
+                        </p>
+                    </blockquote>
+                    <p class="para">
+                        When implementing APNS; you have a few components that you will utilize. <span class="classname">Zend_Mobile_Push_Apns</span> which contains the server components and <span class="classname">Zend_Mobile_Push_Message_Apns</span> which contains the message that you would like to send. Generally when sending push notifications to Apple you should do so in a batch.
+                    </p>
+                    <p class="para">
+                        The actual implementation of the code is fairly minimal; however, considerations to error handling must be taken.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$message</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Mobile_Push_Message_Apns<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$message</span>-&gt;<span style="color: #006600;">setAlert</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Zend Mobile Push Example'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$message</span>-&gt;<span style="color: #006600;">setBadge</span><span style="color: #66cc66;">(</span><span style="color: #cc66cc;">1</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$message</span>-&gt;<span style="color: #006600;">setSound</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'default'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$message</span>-&gt;<span style="color: #006600;">setId</span><span style="color: #66cc66;">(</span><a href="http://www.php.net/time"><span style="color: #000066;">time</span></a><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$message</span>-&gt;<span style="color: #006600;">setToken</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'ABCDEF0123456789'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$apns</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Mobile_Push_Apns<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$apns</span>-&gt;<span style="color: #006600;">setCertificate</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'/path/to/provisioning-certificate.pem'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// if you have a passphrase on your certificate:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// $apns-&gt;setCertificatePassphrase('foobar');</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            try <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #0000ff;">$apns</span>-&gt;<span style="color: #006600;">connect</span><span style="color: #66cc66;">(</span>Zend_Mobile_Push_Apns::<span style="color: #006600;">SERVER_SANDBOX_URI</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span> catch <span style="color: #66cc66;">(</span>Zend_Mobile_Push_Exception_ServerUnavailable <span style="color: #0000ff;">$e</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// you can either attempt to reconnect here or try again later</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/exit"><span style="color: #000066;">exit</span></a><span style="color: #66cc66;">(</span><span style="color: #cc66cc;">1</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span> catch <span style="color: #66cc66;">(</span>Zend_Mobile_Push_Exception <span style="color: #0000ff;">$e</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">'APNS Connection Error:'</span> . <span style="color: #0000ff;">$e</span>-&gt;<span style="color: #006600;">getMessage</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/exit"><span style="color: #000066;">exit</span></a><span style="color: #66cc66;">(</span><span style="color: #cc66cc;">1</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            try <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #0000ff;">$apns</span>-&gt;<span style="color: #006600;">send</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$message</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span> catch <span style="color: #66cc66;">(</span>Zend_Mobile_Push_Exception_InvalidToken <span style="color: #0000ff;">$e</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// you would likely want to remove the token from being sent to again</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$e</span>-&gt;<span style="color: #006600;">getMessage</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span> catch <span style="color: #66cc66;">(</span>Zend_Mobile_Push_Exception <span style="color: #0000ff;">$e</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// all other exceptions only require action to be sent</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$e</span>-&gt;<span style="color: #006600;">getMessage</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$apns</span>-&gt;<span style="color: #006600;">close</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info"></div>
+                    <table class="doctable table">
+                        <caption>
+                            <b>Exceptions and Remediation Techniques</b>
+                        </caption>
+                        <thead valign="middle">
+                            <tr valign="middle">
+                                <th>
+                                    Exception
+                                </th>
+                                <th>
+                                    Meaning
+                                </th>
+                                <th>
+                                    Handling
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody valign="middle" class="tbody">
+                            <tr valign="middle">
+                                <td align="left">
+                                    Zend_Mobile_Push_Exception
+                                </td>
+                                <td align="left">
+                                    These types of exceptions are more generic in nature and are thrown either from APNS or internally on input validation
+                                </td>
+                                <td align="left">
+                                    Read the message and determine remediation steps.
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    Zend_Mobile_Push_Exception_InvalidPayload
+                                </td>
+                                <td align="left">
+                                    Generally the payload will not throw an exception unless the size of the payload is too large or it is missing required content.
+                                </td>
+                                <td align="left">
+                                    Check the size of the payload is within the requirements of APNS
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    Zend_Mobile_Push_Exception_InvalidToken
+                                </td>
+                                <td align="left">
+                                    Any form of an invalid token will be if the token is no longer registered; you are missing a token or it is in an invalid format.
+                                </td>
+                                <td align="left">
+                                    You should remove the token and not attempt to send to it again.
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    Zend_Mobile_Push_Exception_InvalidTopic
+                                </td>
+                                <td align="left">
+                                    An invalid topic simply means that the message id was too long or not an integer.
+                                </td>
+                                <td align="left">
+                                    Ensure that the message ID is an integer.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="warning">
+                        <b class="warning">Warning</b>
+                        <p class="para">
+                            When sending in batches and you are sending a large amount of push notifications out; you should ensure to usleep from time to time. This will ensure that your messages will be delivered and APNS will not simply hang up on you.
+                        </p>
+                    </div>
+                </div>
+                <div class="section" id="zend.mobile.push.apns.feedback">
+                    <div class="info">
+                        <h2>
+                            Getting Feedback
+                        </h2>
+                    </div>
+                    <p class="para">
+                        APNS has a feedback service that you <em class="emphasis">must</em> listen to. Apple states that they monitor providers to ensure that they are listening to this service.
+                    </p>
+                    <p class="para">
+                        The feedback service simply returns an array of device tokens and the time. You can use the time to ensure that the device has not re-registered for push notifications since the last send.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$apns</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Mobile_Push_Apns<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$apns</span>-&gt;<span style="color: #006600;">setCertificate</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'/path/to/provisioning-certificate.pem'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            try <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #0000ff;">$apns</span>-&gt;<span style="color: #006600;">connect</span><span style="color: #66cc66;">(</span>Zend_Mobile_Push_Apns::<span style="color: #006600;">SERVER_FEEDBACK_SANDBOX_URI</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span> catch <span style="color: #66cc66;">(</span>Zend_Mobile_Push_Exception_ServerUnavailable <span style="color: #0000ff;">$e</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// you can either attempt to reconnect here or try again later</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/exit"><span style="color: #000066;">exit</span></a><span style="color: #66cc66;">(</span><span style="color: #cc66cc;">1</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span> catch <span style="color: #66cc66;">(</span>Zend_Mobile_Push_Exception <span style="color: #0000ff;">$e</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">'APNS Connection Error:'</span> . <span style="color: #0000ff;">$e</span>-&gt;<span style="color: #006600;">getMessage</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/exit"><span style="color: #000066;">exit</span></a><span style="color: #66cc66;">(</span><span style="color: #cc66cc;">1</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$tokens</span> = <span style="color: #0000ff;">$apns</span>-&gt;<span style="color: #006600;">feedback</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">while</span><span style="color: #66cc66;">(</span><a href="http://www.php.net/list"><span style="color: #000066;">list</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$token</span>, <span style="color: #0000ff;">$time</span><span style="color: #66cc66;">)</span> = <a href="http://www.php.net/each"><span style="color: #000066;">each</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$tokens</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$time</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\t</span>"</span> . <span style="color: #0000ff;">$token</span> . PHP_EOL;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$apns</span>-&gt;<span style="color: #006600;">close</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.mobile.push.apns.message">
+                    <div class="info">
+                        <h2>
+                            Advanced Messages
+                        </h2>
+                    </div>
+                    <p class="para">
+                        APNS provides the ability for sending more advanced messages; for instance the examples above show the most basic implementation of a message. <span class="classname">Zend_Mobile_Push_Message_Apns</span> allows you to do far more advanced messaging outlined below.
+                    </p>
+                    <div class="section" id="zend.mobile.push.apns.message.alerts">
+                        <div class="info">
+                            <h2>
+                                Alerts
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Alerts can contain anything from a simple body message to having an action key and a launch image (iOS 4). You may only want to provide an action key when only a confirmation is necessary OR you are looking to localize the button with non-standard text (aka not "View").
+                        </p>
+                        <p class="para">
+                            The following code example shows alerts from the <a href="http://developer.apple.com/library/mac/#documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/ApplePushService/ApplePushService.html" class="link external">&raquo; APNS payload examples</a>.
+                        </p>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$message</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Mobile_Push_Message_Apns<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// message with different button</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #0000ff;">$message</span>-&gt;<span style="color: #006600;">setAlert</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Bob wants to play poker'</span>, <span style="color: #ff0000;">'PLAY'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// message using apps localized strings w/ string replacements</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #0000ff;">$message</span>-&gt;<span style="color: #006600;">setAlert</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">null</span>, <span style="color: #000000; font-weight: bold;">null</span>, <span style="color: #ff0000;">'GAME_PLAY_REQUEST_FORMAT'</span>, <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Jenna'</span>, <span style="color: #ff0000;">'Frank'</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section" id="zend.mobile.push.apns.message.custom-data">
+                        <div class="info">
+                            <h2>
+                                Custom Data
+                            </h2>
+                        </div>
+                        <p class="para">
+                            You can send your app custom data which allows you to make decisions based on the notifications; such as synchronizing data.
+                        </p>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$message</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Mobile_Push_Message_Apns<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$message</span>-&gt;<span style="color: #006600;">addCustomData</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo'</span>, <span style="color: #ff0000;">'bar'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$message</span>-&gt;<span style="color: #006600;">addCustomData</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo'</span>, <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'bar'</span> =&gt; <span style="color: #cc66cc;">1</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$message</span>-&gt;<span style="color: #006600;">addCustomData</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'bar'</span>, <span style="color: #ff0000;">'foo'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="warning">
+                            <b class="warning">Warning</b>
+                            <p class="para">
+                                You may not use a custom key of 'aps' as it is reserved by Apple and leveraged for the main push data.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.mobile.push.introduction.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.mobile.push.gcm.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.mobile.push.html">Zend_Mobile_Push</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.mobile.push.introduction.html">Zend_Mobile_Push Introduction</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.mobile.push.apns.html">Zend_Mobile_Push_Apns</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.mobile.push.gcm.html">Zend_Mobile_Push_Gcm</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.mobile.push.mpns.html">Zend_Mobile_Push_Mpns</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

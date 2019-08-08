@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Service_Audioscrobbler - Zend_Service &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.service.audioscrobbler" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Service_Audioscrobbler
+                    </h1>
+                </div>
+                <div class="section" id="zend.service.audioscrobbler.introduction">
+                    <div class="info">
+                        <h2>
+                            Introduction
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Service_Audioscrobbler</span> is a simple <acronym class="acronym">API</acronym> for using the Audioscrobbler REST Web Service. The Audioscrobbler Web Service provides access to its database of Users, Artists, Albums, Tracks, Tags, Groups, and Forums. The methods of the <span class="classname">Zend_Service_Audioscrobbler</span> class begin with one of these terms. The syntax and namespaces of the Audioscrobbler Web Service are mirrored in <span class="classname">Zend_Service_Audioscrobbler</span>. For more information about the Audioscrobbler REST Web Service, please visit the <a href="http://www.audioscrobbler.net/data/webservices/" class="link external">&raquo; Audioscrobbler Web Service site</a>.
+                    </p>
+                </div>
+                <div class="section" id="zend.service.audioscrobbler.users">
+                    <div class="info">
+                        <h2>
+                            Users
+                        </h2>
+                    </div>
+                    <p class="para">
+                        In order to retrieve information for a specific user, the <span class="methodname">setUser()</span> method is first used to select the user for which data are to be retrieved. <span class="classname">Zend_Service_Audioscrobbler</span> provides several methods for retrieving data specific to a single user:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetProfileInformation()</span>: Returns a SimpleXML object containing the current user's profile information.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetTopArtists()</span>: Returns a SimpleXML object containing a list of the current user's most listened to artists.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetTopAlbums()</span>: Returns a SimpleXML object containing a list of the current user's most listened to albums.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetTopTracks()</span>: Returns a SimpleXML object containing a list of the current user's most listened to tracks.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetTopTags()</span>: Returns a SimpleXML object containing a list of tags most applied by the current user.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetTopTagsForArtist()</span>: Requires that an artist be set via <span class="methodname">setArtist()</span>. Returns a SimpleXML object containing the tags most applied to the current artist by the current user.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetTopTagsForAlbum()</span>: Requires that an album be set via <span class="methodname">setAlbum()</span>. Returns a SimpleXML object containing the tags most applied to the current album by the current user.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetTopTagsForTrack()</span>: Requires that a track be set via <span class="methodname">setTrack()</span>. Returns a SimpleXML object containing the tags most applied to the current track by the current user.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetFriends()</span>: Returns a SimpleXML object containing the user names of the current user's friends.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetNeighbours()</span>: Returns a SimpleXML object containing the user names of people with similar listening habits to the current user.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetRecentTracks()</span>: Returns a SimpleXML object containing the 10 tracks most recently played by the current user.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetRecentBannedTracks()</span>: Returns a SimpleXML object containing a list of the 10 tracks most recently banned by the current user.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetRecentLovedTracks()</span>: Returns a SimpleXML object containing a list of the 10 tracks most recently loved by the current user.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetRecentJournals()</span>: Returns a SimpleXML object containing a list of the current user's most recent journal entries.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetWeeklyChartList()</span>: Returns a SimpleXML object containing a list of weeks for which there exist Weekly Charts for the current user.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetRecentWeeklyArtistChart()</span>: Returns a SimpleXML object containing the most recent Weekly Artist Chart for the current user.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetRecentWeeklyAlbumChart()</span>: Returns a SimpleXML object containing the most recent Weekly Album Chart for the current user.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetRecentWeeklyTrackChart()</span>: Returns a SimpleXML object containing the most recent Weekly Track Chart for the current user.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetPreviousWeeklyArtistChart($fromDate, $toDate)</span>: Returns a SimpleXML object containing the Weekly Artist Chart from <var class="varname">$fromDate</var> to <var class="varname">$toDate</var> for the current user.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetPreviousWeeklyAlbumChart($fromDate, $toDate)</span>: Returns a SimpleXML object containing the Weekly Album Chart from <var class="varname">$fromDate</var> to <var class="varname">$toDate</var> for the current user.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">userGetPreviousWeeklyTrackChart($fromDate, $toDate)</span>: Returns a SimpleXML object containing the Weekly Track Chart from <var class="varname">$fromDate</var> to <var class="varname">$toDate</var> for the current user.
+                            </p>
+                        </li>
+                    </ul>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #1 Retrieving User Profile Information</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                In this example, we use the <span class="methodname">setUser()</span> and <span class="methodname">userGetProfileInformation()</span> methods to retrieve a specific user's profile information:
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$as</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Audioscrobbler<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Set the user whose profile information we want to retrieve</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$as</span>-&gt;<span style="color: #006600;">setUser</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'BigDaddy71'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Retrieve BigDaddy71's profile information</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$profileInfo</span> = <span style="color: #0000ff;">$as</span>-&gt;<span style="color: #006600;">userGetProfileInformation</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Display some of it</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #ff0000;">"Information for $profileInfo-&gt;realname "</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; . <span style="color: #ff0000;">"can be found at $profileInfo-&gt;url"</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #2 Retrieving a User's Weekly Artist Chart</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$as</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Audioscrobbler<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Set the user whose profile weekly artist chart we want to retrieve</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$as</span>-&gt;<span style="color: #006600;">setUser</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'lo_fye'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Retrieves a list of previous weeks for which there are chart data</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$weeks</span> = <span style="color: #0000ff;">$as</span>-&gt;<span style="color: #006600;">userGetWeeklyChartList</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><a href="http://www.php.net/count"><span style="color: #000066;">count</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$weeks</span><span style="color: #66cc66;">)</span> &lt; <span style="color: #cc66cc;">1</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">'No data available'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/sort"><span style="color: #000066;">sort</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$weeks</span><span style="color: #66cc66;">)</span>; <span style="color: #808080; font-style: italic;">// Order the list of weeks</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$as</span>-&gt;<span style="color: #006600;">setFromDate</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$weeks</span><span style="color: #66cc66;">[</span><span style="color: #cc66cc;">0</span><span style="color: #66cc66;">]</span><span style="color: #66cc66;">)</span>; <span style="color: #808080; font-style: italic;">// Set the starting date</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$as</span>-&gt;<span style="color: #006600;">setToDate</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$weeks</span><span style="color: #66cc66;">[</span><span style="color: #cc66cc;">0</span><span style="color: #66cc66;">]</span><span style="color: #66cc66;">)</span>; <span style="color: #808080; font-style: italic;">// Set the ending date</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$previousWeeklyArtists</span> = <span style="color: #0000ff;">$as</span>-&gt;<span style="color: #006600;">userGetPreviousWeeklyArtistChart</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">'Artist Chart For Week Of '</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp;. <a href="http://www.php.net/date"><span style="color: #000066;">date</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Y-m-d h:i:s'</span>, <span style="color: #0000ff;">$as</span>-&gt;<span style="color: #006600;">from_date</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp;. <span style="color: #ff0000;">'&lt;br /&gt;'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">foreach</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$previousWeeklyArtists</span> <span style="color: #b1b100;">as</span> <span style="color: #0000ff;">$artist</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// Display the artists' names with links to their profiles</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #ff0000;">'&lt;a href="'</span> . <span style="color: #0000ff;">$artist</span>-&gt;<span style="color: #006600;">url</span> . <span style="color: #ff0000;">'"&gt;'</span> . <span style="color: #0000ff;">$artist</span>-&gt;<span style="color: #006600;">name</span> . <span style="color: #ff0000;">'&lt;/a&gt;&lt;br /&gt;'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.service.audioscrobbler.artists">
+                    <div class="info">
+                        <h2>
+                            Artists
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Service_Audioscrobbler</span> provides several methods for retrieving data about a specific artist, specified via the <span class="methodname">setArtist()</span> method:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">artistGetRelatedArtists()</span>: Returns a SimpleXML object containing a list of Artists similar to the current Artist.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">artistGetTopFans()</span>: Returns a SimpleXML object containing a list of Users who listen most to the current Artist.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">artistGetTopTracks()</span>: Returns a SimpleXML object containing a list of the current Artist's top-rated Tracks.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">artistGetTopAlbums()</span>: Returns a SimpleXML object containing a list of the current Artist's top-rated Albums.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">artistGetTopTags()</span>: Returns a SimpleXML object containing a list of the Tags most frequently applied to current Artist.
+                            </p>
+                        </li>
+                    </ul>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #3 Retrieving Related Artists</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$as</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Audioscrobbler<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Set the artist for whom you would like to retrieve related artists</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$as</span>-&gt;<span style="color: #006600;">setArtist</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'LCD Soundsystem'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Retrieve the related artists</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$relatedArtists</span> = <span style="color: #0000ff;">$as</span>-&gt;<span style="color: #006600;">artistGetRelatedArtists</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">foreach</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$relatedArtists</span> <span style="color: #b1b100;">as</span> <span style="color: #0000ff;">$artist</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// Display the related artists</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #ff0000;">'&lt;a href="'</span> . <span style="color: #0000ff;">$artist</span>-&gt;<span style="color: #006600;">url</span> . <span style="color: #ff0000;">'"&gt;'</span> . <span style="color: #0000ff;">$artist</span>-&gt;<span style="color: #006600;">name</span> . <span style="color: #ff0000;">'&lt;/a&gt;&lt;br /&gt;'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.service.audioscrobbler.tracks">
+                    <div class="info">
+                        <h2>
+                            Tracks
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Service_Audioscrobbler</span> provides two methods for retrieving data specific to a single track, specified via the <span class="methodname">setTrack()</span> method:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">trackGetTopFans()</span>: Returns a SimpleXML object containing a list of Users who listen most to the current Track.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">trackGetTopTags()</span>: Returns a SimpleXML object containing a list of the Tags most frequently applied to the current Track.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.service.audioscrobbler.tags">
+                    <div class="info">
+                        <h2>
+                            Tags
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Service_Audioscrobbler</span> provides several methods for retrieving data specific to a single tag, specified via the <span class="methodname">setTag()</span> method:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">tagGetOverallTopTags()</span>: Returns a SimpleXML object containing a list of Tags most frequently used on Audioscrobbler.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">tagGetTopArtists()</span>: Returns a SimpleXML object containing a list of Artists to whom the current Tag was most frequently applied.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">tagGetTopAlbums()</span>: Returns a SimpleXML object containing a list of Albums to which the current Tag was most frequently applied.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">tagGetTopTracks()</span>: Returns a SimpleXML object containing a list of Tracks to which the current Tag was most frequently applied.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.service.audioscrobbler.groups">
+                    <div class="info">
+                        <h2>
+                            Groups
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Service_Audioscrobbler</span> provides several methods for retrieving data specific to a single group, specified via the <span class="methodname">setGroup()</span> method:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">groupGetRecentJournals()</span>: Returns a SimpleXML object containing a list of recent journal posts by Users in the current Group.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">groupGetWeeklyChart()</span>: Returns a SimpleXML object containing a list of weeks for which there exist Weekly Charts for the current Group.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">groupGetRecentWeeklyArtistChart()</span>: Returns a SimpleXML object containing the most recent Weekly Artist Chart for the current Group.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">groupGetRecentWeeklyAlbumChart()</span>: Returns a SimpleXML object containing the most recent Weekly Album Chart for the current Group.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">groupGetRecentWeeklyTrackChart()</span>: Returns a SimpleXML object containing the most recent Weekly Track Chart for the current Group.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">groupGetPreviousWeeklyArtistChart($fromDate, $toDate)</span>: Requires <span class="methodname">setFromDate()</span> and <span class="methodname">setToDate()</span>. Returns a SimpleXML object containing the Weekly Artist Chart from the current fromDate to the current toDate for the current Group.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">groupGetPreviousWeeklyAlbumChart($fromDate, $toDate)</span>: Requires <span class="methodname">setFromDate()</span> and <span class="methodname">setToDate()</span>. Returns a SimpleXML object containing the Weekly Album Chart from the current fromDate to the current toDate for the current Group.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">groupGetPreviousWeeklyTrackChart($fromDate, $toDate)</span>: Returns a SimpleXML object containing the Weekly Track Chart from the current fromDate to the current toDate for the current Group.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.service.audioscrobbler.forums">
+                    <div class="info">
+                        <h2>
+                            Forums
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Service_Audioscrobbler</span> provides a method for retrieving data specific to a single forum, specified via the <span class="methodname">setForum()</span> method:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">forumGetRecentPosts()</span>: Returns a SimpleXML object containing a list of recent posts in the current forum.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.service.amazon.sqs.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.service.delicious.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.service.html">Zend_Service</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.akismet.html">Zend_Service_Akismet</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.html">Zend_Service_Amazon</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.html">Zend_Service_Amazon_Ec2</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.instance.html">Zend_Service_Amazon_Ec2: Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.windows.instance.html">Zend_Service_Amazon_Ec2: Windows Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.reserved.instance.html">Zend_Service_Amazon_Ec2: Reserved Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.cloudwatch.html">Zend_Service_Amazon_Ec2: CloudWatch Monitoring</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.images.html">Zend_Service_Amazon_Ec2: Amazon Machine Images (AMI)</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.ebs.html">Zend_Service_Amazon_Ec2: Elastic Block Storage (EBS)</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.elasticip.html">Zend_Service_Amazon_Ec2: Elastic IP Addresses</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.keypairs.html">Zend_Service_Amazon_Ec2: Keypairs</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.zones.html">Zend_Service_Amazon_Ec2: Regions and Availability Zones</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.securitygroups.html">Zend_Service_Amazon_Ec2: Security Groups</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.s3.html">Zend_Service_Amazon_S3</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.sqs.html">Zend_Service_Amazon_Sqs</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.service.audioscrobbler.html">Zend_Service_Audioscrobbler</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.delicious.html">Zend_Service_Delicious</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.ebay.html">Zend_Service_Ebay</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.ebay.finding.html">Zend_Service_Ebay_Finding</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.flickr.html">Zend_Service_Flickr</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.livedocx.html">Zend_Service_LiveDocx</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.rackspace.html">Zend_Service_Rackspace</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.rackspace.files.html">Zend_Service_Rackspace_Files</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.rackspace.servers.html">Zend_Service_Rackspace_Servers</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.recaptcha.html">Zend_Service_ReCaptcha</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.short-url.html">Zend_Service_ShortUrl</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.slideshare.html">Zend_Service_SlideShare</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.html">Zend_Service_StrikeIron</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.bundled-services.html">Zend_Service_StrikeIron: Bundled Services</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.advanced-uses.html">Zend_Service_StrikeIron: Advanced Uses</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.twitter.html">Zend_Service_Twitter</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.html">Zend_Service_WindowsAzure</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.blob.html">Zend_Service_WindowsAzure_Storage_Blob</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.diagnostics.manager.html">Zend_Service_WindowsAzure_Diagnostics_Manager</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.queue.html">Zend_Service_WindowsAzure_Storage_Queue</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.table.html">Zend_Service_WindowsAzure_Storage_Table</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.yahoo.html">Zend_Service_Yahoo</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

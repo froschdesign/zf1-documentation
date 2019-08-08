@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Http_Cookie and Zend_Http_CookieJar - Zend_Http &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.http.cookies" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Http_Cookie and Zend_Http_CookieJar
+                    </h1>
+                </div>
+                <div class="section" id="zend.http.cookies.introduction">
+                    <div class="info">
+                        <h2>
+                            Introduction
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Http_Cookie</span>, as expected, is a class that represents an <acronym class="acronym">HTTP</acronym> cookie. It provides methods for parsing <acronym class="acronym">HTTP</acronym> response strings, collecting cookies, and easily accessing their properties. It also allows checking if a cookie matches against a specific scenario, IE a request <acronym class="acronym">URL</acronym>, expiration time, secure connection, etc.
+                    </p>
+                    <p class="para">
+                        <span class="classname">Zend_Http_CookieJar</span> is an object usually used by <span class="classname">Zend_Http_Client</span> to hold a set of <span class="classname">Zend_Http_Cookie</span> objects. The idea is that if a <span class="classname">Zend_Http_CookieJar</span> object is attached to a <span class="classname">Zend_Http_Client</span> object, all cookies going from and into the client through <acronym class="acronym">HTTP</acronym> requests and responses will be stored by the CookieJar object. Then, when the client will send another request, it will first ask the CookieJar object for all cookies matching the request. These will be added to the request headers automatically. This is highly useful in cases where you need to maintain a user session over
+                        consecutive <acronym class="acronym">HTTP</acronym> requests, automatically sending the session ID cookies when required. Additionally, the <span class="classname">Zend_Http_CookieJar</span> object can be serialized and stored in $_SESSION when needed.
+                    </p>
+                </div>
+                <div class="section" id="zend.http.cookies.cookie.instantiating">
+                    <div class="info">
+                        <h2>
+                            Instantiating Zend_Http_Cookie Objects
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Instantiating a Cookie object can be done in two ways:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                Through the constructor, using the following syntax: <strong class="command">new <span class="classname">Zend_Http_Cookie</span>(string $name, string $value, string $domain, [int $expires, [string $path, [boolean $secure]]]);</strong>
+                            </p>
+                            <ul class="itemizedlist">
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$name</var>: The name of the cookie (eg. 'PHPSESSID') (required)
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$value</var>: The value of the cookie (required)
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$domain</var>: The cookie's domain (eg. '.example.com') (required)
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$expires</var>: Cookie expiration time, as UNIX time stamp (optional, defaults to <b><tt>NULL</tt></b>). If not set, cookie will be treated as a 'session cookie' with no expiration time.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$path</var>: Cookie path, eg. '/foo/bar/' (optional, defaults to '/')
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$secure</var>: Boolean, Whether the cookie is to be sent over secure (HTTPS) connections only (optional, defaults to boolean <b><tt>FALSE</tt></b>)
+                                    </p>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                By calling the fromString($cookieStr, [$refUri, [$encodeValue]]) static method, with a cookie string as represented in the 'Set-Cookie ' <acronym class="acronym">HTTP</acronym> response header or 'Cookie' <acronym class="acronym">HTTP</acronym> request header. In this case, the cookie value must already be encoded. When the cookie string does not contain a 'domain' part, you must provide a reference <acronym class="acronym">URI</acronym> according to which the cookie's domain and path will be set.
+                            </p>
+                            <p class="para">
+                                The <span class="methodname">fromString()</span> method accepts the following parameters:
+                            </p>
+                            <ul class="itemizedlist">
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$cookieStr</var>: a cookie string as represented in the 'Set-Cookie' <acronym class="acronym">HTTP</acronym> response header or 'Cookie' <acronym class="acronym">HTTP</acronym> request header (required)
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$refUri</var>: a reference <acronym class="acronym">URI</acronym> according to which the cookie's domain and path will be set. (optional, defaults to parsing the value from the $cookieStr)
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$encodeValue</var>: If the value should be passed through urldecode. Also effects the cookie's behavior when being converted back to a cookie string. (optional, defaults to true)
+                                    </p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #1 Instantiating a Zend_Http_Cookie object</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// First, using the constructor. This cookie will expire in 2 hours</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Http_Cookie<span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'bar'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'.example.com'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="http://www.php.net/time"><span style="color: #000066;">time</span></a><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span> + <span style="color: #cc66cc;">7200</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'/path'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// You can also take the HTTP response Set-Cookie header and use it.</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// This cookie is similar to the previous one, only it will not expire, and</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// will only be sent over secure connections</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span> = Zend_Http_Cookie::<span style="color: #006600;">fromString</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo=bar; domain=.example.com; '</span> .
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'path=/path; secure'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// If the cookie's domain is not set, you have to manually specify it</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span> = Zend_Http_Cookie::<span style="color: #006600;">fromString</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo=bar; secure;'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'http://www.example.com/path'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: When instantiating a cookie object using the <span class="classname">Zend_Http_Cookie</span>::fromString() method, the cookie value is expected to be <acronym class="acronym">URL</acronym> encoded, as cookie strings should be. However, when using the constructor, the cookie value string is expected to be the real, decoded value.<br>
+                        </p>
+                    </blockquote>
+                    <p class="para">
+                        A cookie object can be transferred back into a string, using the __toString() magic method. This method will produce a <acronym class="acronym">HTTP</acronym> request "Cookie" header string, showing the cookie's name and value, and terminated by a semicolon (';'). The value will be URL encoded, as expected in a Cookie header:
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #2 Stringifying a Zend_Http_Cookie object</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Create a new cookie</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Http_Cookie<span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'two words'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'.example.com'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="http://www.php.net/time"><span style="color: #000066;">time</span></a><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span> + <span style="color: #cc66cc;">7200</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'/path'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will print out 'foo=two+words;' :</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$cookie</span>-&gt;__toString<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// This is actually the same:</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #66cc66;">(</span>string<span style="color: #66cc66;">)</span> <span style="color: #0000ff;">$cookie</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// In PHP 5.2 and higher, this also works:</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$cookie</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.http.cookies.cookie.accessors">
+                    <div class="info">
+                        <h2>
+                            Zend_Http_Cookie getter methods
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Once a <span class="classname">Zend_Http_Cookie</span> object is instantiated, it provides several getter methods to get the different properties of the <acronym class="acronym">HTTP</acronym> cookie:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getName()</span>: Get the name of the cookie
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getValue()</span>: Get the real, decoded value of the cookie
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getDomain()</span>: Get the cookie's domain
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getPath()</span>: Get the cookie's path, which defaults to '/'
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getExpiryTime()</span>: Get the cookie's expiration time, as UNIX time stamp. If the cookie has no expiration time set, will return <b><tt>NULL</tt></b>.
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        Additionally, several boolean tester methods are provided:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">isSecure()</span>: Check whether the cookie is set to be sent over secure connections only. Generally speaking, if <b><tt>TRUE</tt></b> the cookie should only be sent over <acronym class="acronym">HTTPS</acronym>.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">isExpired(int $time = null)</span>: Check whether the cookie is expired or not. If the cookie has no expiration time, will always return <b><tt>TRUE</tt></b>. If $time is provided, it will override the current time stamp as the time to check the cookie against.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">isSessionCookie()</span>: Check whether the cookie is a "session cookie" - that is a cookie with no expiration time, which is meant to expire when the session ends.
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para"></p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #3 Using getter methods with Zend_Http_Cookie</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// First, create the cookie</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span> =
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; Zend_Http_Cookie::<span style="color: #006600;">fromString</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo=two+words; '</span> +
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'domain=.example.com; '</span> +
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'path=/somedir; '</span> +
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'secure; '</span> +
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'expires=Wednesday, 28-Feb-05 20:41:22 UTC'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">getName</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;&nbsp; &nbsp;<span style="color: #808080; font-style: italic;">// Will echo 'foo'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">getValue</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;&nbsp; <span style="color: #808080; font-style: italic;">// will echo 'two words'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">getDomain</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>; <span style="color: #808080; font-style: italic;">// Will echo '.example.com'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">getPath</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;&nbsp; &nbsp;<span style="color: #808080; font-style: italic;">// Will echo '/'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <a href="http://www.php.net/date"><span style="color: #000066;">date</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Y-m-d'</span>, <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">getExpiryTime</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will echo '2005-02-28'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">isExpired</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span> ? <span style="color: #ff0000;">'Yes'</span> : <span style="color: #ff0000;">'No'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will echo 'Yes'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">isExpired</span><span style="color: #66cc66;">(</span><a href="http://www.php.net/strtotime"><span style="color: #000066;">strtotime</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'2005-01-01'</span><span style="color: #66cc66;">)</span> ? <span style="color: #ff0000;">'Yes'</span> : <span style="color: #ff0000;">'No'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will echo 'No'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">isSessionCookie</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span> ? <span style="color: #ff0000;">'Yes'</span> : <span style="color: #ff0000;">'No'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will echo 'No'</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.http.cookies.cookie.matching">
+                    <div class="info">
+                        <h2>
+                            Zend_Http_Cookie: Matching against a scenario
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The only real logic contained in a <span class="classname">Zend_Http_Cookie</span> object, is in the match() method. This method is used to test a cookie against a given <acronym class="acronym">HTTP</acronym> request scenario, in order to tell whether the cookie should be sent in this request or not. The method has the following syntax and parameters: <strong class="command">Zend_Http_Cookie-&gt;match(mixed $uri, [boolean $matchSessionCookies, [int $now]]);</strong>
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <var class="varname">$uri</var>: A <span class="classname">Zend_Uri_Http</span> object with a domain name and path to be checked. Optionally, a string representing a valid <acronym class="acronym">HTTP</acronym> <acronym class="acronym">URL</acronym> can be passed instead. The cookie will match if the <acronym class="acronym">URL</acronym>'s scheme (HTTP or <acronym class="acronym">HTTPS</acronym>), domain and path all match.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <var class="varname">$matchSessionCookies</var>: Whether session cookies should be matched or not. Defaults to <b><tt>TRUE</tt></b>. If set to <b><tt>FALSE</tt></b>, cookies with no expiration time will never match.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <var class="varname">$now</var>: Time (represented as UNIX time stamp) to check a cookie against for expiration. If not specified, will default to the current time.
+                            </p>
+                        </li>
+                    </ul>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #4 Matching cookies</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Create the cookie object - first, a secure session cookie</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span> = Zend_Http_Cookie::<span style="color: #006600;">fromString</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo=two+words; '</span> +
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'domain=.example.com; '</span> +
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'path=/somedir; '</span> +
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'secure;'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">match</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'https://www.example.com/somedir/foo.php'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will return true</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">match</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'http://www.example.com/somedir/foo.php'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will return false, because the connection is not secure</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">match</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'https://otherexample.com/somedir/foo.php'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will return false, because the domain is wrong</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">match</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'https://example.com/foo.php'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will return false, because the path is wrong</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">match</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'https://www.example.com/somedir/foo.php'</span>, <span style="color: #000000; font-weight: bold;">false</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will return false, because session cookies are not matched</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">match</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'https://sub.domain.example.com/somedir/otherdir/foo.php'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will return true</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Create another cookie object - now, not secure, with expiration time</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// in two hours</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span> = Zend_Http_Cookie::<span style="color: #006600;">fromString</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo=two+words; '</span> +
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'domain=www.example.com; '</span> +
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'expires='</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;. <a href="http://www.php.net/date"><span style="color: #000066;">date</span></a><span style="color: #66cc66;">(</span>DATE_COOKIE, <a href="http://www.php.net/time"><span style="color: #000066;">time</span></a><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span> + <span style="color: #cc66cc;">7200</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">match</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'http://www.example.com/'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will return true</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">match</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'https://www.example.com/'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will return true - non secure cookies can go over secure connections</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// as well!</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">match</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'http://subdomain.example.com/'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will return false, because the domain is wrong</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">match</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'http://www.example.com/'</span>, <span style="color: #000000; font-weight: bold;">true</span>, <a href="http://www.php.net/time"><span style="color: #000066;">time</span></a><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span> + <span style="color: #66cc66;">(</span><span style="color: #cc66cc;">3</span> * <span style="color: #cc66cc;">3600</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Will return false, because we added a time offset of +3 hours to</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// current time</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.http.cookies.cookiejar">
+                    <div class="info">
+                        <h2>
+                            The Zend_Http_CookieJar Class: Instantiation
+                        </h2>
+                    </div>
+                    <p class="para">
+                        In most cases, there is no need to directly instantiate a <span class="classname">Zend_Http_CookieJar</span> object. If you want to attach a new cookie jar to your <span class="classname">Zend_Http_Client</span> object, just call the Zend_Http_Client-&gt;setCookieJar() method, and a new, empty cookie jar will be attached to your client. You could later get this cookie jar using Zend_Http_Client-&gt;getCookieJar().
+                    </p>
+                    <p class="para">
+                        If you still wish to manually instantiate a CookieJar object, you can do so by calling "new Zend_Http_CookieJar()" directly - the constructor method does not take any parameters. Another way to instantiate a CookieJar object is to use the static Zend_Http_CookieJar::fromResponse() method. This method takes two parameters: a <span class="classname">Zend_Http_Response</span> object, and a reference <acronym class="acronym">URI</acronym>, as either a string or a <span class="classname">Zend_Uri_Http</span> object. This method will return a new <span class="classname">Zend_Http_CookieJar</span> object, already containing the cookies set by the passed <acronym class="acronym">HTTP</acronym> response. The reference <acronym class="acronym">URI</acronym> will be
+                        used to set the cookie's domain and path, if they are not defined in the Set-Cookie headers.
+                    </p>
+                </div>
+                <div class="section" id="zend.http.cookies.cookiejar.adding_cookies">
+                    <div class="info">
+                        <h2>
+                            Adding Cookies to a Zend_Http_CookieJar object
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Usually, the <span class="classname">Zend_Http_Client</span> object you attached your CookieJar object to will automatically add cookies set by <acronym class="acronym">HTTP</acronym> responses to your jar. if you wish to manually add cookies to your jar, this can be done by using two methods:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="classname">Zend_Http_CookieJar-&gt;addCookie($cookie[, $ref_uri])</span>: Add a single cookie to the jar. $cookie can be either a <span class="classname">Zend_Http_Cookie</span> object or a string, which will be converted automatically into a Cookie object. If a string is provided, you should also provide $ref_uri - which is a reference <acronym class="acronym">URI</acronym> either as a string or <span class="classname">Zend_Uri_Http</span> object, to use as the cookie's default domain and path.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="classname">Zend_Http_CookieJar-&gt;addCookiesFromResponse($response, $ref_uri)</span>: Add all cookies set in a single <acronym class="acronym">HTTP</acronym> response to the jar. $response is expected to be a <span class="classname">Zend_Http_Response</span> object with Set-Cookie headers. $ref_uri is the request <acronym class="acronym">URI</acronym>, either as a string or a <span class="classname">Zend_Uri_Http</span> object, according to which the cookies' default domain and path will be set.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.http.cookies.cookiejar.getting_cookies">
+                    <div class="info">
+                        <h2>
+                            Retrieving Cookies From a Zend_Http_CookieJar object
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Just like with adding cookies, there is usually no need to manually fetch cookies from a CookieJar object. Your <span class="classname">Zend_Http_Client</span> object will automatically fetch the cookies required for an <acronym class="acronym">HTTP</acronym> request for you. However, you can still use 3 provided methods to fetch cookies from the jar object: <span class="methodname">getCookie()</span>, <span class="methodname">getAllCookies()</span>, and <span class="methodname">getMatchingCookies()</span>. Additionnaly, iterating over the CookieJar will let you retrieve all the <span class="classname">Zend_Http_Cookie</span> objects from it.
+                    </p>
+                    <p class="para">
+                        It is important to note that each one of these methods takes a special parameter, which sets the return type of the method. This parameter can have 3 values:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Http_CookieJar::COOKIE_OBJECT</tt></b>: Return a <span class="classname">Zend_Http_Cookie</span> object. If the method returns more than one cookie, an array of objects will be returned.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Http_CookieJar::COOKIE_STRING_ARRAY</tt></b>: Return cookies as strings, in a "foo=bar" format, suitable for sending in a <acronym class="acronym">HTTP</acronym> request "Cookie" header. If more than one cookie is returned, an array of strings is returned.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Http_CookieJar::COOKIE_STRING_CONCAT</tt></b>: Similar to COOKIE_STRING_ARRAY, but if more than one cookie is returned, this method will concatenate all cookies into a single, long string separated by semicolons (;), and return it. This is especially useful if you want to directly send all matching cookies in a single <acronym class="acronym">HTTP</acronym> request "Cookie" header.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Http_CookieJar::COOKIE_STRING_CONCAT_STRICT</tt></b>: Similar to COOKIE_STRING_CONCAT, but follows a strict implementation of RFC6265. In this mode, a single space character always follows the semicolon separator between cookies, and the semicolon separator is stripped from the end of the cookie string.
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        The structure of the different cookie-fetching methods is described below:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="classname">Zend_Http_CookieJar-&gt;getCookie($uri, $cookie_name[, $ret_as])</span>: Get a single cookie from the jar, according to its <acronym class="acronym">URI</acronym> (domain and path) and name. $uri is either a string or a <span class="classname">Zend_Uri_Http</span> object representing the <acronym class="acronym">URI</acronym>. $cookie_name is a string identifying the cookie name. $ret_as specifies the return type as described above. $ret_type is optional, and defaults to COOKIE_OBJECT.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="classname">Zend_Http_CookieJar-&gt;getAllCookies($ret_as)</span>: Get all cookies from the jar. $ret_as specifies the return type as described above. If not specified, $ret_type defaults to COOKIE_OBJECT.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="classname">Zend_Http_CookieJar-&gt;getMatchingCookies($uri[, $matchSessionCookies[, $ret_as[, $now]]])</span>: Get all cookies from the jar that match a specified scenario, that is a <acronym class="acronym">URI</acronym> and expiration time.
+                            </p>
+                            <ul class="itemizedlist">
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$uri</var> is either a <span class="classname">Zend_Uri_Http</span> object or a string specifying the connection type (secure or non-secure), domain and path to match against.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$matchSessionCookies</var> is a boolean telling whether to match session cookies or not. Session cookies are cookies that have no specified expiration time. Defaults to <b><tt>TRUE</tt></b>.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$ret_as</var> specifies the return type as described above. If not specified, defaults to COOKIE_OBJECT.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$now</var> is an integer representing the UNIX time stamp to consider as "now" - that is any cookies who are set to expire before this time will not be matched. If not specified, defaults to the current time.
+                                    </p>
+                                </li>
+                            </ul>You can read more about cookie matching in <a href="zend.http.cookies.html#zend.http.cookies.cookie.matching" class="link">this section</a>.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.http.client.adapters.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.http.response.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.http.html">Zend_Http</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.client.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.client.advanced.html">Zend_Http_Client - Advanced Usage</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.client.adapters.html">Zend_Http_Client - Connection Adapters</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.http.cookies.html">Zend_Http_Cookie and Zend_Http_CookieJar</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.response.html">Zend_Http_Response</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent.html">Zend_Http_UserAgent</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent-device.html">The UserAgent Device Interface</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent-features.html">The UserAgent Features Adapter</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent-features-browscap.html">The Browscap UserAgent Features Adapter</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent-features-device-atlas.html">The DeviceAtlas UserAgent Features Adapter</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent-features-tera-wurfl.html">The TeraWurfl UserAgent Features Adapter</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent-storage.html">The UserAgent Storage Interface</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent-storage-session.html">The Session UserAgent Storage Adapter</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

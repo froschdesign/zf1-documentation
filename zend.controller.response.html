@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    The Response Object - Zend_Controller &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.controller.response" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        The Response Object
+                    </h1>
+                </div>
+                <div class="section" id="zend.controller.response.usage">
+                    <div class="info">
+                        <h2>
+                            Usage
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The response object is the logical counterpart to the <a href="zend.controller.request.html" class="link">request object</a>. Its purpose is to collate content and/or headers so that they may be returned en masse. Additionally, the front controller will pass any caught exceptions to the response object, allowing the developer to gracefully handle exceptions. This functionality may be overridden by setting <span class="methodname">Zend_Controller_Front::throwExceptions(true)</span>:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">throwExceptions</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        To send the response output, including headers, use <span class="methodname">sendResponse()</span>.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">sendResponse</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: By default, the front controller calls <span class="methodname">sendResponse()</span> when it has finished dispatching the request; typically you will never need to call it. However, if you wish to manipulate the response or use it in testing, you can override this behaviour by setting the <span class="property">returnResponse</span> flag with <span class="methodname">Zend_Controller_Front::returnResponse(true)</span>:<br>
+                        </p>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">returnResponse</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$response</span> = <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">dispatch</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// do some more processing, such as logging...</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// and then send the output:</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">sendResponse</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </blockquote>
+                    <p class="para">
+                        Developers should make use of the response object in their action controllers. Instead of directly rendering output and sending headers, push them to the response object:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Within an action controller action:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Set a header</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">getResponse</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; -&gt;<span style="color: #006600;">setHeader</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Content-Type'</span>, <span style="color: #ff0000;">'text/html'</span><span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; -&gt;<span style="color: #006600;">appendBody</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$content</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        By doing this, all headers get sent at once, just prior to displaying the content.
+                    </p>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: If using the action controller <a href="zend.controller.action.html#zend.controller.action.viewintegration" class="link">view integration</a>, you do not need to set the rendered view script content in the response object, as <span class="methodname">Zend_Controller_Action::render()</span> does this by default.<br>
+                        </p>
+                    </blockquote>
+                    <p class="para">
+                        Should an exception occur in an application, check the response object's <span class="methodname">isException()</span> flag, and retrieve the exception using <span class="methodname">getException()</span>. Additionally, one may create custom response objects that redirect to error pages, log exception messages, do pretty formatting of exception messages (for development environments), etc.
+                    </p>
+                    <p class="para">
+                        You may retrieve the response object following the front controller <span class="methodname">dispatch()</span>, or request the front controller to return the response object instead of rendering output.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// retrieve post-dispatch:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">dispatch</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$response</span> = <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">getResponse</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">isException</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// log, mail, etc...</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Or, have the front controller dispatch() process return it</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">returnResponse</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$response</span> = <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">dispatch</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// do some processing...</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// finally, echo the response</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">sendResponse</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        By default, exception messages are not displayed. This behaviour may be overridden by calling <span class="methodname">renderExceptions()</span>, or enabling the front controller to <span class="methodname">throwExceptions()</span>, as shown above:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">renderExceptions</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">dispatch</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$request</span>, <span style="color: #0000ff;">$response</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// or:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">returnResponse</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$response</span> = <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">dispatch</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">renderExceptions</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">sendResponse</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// or:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">throwExceptions</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">dispatch</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.controller.response.headers">
+                    <div class="info">
+                        <h2>
+                            Manipulating Headers
+                        </h2>
+                    </div>
+                    <p class="para">
+                        As stated previously, one aspect of the response object's duties is to collect and emit <acronym class="acronym">HTTP</acronym> response headers. A variety of methods exist for this:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">canSendHeaders()</span> is used to determine if headers have already been sent. It takes an optional flag indicating whether or not to throw an exception if headers have already been sent. This can be overridden by setting the property <span class="property">headersSentThrowsException</span> to <b><tt>FALSE</tt></b>.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">setHeader($name, $value, $replace = false)</span> is used to set an individual header. By default, it does not replace existing headers of the same name in the object; however, setting <var class="varname">$replace</var> to <b><tt>TRUE</tt></b> will force it to do so.
+                            </p>
+                            <p class="para">
+                                Before setting the header, it checks with <span class="methodname">canSendHeaders()</span> to see if this operation is allowed at this point, and requests that an exception be thrown.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">setRedirect($url, $code = 302)</span> sets an <acronym class="acronym">HTTP</acronym> Location header for a redirect. If an <acronym class="acronym">HTTP</acronym> status code has been provided, it will use that status code.
+                            </p>
+                            <p class="para">
+                                Internally, it calls <span class="methodname">setHeader()</span> with the <var class="varname">$replace</var> flag on to ensure only one such header is ever sent.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getHeaders()</span> returns an array of all headers. Each array element is an array with the keys 'name' and 'value'.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">clearHeaders()</span> clears all registered headers.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">setRawHeader()</span> can be used to set headers that are not key and value pairs, such as an <acronym class="acronym">HTTP</acronym> status header.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getRawHeaders()</span> returns any registered raw headers.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">clearRawHeaders()</span> clears any registered raw headers.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">clearAllHeaders()</span> clears both regular key and value headers as well as raw headers.
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        In addition to the above methods, there are accessors for setting and retrieving the <acronym class="acronym">HTTP</acronym> response code for the current request, <span class="methodname">setHttpResponseCode()</span> and <span class="methodname">getHttpResponseCode()</span>.
+                    </p>
+                    <div class="section" id="zend.controller.response.headers.setcookie">
+                        <div class="info">
+                            <h2>
+                                Setting Cookie Headers
+                            </h2>
+                        </div>
+                        <p class="para">
+                            You can inject <acronym class="acronym">HTTP</acronym> Set-Cookie headers into the response object of an action controller by using the provided header class <span class="classname">Zend_Http_Header_SetCookie</span>
+                        </p>
+                        <div class="section" id="zend.controller.response.headers.setcookie.constructor">
+                            <div class="info">
+                                <h2>
+                                    Constructor Arguments
+                                </h2>
+                            </div>
+                            <p class="para">
+                                The following table lists all constructor arguments of <span class="classname">Zend_Http_Header_SetCookie</span> in the order they are accepted. All arguments are optional, but name and value must be supplied via their setters if not passed in via the constructor or the resulting Set-Cookie header be invalid.
+                            </p>
+                            <ul class="itemizedlist">
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$name</var>: The name of the cookie
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$value</var>: The value of the cookie
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$expires</var>: The time the cookie expires
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$path</var>: The path on the server in which the cookie will be available
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$domain</var>: The domain to restrict cookie to
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$secure</var>: boolean indicating whether cookie should be sent over an unencrypted connection (false) or via <acronym class="acronym">HTTPS</acronym> only (true)
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$httpOnly</var>: boolean indicating whether cookie should be transmitted only via the <acronym class="acronym">HTTP</acronym> protocol
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$maxAge</var>: The maximum age of the cookie in seconds
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <var class="varname">$version</var>: The cookie specification version
+                                    </p>
+                                </li>
+                            </ul>
+                            <div class="example">
+                                <div class="info">
+                                    <p>
+                                        <b>Example #1 Populate Zend_Http_Header_SetCookie via constructor and add to response</b>
+                                    </p>
+                                </div>
+                                <div class="programlisting php">
+                                    <div class="phpcode">
+                                        <div class="php" style="font-family: monospace;">
+                                            <ol>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">getResponse</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>-&gt;<span style="color: #006600;">setRawHeader</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">new</span> Zend_Http_Header_SetCookie<span style="color: #66cc66;">(</span>
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp; &nbsp; <span style="color: #ff0000;">'foo'</span>, <span style="color: #ff0000;">'bar'</span>, <span style="color: #000000; font-weight: bold;">NULL</span>, <span style="color: #ff0000;">'/'</span>, <span style="color: #ff0000;">'example.com'</span>, <span style="color: #000000; font-weight: bold;">false</span>, <span style="color: #000000; font-weight: bold;">true</span>
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="info">
+                                    <p>
+                                        <b>Example #2 Populate Zend_Http_Header_SetCookie via setters and add to response</b>
+                                    </p>
+                                </div>
+                                <div class="programlisting php">
+                                    <div class="phpcode">
+                                        <div class="php" style="font-family: monospace;">
+                                            <ol>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$cookie</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Http_Header_SetCookie<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$cookie</span>-&gt;<span style="color: #006600;">setName</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo'</span><span style="color: #66cc66;">)</span>
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp; &nbsp; &nbsp; &nbsp;-&gt;<span style="color: #006600;">setValue</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'bar'</span><span style="color: #66cc66;">)</span>
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp; &nbsp; &nbsp; &nbsp;-&gt;<span style="color: #006600;">setDomain</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'example.com'</span><span style="color: #66cc66;">)</span>
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp; &nbsp; &nbsp; &nbsp;-&gt;<span style="color: #006600;">setPath</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'/'</span><span style="color: #66cc66;">)</span>
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp; &nbsp; &nbsp; &nbsp;-&gt;<span style="color: #006600;">setHttponly</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">getResponse</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>-&gt;<span style="color: #006600;">setRawHeader</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$cookie</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.controller.response.namedsegments">
+                    <div class="info">
+                        <h2>
+                            Named Segments
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The response object has support for "named segments". This allows you to segregate body content into different segments and order those segments so output is returned in a specific order. Internally, body content is saved as an array, and the various accessor methods can be used to indicate placement and names within that array.
+                    </p>
+                    <p class="para">
+                        As an example, you could use a <span class="methodname">preDispatch()</span> hook to add a header to the response object, then have the action controller add body content, and a <span class="methodname">postDispatch()</span> hook add a footer:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Assume that this plugin class is registered with the front controller</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #000000; font-weight: bold;">class</span> MyPlugin <span style="color: #000000; font-weight: bold;">extends</span> Zend_Controller_Plugin_Abstract
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> preDispatch<span style="color: #66cc66;">(</span>Zend_Controller_Request_Abstract <span style="color: #0000ff;">$request</span><span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$response</span> = <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">getResponse</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$view</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_View<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$view</span>-&gt;<span style="color: #006600;">setBasePath</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'../views/scripts'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">prepend</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'header'</span>, <span style="color: #0000ff;">$view</span>-&gt;<span style="color: #006600;">render</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'header.phtml'</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> postDispatch<span style="color: #66cc66;">(</span>Zend_Controller_Request_Abstract <span style="color: #0000ff;">$request</span><span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$response</span> = <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">getResponse</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$view</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_View<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$view</span>-&gt;<span style="color: #006600;">setBasePath</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'../views/scripts'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">append</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'footer'</span>, <span style="color: #0000ff;">$view</span>-&gt;<span style="color: #006600;">render</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'footer.phtml'</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// a sample action controller</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #000000; font-weight: bold;">class</span> MyController <span style="color: #000000; font-weight: bold;">extends</span> Zend_Controller_Action
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> fooAction<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">render</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        In the above example, a call to <var class="filename">/my/foo</var> will cause the final body content of the response object to have the following structure:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #ff0000;">'header'</span>&nbsp; =&gt; ..., <span style="color: #808080; font-style: italic;">// header content</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #ff0000;">'default'</span> =&gt; ..., <span style="color: #808080; font-style: italic;">// body content from MyController::fooAction()</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #ff0000;">'footer'</span>&nbsp; =&gt; ...&nbsp; <span style="color: #808080; font-style: italic;">// footer content</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        When this is rendered, it will render in the order in which elements are arranged in the array.
+                    </p>
+                    <p class="para">
+                        A variety of methods can be used to manipulate the named segments:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">setBody()</span> allows you to pass a second value, <var class="varname">$name</var>, indicating a named segment. If you provide a segment name it will overwrite that specific named segment or create it if it does not exist (appending to the body array by default). If no named segment is passed to <span class="methodname">setBody()</span>, it resets the entire body content array.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">appendBody()</span> also allows you to pass a second value, <var class="varname">$name</var>, indicating a named segment. If you provide a segment name it will append the supplied content to the existing content in the named segment, or create the segment if it does not exist (appending to the body array by default). If no named segment is passed to <span class="methodname">appendBody()</span>, it will append the supplied content to the named segment 'default', creating it if it does not already exist.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">prepend($name, $content)</span> will create a segment named <var class="varname">$name</var> and place it at the beginning of the array. If the segment exists already, it will be removed prior to the operation (i.e., overwritten and replaced).
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">append($name, $content)</span> will create a segment named <var class="varname">$name</var> and place it at the end of the array. If the segment exists already, it will be removed prior to the operation (i.e., overwritten and replaced).
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">insert($name, $content, $parent = null, $before = false)</span> will create a segment named <var class="varname">$name</var>. If provided with a <var class="varname">$parent</var> segment, the new segment will be placed either before or after that segment (based on the value of <var class="varname">$before</var>) in the array. If the segment exists already, it will be removed prior to the operation (i.e., overwritten and replaced).
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">clearBody($name = null)</span> will remove a single named segment if a <var class="varname">$name</var> is provided (and the entire array otherwise).
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getBody($spec = false)</span> can be used to retrieve a single array segment if <var class="varname">$spec</var> is the name of a named segment. If <var class="varname">$spec</var> is <b><tt>FALSE</tt></b>, it returns a string formed by concatenating all named segments in order. If <var class="varname">$spec</var> is <b><tt>TRUE</tt></b>, it returns the body content array.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.controller.response.exceptions">
+                    <div class="info">
+                        <h2>
+                            Testing for Exceptions in the Response Object
+                        </h2>
+                    </div>
+                    <p class="para">
+                        As mentioned earlier, by default, exceptions caught during dispatch are registered with the response object. Exceptions are registered in a stack, which allows you to keep all exceptions thrown -- application exceptions, dispatch exceptions, plugin exceptions, etc. Should you wish to check for particular exceptions or to log exceptions, you'll want to use the response object's exception <acronym class="acronym">API</acronym>:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">setException(Exception $e)</span> allows you to register an exception.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">isException()</span> will tell you if an exception has been registered.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getException()</span> returns the entire exception stack.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">hasExceptionOfType($type)</span> allows you to determine if an exception of a particular class is in the stack.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">hasExceptionOfMessage($message)</span> allows you to determine if an exception with a specific message is in the stack.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">hasExceptionOfCode($code)</span> allows you to determine if an exception with a specific code is in the stack.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getExceptionByType($type)</span> allows you to retrieve all exceptions of a specific class from the stack. It will return <b><tt>FALSE</tt></b> if none are found, and an array of exceptions otherwise.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getExceptionByMessage($message)</span> allows you to retrieve all exceptions with a specific message from the stack. It will return <b><tt>FALSE</tt></b> if none are found, and an array of exceptions otherwise.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getExceptionByCode($code)</span> allows you to retrieve all exceptions with a specific code from the stack. It will return <b><tt>FALSE</tt></b> if none are found, and an array of exceptions otherwise.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">renderExceptions($flag)</span> allows you to set a flag indicating whether or not exceptions should be emitted when the response is sent.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.controller.response.subclassing">
+                    <div class="info">
+                        <h2>
+                            Subclassing the Response Object
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The purpose of the response object is to collect headers and content from the various actions and plugins and return them to the client; secondarily, it also collects any errors (exceptions) that occur in order to process them, return them, or hide them from the end user.
+                    </p>
+                    <p class="para">
+                        The base response class is <span class="classname">Zend_Controller_Response_Abstract</span>, and any subclass you create should extend that class or one of its derivatives. The various methods available have been listed in the previous sections.
+                    </p>
+                    <p class="para">
+                        Reasons to subclass the response object include modifying how output is returned based on the request environment (e.g., not sending headers for <acronym class="acronym">CLI</acronym> or <acronym class="acronym">PHP</acronym>-<acronym class="acronym">GTK</acronym> requests), adding functionality to return a final view based on content stored in named segments, etc.
+                    </p>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.controller.actionhelpers.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.controller.plugins.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.controller.html">Zend_Controller</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.quickstart.html">Zend_Controller Quick Start</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.basics.html">Zend_Controller Basics</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.front.html">The Front Controller</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.request.html">The Request Object</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.router.html">The Standard Router</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.dispatcher.html">The Dispatcher</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.action.html">Action Controllers</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.actionhelpers.html">Action Helpers</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.controller.response.html">The Response Object</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.plugins.html">Plugins</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.modular.html">Using a Conventional Modular Directory Structure</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.exceptions.html">MVC Exceptions</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

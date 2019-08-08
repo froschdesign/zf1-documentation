@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Mobile_Push Introduction - Zend_Mobile_Push &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.mobile.push.introduction" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Mobile_Push Introduction
+                    </h1>
+                </div>
+                <p class="para">
+                    Zend_Mobile_Push provides the ability for sending push notifications to the vendor specific notification servers. Currently this list includes APNS (iTouch/iPad/iPhone), GCM (Google Android) and MPNS (Windows Phone).
+                </p>
+                <p class="para">
+                    Since many of the underlying implementations vary; please see each specific notification class for usage details. Outlined below are details on the common functionality that exists between the implementations.
+                </p>
+                <div class="section" id="zend.mobile.push.common-functionality">
+                    <div class="info">
+                        <h2>
+                            Common Functionality
+                        </h2>
+                    </div>
+                    <p class="para">
+                        While each individual push notification adapter contains specific functionality; there are commonalities that have been attempted to make implementation of the adapters easier.
+                    </p>
+                    <div class="info"></div>
+                    <table class="doctable table">
+                        <caption>
+                            <b>Adapters</b>
+                        </caption>
+                        <thead valign="middle">
+                            <tr valign="middle">
+                                <th>
+                                    Method
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody valign="middle" class="tbody">
+                            <tr valign="middle">
+                                <td align="left">
+                                    close
+                                </td>
+                                <td align="left">
+                                    Allows you to close an already open connection; if no connection is open will simply default the state.
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    connect
+                                </td>
+                                <td align="left">
+                                    Generally only utilized for APNS; however, assists in maintaining the connection state.
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    isConnected
+                                </td>
+                                <td align="left">
+                                    Allows you to see if you are already connected.
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    send
+                                </td>
+                                <td align="left">
+                                    Allows you to pass in a message to send. This will send the message to the corresponding system. Note that the send method for APNS will lazily connect if you are not already connected.
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    setOptions
+                                </td>
+                                <td align="left">
+                                    Allows you to set options in bulk for the adapters.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="para">
+                        Each individual message varies in implementation; again like adapters there are some commonalities that have been addressed to ensure consistency between messages.
+                    </p>
+                    <div class="info"></div>
+                    <table class="doctable table">
+                        <caption>
+                            <b>Messages</b>
+                        </caption>
+                        <thead valign="middle">
+                            <tr valign="middle">
+                                <th>
+                                    Method
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody valign="middle" class="tbody">
+                            <tr valign="middle">
+                                <td align="left">
+                                    (set|get)Token
+                                </td>
+                                <td align="left">
+                                    Allows you to set or get the token or device id / unique id that is for any specific device. For APNS this is the device ID, for GCM it is the registration id and for MPNS it equates to the push url.
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    (set|get)Id
+                                </td>
+                                <td align="left">
+                                    Sets the distict message id that you would give a message.
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    setOptions
+                                </td>
+                                <td align="left">
+                                    Allows you to set a messages options in bulk.
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    validate
+                                </td>
+                                <td align="left">
+                                    Does a <em class="emphasis">very</em> simple test on the message to ensure that it can be sent through the adapter.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.mobile.push.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.mobile.push.apns.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.mobile.push.html">Zend_Mobile_Push</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.mobile.push.introduction.html">Zend_Mobile_Push Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.mobile.push.apns.html">Zend_Mobile_Push_Apns</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.mobile.push.gcm.html">Zend_Mobile_Push_Gcm</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.mobile.push.mpns.html">Zend_Mobile_Push_Mpns</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Introduction - Zend_Translate &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.translate.introduction" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Introduction
+                    </h1>
+                </div>
+                <p class="para">
+                    <span class="classname">Zend_Translate</span> is Zend Framework's solution for multilingual applications.
+                </p>
+                <p class="para">
+                    In multilingual applications, the content must be translated into several languages and display content depending on the user's language. <acronym class="acronym">PHP</acronym> offers already several ways to handle such problems, however the <acronym class="acronym">PHP</acronym> solution has some problems:
+                </p>
+                <ul class="itemizedlist">
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Inconsistent <acronym class="acronym">API</acronym>:</em> There is no single <acronym class="acronym">API</acronym> for the different source formats. The usage of gettext for example is very complicated.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">PHP supports only gettext and native array:</em> <acronym class="acronym">PHP</acronym> itself offers only support for array or gettext. All other source formats have to be coded manually, because there is no native support.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">No detection of the default language:</em> The default language of the user cannot be detected without deeper knowledge of the backgrounds for the different web browsers.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Gettext is not thread-safe:</em> <acronym class="acronym">PHP</acronym>'s gettext library is not thread safe, and it should not be used in a multithreaded environment. This is due to problems with gettext itself, not <acronym class="acronym">PHP</acronym>, but it is an existing problem.
+                        </p>
+                    </li>
+                </ul>
+                <p class="para">
+                    <span class="classname">Zend_Translate</span> does not have the above problems. This is why we recommend using <span class="classname">Zend_Translate</span> instead of <acronym class="acronym">PHP</acronym>'s native functions. The benefits of <span class="classname">Zend_Translate</span> are:
+                </p>
+                <ul class="itemizedlist">
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Supports multiple source formats:</em> <span class="classname">Zend_Translate</span> supports several source formats, including those supported by <acronym class="acronym">PHP</acronym>, and other formats including TMX and CSV files.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Thread-safe gettext:</em> The gettext reader of <span class="classname">Zend_Translate</span> is thread-safe. There are no problems using it in multi-threaded environments.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Easy and generic <acronym class="acronym">API</acronym>:</em> The <acronym class="acronym">API</acronym> of <span class="classname">Zend_Translate</span> is very simple and requires only a handful of functions. So it's easy to learn and easy to maintain. All source formats are handled the same way, so if the format of your source files change from Gettext to TMX, you only need to change one line of code to specify the storage adapter.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Detection of the user's standard language:</em> The preferred language of the user accessing the site can be detected and used by <span class="classname">Zend_Translate</span>.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Automatic source detection:</em> <span class="classname">Zend_Translate</span> is capable of detecting and integrating multiple source files and additionally detect the locale to be used depending on directory or filenames.
+                        </p>
+                    </li>
+                </ul>
+                <div class="section" id="zend.translate.introduction.adapters">
+                    <div class="info">
+                        <h2>
+                            Starting multi-lingual
+                        </h2>
+                    </div>
+                    <p class="para">
+                        So let's get started with multi-lingual business. What we want to do is translate our string output so the view produces the translated output. Otherwise we would have to write one view for each language, and no one would like to do this. Generally, multi-lingual sites are very simple in their design. There are only four steps you would have to do:
+                    </p>
+                    <ol type="1">
+                        <li class="listitem">
+                            <p class="para">
+                                Decide which adapter you want to use;
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Create your view and integrate <span class="classname">Zend_Translate</span> in your code;
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Create the source file from your code;
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Translate your source file to the desired language.
+                            </p>
+                        </li>
+                    </ol>
+                    <p class="para">
+                        The following sections guide you through all four steps. Read through the next few pages to create your own multi-lingual web application.
+                    </p>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.translate.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.translate.adapter.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.translate.html">Zend_Translate</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.translate.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.adapter.html">Adapters for Zend_Translate</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.using.html">Using Translation Adapters</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.sourcecreation.html">Creating source files</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.additional.html">Additional features for translation</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.plurals.html">Plural notations for Translation</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

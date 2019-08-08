@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    The StandardAutoloader - The StandardAutoloader &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.loader.standard-autoloader" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        The StandardAutoloader
+                    </h1>
+                </div>
+                <div class="section" id="zend.loader.standard-autoloader.intro">
+                    <div class="info">
+                        <h2>
+                            Overview
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Loader_StandardAutoloader</span> is designed as a <a href="http://groups.google.com/group/php-standards/web/psr-0-final-proposal" class="link external">&raquo; PSR-0</a>-compliant autoloader. It assumes a 1:1 mapping of the namespace+classname to the filesystem, wherein namespace separators and underscores are translated to directory separators. A simple statement that illustrates how resolution works is as follows:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$filename</span> = <a href="http://www.php.net/str_replace"><span style="color: #000066;">str_replace</span></a><span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'_'</span>, <span style="color: #ff0000;">'<span style="color: #000099; font-weight: bold;">\\</span>'</span><span style="color: #66cc66;">)</span>, DIRECTORY_SEPARATOR, <span style="color: #0000ff;">$classname</span><span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; . <span style="color: #ff0000;">'.php'</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Previous incarnations of PSR-0-compliant autoloaders in Zend Framework have relied upon the <var class="varname">include_path</var> for file lookups. This has led to a number of issues:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                Due to the use of <span class="function">include</span>, if the file is not found, a warning is raised -- even if another autoloader is capable of resolving the class later.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Documenting how to setup the <var class="varname">include_path</var> has proven to be a difficult concept to convey.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                If multiple Zend Framework installations exist on the <var class="varname">include_path</var>, the first one on the path wins -- even if that was not the one the developer intended.
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        To solve these problems, the <span class="classname">StandardAutoloader</span> by default requires that you explicitly register namespace/path pairs (or vendor prefix/path pairs), and will only load a file if it exists within the given path. Multiple pairs may be provided.
+                    </p>
+                    <p class="para">
+                        As a measure of last resort, you may also use the <span class="classname">StandardAutoloader</span> as a "fallback" autoloader -- one that will look for classes of any namespace or vendor prefix on the <span class="classname">include_path</span>. This practice is not recommended, however, due to performance implications.
+                    </p>
+                    <p class="para">
+                        Finally, as with all autoloaders in Zend Framework, the <span class="classname">StandardAutoloader</span> is capable of registering itself with PHP's SPL autoloader registry.
+                    </p>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: <span class="info"><b>Vocabulary: Namespaces vs. Vendor Prefixes</b><br></span> In terms of autloading, a "namespace" corresponds to PHP's own definition of namespaces in PHP versions 5.3 and above.<br>
+                            A "vendor prefix" refers to the practice, popularized in PHP versions prior to 5.3, of providing a pseudo-namespace in the form of underscore-separated words in class names. As an example, the class <span class="classname">Phly_Couch_Document</span> uses a vendor prefix of "Phly", and a component prefix of "Phly_Couch" -- but it is a class sitting in the global namespace within PHP 5.3.<br>
+                            The <span class="classname">StandardAutoloader</span> is capable of loading either namespaced or vendor prefixed class names, but treats them separately when attempting to match them to an appropriate path.<br>
+                        </p>
+                    </blockquote>
+                </div>
+                <div class="section" id="zend.loader.standard-autoloader.quick-start">
+                    <div class="info">
+                        <h2>
+                            Quick Start
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Basic use of the <span class="classname">StandardAutoloader</span> requires simply registering namespace/path pairs. This can either be done at instantiation, or via explicit method calls after the object has been initialized. Calling <span class="methodname">register()</span> will register the autoloader with the SPL autoloader registry.
+                    </p>
+                    <p class="para">
+                        By default, the class will register the "Zend" namespace to the directory above where its own classfile is located on the filesystem.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #1 Manual Configuration</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// This example assumes ZF is on your include_path.</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// You could also load the autoloader class from a path relative to the</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// current script, or via an absolute path.</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">require_once</span> <span style="color: #ff0000;">'Zend/Loader/StandardAutoloader.php'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$loader</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Loader_StandardAutoloader<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Register the "Phly" namespace:</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$loader</span>-&gt;<span style="color: #006600;">registerNamespace</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Phly'</span>, APPLICATION_PATH . <span style="color: #ff0000;">'/../library/Phly'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Register the "Scapi" vendor prefix:</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$loader</span>-&gt;<span style="color: #006600;">registerPrefix</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Scapi'</span>, APPLICATION_PATH . <span style="color: #ff0000;">'/../library/Scapi'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Optionally, specify the autoloader as a "fallback" autoloader;</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// this is not recommended.</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$loader</span>-&gt;<span style="color: #006600;">setFallbackAutoloader</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Register with spl_autoload:</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$loader</span>-&gt;<span style="color: #006600;">register</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #2 Configuration at Instantiation</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                The <span class="classname">StandardAutoloader</span> may also be configured at instantiation. Please note:
+                            </p>
+                        </div>
+                        <ul class="itemizedlist">
+                            <li class="listitem">
+                                <p class="para">
+                                    The argument passed may be either an array or a <span class="interface">Traversable</span> object (such as a <span class="classname">Zend_Config</span> object.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    The argument passed is also a valid argument for passing to the <span class="methodname">setOptions()</span> method.
+                                </p>
+                            </li>
+                        </ul>
+                        <div class="example-contents">
+                            <p>
+                                The following is equivalent to the previous example.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">require_once</span> <span style="color: #ff0000;">'Zend/Loader/StandardAutoloader.php'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$loader</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Loader_StandardAutoloader<span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'namespaces'</span> =&gt; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'Phly'</span> =&gt; APPLICATION_PATH . <span style="color: #ff0000;">'/../library/Phly'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">)</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'prefixes'</span> =&gt; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'Scapi'</span> =&gt; APPLICATION_PATH . <span style="color: #ff0000;">'/../library/Scapi'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">)</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'fallback_autoloader'</span> =&gt; <span style="color: #000000; font-weight: bold;">true</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Register with spl_autoload:</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$loader</span>-&gt;<span style="color: #006600;">register</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.loader.standard-autoloader.options">
+                    <div class="info">
+                        <h2>
+                            Configuration Options
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The <span class="classname">StandardAutoloader</span> defines the following options.
+                    </p>
+                    <dl>
+                        <dd>
+                            <div class="info">
+                                <h1 class="title">
+                                    StandardAutoloader Options
+                                </h1>
+                            </div>
+                        </dd>
+                        <dt class="term">
+                            namespaces
+                        </dt>
+                        <dd>
+                            <p class="para">
+                                An associative array of namespace/path pairs. The path should be an absolute path or path relative to the calling script, and contain only classes that live in that namespace (or its subnamespaces). By default, the "Zend" namespace is registered, pointing to the arent directory of the file defining the <span class="classname">StandardAutoloader</span>.
+                            </p>
+                        </dd>
+                        <dt class="term">
+                            prefixes
+                        </dt>
+                        <dd>
+                            <p class="para">
+                                An associative array of vendor prefix/path pairs. The path should be an absolute path or path relative to the calling script, and contain only classes that begin with the provided vendor prefix.
+                            </p>
+                        </dd>
+                        <dt class="term">
+                            fallback_autoloader
+                        </dt>
+                        <dd>
+                            <p class="para">
+                                A boolean value indicating whether or not this instance should act as a "fallback" autoloader (i.e., look for classes of any namespace or vendor prefix on the <var class="varname">include_path</var>). By default, <b><tt>false</tt></b>.
+                            </p>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="section" id="zend.loader.standard-autoloader.methods">
+                    <div class="info">
+                        <h2>
+                            Available Methods
+                        </h2>
+                    </div>
+                </div>
+                <div class="section" id="zend.loader.standard-autoloader.examples">
+                    <div class="info">
+                        <h2>
+                            Examples
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Please review the <a href="zend.loader.standard-autoloader.html#zend.loader.standard-autoloader.quick-start" class="link">examples in the quick start</a> for usage.
+                    </p>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.loader.standard-autoloader.methods.autoload.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.loader.class-map-autoloader.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.loader.standard-autoloader.html">The StandardAutoloader</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.standard-autoloader.methods.constructor.html">__construct</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.standard-autoloader.methods.set-options.html">setOptions</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.standard-autoloader.methods.set-fallback-autoloader.html">setFallbackAutoloader</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.standard-autoloader.methods.is-fallback-autoloader.html">isFallbackAutoloader</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.standard-autoloader.methods.register-namespace.html">registerNamespace</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.standard-autoloader.methods.register-namespaces.html">registerNamespaces</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.standard-autoloader.methods.register-prefix.html">registerPrefix</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.standard-autoloader.methods.register-prefixes.html">registerPrefixes</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.standard-autoloader.methods.autoload.html">autoload</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.loader.standard-autoloader.methods.register.html">register</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

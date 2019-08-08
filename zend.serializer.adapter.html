@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Serializer_Adapter - Zend_Serializer &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.serializer.adapter" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Serializer_Adapter
+                    </h1>
+                </div>
+                <p class="para">
+                    <span class="classname">Zend_Serializer</span> adapters create a bridge for different methods of serializing with very little effort.
+                </p>
+                <p class="para">
+                    Every adapter has different pros and cons. In some cases, not every <acronym class="acronym">PHP</acronym> datatype (e.g., objects) can be converted to a string representation. In most such cases, the type will be converted to a similar type that is serializable -- as an example, <acronym class="acronym">PHP</acronym> objects will often be cast to arrays. If this fails, a <span class="classname">Zend_Serializer_Exception</span> will be thrown.
+                </p>
+                <p class="para">
+                    Below is a list of available adapters.
+                </p>
+                <div class="section" id="zend.serializer.adapter.phpserialize">
+                    <div class="info">
+                        <h2>
+                            Zend_Serializer_Adapter_PhpSerialize
+                        </h2>
+                    </div>
+                    <p class="para">
+                        This adapter uses the built-in <span class="methodname">un/serialize</span> <acronym class="acronym">PHP</acronym> functions, and is a good default adapter choice.
+                    </p>
+                    <p class="para">
+                        There are no configurable options for this adapter.
+                    </p>
+                </div>
+                <div class="section" id="zend.serializer.adapter.igbinary">
+                    <div class="info">
+                        <h2>
+                            Zend_Serializer_Adapter_Igbinary
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <a href="http://opensource.dynamoid.com" class="link external">&raquo; Igbinary</a> is Open Source Software released by Sulake Dynamoid Oy. It's a drop-in replacement for the standard <acronym class="acronym">PHP</acronym> serializer. Instead of time and space consuming textual representation, igbinary stores <acronym class="acronym">PHP</acronym> data structures in a compact binary form. Savings are significant when using memcached or similar memory based storages for serialized data.
+                    </p>
+                    <p class="para">
+                        You need the igbinary <acronym class="acronym">PHP</acronym> extension installed on your system in order to use this adapter.
+                    </p>
+                    <p class="para">
+                        There adapter takes no configuration options.
+                    </p>
+                </div>
+                <div class="section" id="zend.serializer.adapter.wddx">
+                    <div class="info">
+                        <h2>
+                            Zend_Serializer_Adapter_Wddx
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <a href="http://wikipedia.org/wiki/WDDX" class="link external">&raquo; WDDX</a> (Web Distributed Data eXchange) is a programming-language-, platform-, and transport-neutral data interchange mechanism for passing data between different environments and different computers.
+                    </p>
+                    <p class="para">
+                        The adapter simply uses the <a href="http://php.net/manual/book.wddx.php" class="link external">&raquo; wddx_*()</a> <acronym class="acronym">PHP</acronym> functions. Please read the <acronym class="acronym">PHP</acronym> manual to determine how you may enable them in your <acronym class="acronym">PHP</acronym> installation.
+                    </p>
+                    <p class="para">
+                        Additionally, the <a href="http://php.net/manual/book.simplexml.php" class="link external">&raquo; SimpleXML</a> <acronym class="acronym">PHP</acronym> extension is used to check if a returned <b><tt>NULL</tt></b> value from <span class="methodname">wddx_unserialize()</span> is based on a serialized <b><tt>NULL</tt></b> or on invalid data.
+                    </p>
+                    <p class="para">
+                        Available options include:
+                    </p>
+                    <div class="info"></div>
+                    <table class="doctable table">
+                        <caption>
+                            <b>Zend_Serializer_Adapter_Wddx Options</b>
+                        </caption>
+                        <thead valign="middle">
+                            <tr valign="middle">
+                                <th>
+                                    Option
+                                </th>
+                                <th>
+                                    Data Type
+                                </th>
+                                <th>
+                                    Default Value
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody valign="middle" class="tbody">
+                            <tr valign="middle">
+                                <td align="left">
+                                    <em class="emphasis">comment</em>
+                                </td>
+                                <td align="left">
+                                    <span class="type">string</span>
+                                </td>
+                                <td class="empty">
+                                    &nbsp;
+                                </td>
+                                <td align="left">
+                                    An optional comment that appears in the packet header.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section" id="zend.serializer.adapter.json">
+                    <div class="info">
+                        <h2>
+                            Zend_Serializer_Adapter_Json
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The <acronym class="acronym">JSON</acronym> adapter provides a bridge to the <span class="classname">Zend_Json</span> component and/or ext/json. Please read the <a href="zend.json.introduction.html" class="link">Zend_Json documentation</a> for further information.
+                    </p>
+                    <p class="para">
+                        Available options include:
+                    </p>
+                    <div class="info"></div>
+                    <table class="doctable table">
+                        <caption>
+                            <b>Zend_Serializer_Adapter_Json Options</b>
+                        </caption>
+                        <thead valign="middle">
+                            <tr valign="middle">
+                                <th>
+                                    Option
+                                </th>
+                                <th>
+                                    Data Type
+                                </th>
+                                <th>
+                                    Default Value
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody valign="middle" class="tbody">
+                            <tr valign="middle">
+                                <td align="left">
+                                    <em class="emphasis">cycleCheck</em>
+                                </td>
+                                <td align="left">
+                                    <span class="type">boolean</span>
+                                </td>
+                                <td align="left">
+                                    false
+                                </td>
+                                <td align="left">
+                                    See <a href="zend.json.advanced.html#zend.json.advanced.objects1" class="link">this section</a>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <em class="emphasis">objectDecodeType</em>
+                                </td>
+                                <td align="left">
+                                    <span class="type">Zend_Json::TYPE_*</span>
+                                </td>
+                                <td align="left">
+                                    Zend_Json::TYPE_ARRAY
+                                </td>
+                                <td align="left">
+                                    See <a href="zend.json.advanced.html#zend.json.advanced.objects1" class="link">this section</a>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <em class="emphasis">enableJsonExprFinder</em>
+                                </td>
+                                <td align="left">
+                                    <span class="type">boolean</span>
+                                </td>
+                                <td align="left">
+                                    false
+                                </td>
+                                <td align="left">
+                                    See <a href="zend.json.advanced.html#zend.json.advanced.expr" class="link">this section</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section" id="zend.serializer.adapter.amf03">
+                    <div class="info">
+                        <h2>
+                            Zend_Serializer_Adapter_Amf 0 and 3
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The <acronym class="acronym">AMF</acronym> adapters, <span class="classname">Zend_Serializer_Adapter_Amf0</span> and <span class="classname">Zend_Serializer_Adapter_Amf3</span>, provide a bridge to the serializer of the <span class="classname">Zend_Amf</span> component. Please read the <a href="zend.amf.introduction.html" class="link">Zend_Amf documentation</a> for further information.
+                    </p>
+                    <p class="para">
+                        There are no options for these adapters.
+                    </p>
+                </div>
+                <div class="section" id="zend.serializer.adapter.pythonpickle">
+                    <div class="info">
+                        <h2>
+                            Zend_Serializer_Adapter_PythonPickle
+                        </h2>
+                    </div>
+                    <p class="para">
+                        This adapter converts <acronym class="acronym">PHP</acronym> types to a <a href="http://docs.python.org/library/pickle.html" class="link external">&raquo; Python Pickle</a> string representation. With it, you can read the serialized data with Python and read Pickled data of Python with <acronym class="acronym">PHP</acronym>.
+                    </p>
+                    <p class="para">
+                        Available options include:
+                    </p>
+                    <div class="info"></div>
+                    <table class="doctable table">
+                        <caption>
+                            <b>Zend_Serializer_Adapter_PythonPickle Options</b>
+                        </caption>
+                        <thead valign="middle">
+                            <tr valign="middle">
+                                <th>
+                                    Option
+                                </th>
+                                <th>
+                                    Data Type
+                                </th>
+                                <th>
+                                    Default Value
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody valign="middle" class="tbody">
+                            <tr valign="middle">
+                                <td align="left">
+                                    <em class="emphasis">protocol</em>
+                                </td>
+                                <td align="left">
+                                    <span class="type">integer</span> (0 | 1 | 2 | 3)
+                                </td>
+                                <td align="left">
+                                    0
+                                </td>
+                                <td align="left">
+                                    The Pickle protocol version used on <span class="methodname">serialize</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="para">
+                        Datatype merging (PHP to Python) occurs as follows:
+                    </p>
+                    <div class="info"></div>
+                    <table class="doctable table">
+                        <caption>
+                            <b>Datatype merging (PHP to Python)</b>
+                        </caption>
+                        <thead valign="middle">
+                            <tr valign="middle">
+                                <th>
+                                    PHP Type
+                                </th>
+                                <th>
+                                    Python Type
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody valign="middle" class="tbody">
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">NULL</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">None</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">boolean</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">boolean</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">integer</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">integer</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">float</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">float</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">string</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">string</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">array</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">list</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">associative array</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">dictionary</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">object</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">dictionary</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="para">
+                        Datatype merging (Python to <acronym class="acronym">PHP</acronym>) occurs per the following:
+                    </p>
+                    <div class="info"></div>
+                    <table class="doctable table">
+                        <caption>
+                            <b>Datatype merging (Python to PHP)</b>
+                        </caption>
+                        <thead valign="middle">
+                            <tr valign="middle">
+                                <th>
+                                    Python-Type
+                                </th>
+                                <th>
+                                    PHP-Type
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody valign="middle" class="tbody">
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">None</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">NULL</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">boolean</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">boolean</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">integer</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">integer</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">long</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">integer</span> | <span class="type">float</span> | <span class="type">string</span> | <span class="classname">Zend_Serializer_Exception</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">float</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">float</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">string</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">string</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">bytes</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">string</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">Unicode string</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">UTF-8 string</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">list</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">array</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">tuple</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">array</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    <span class="type">dictionary</span>
+                                </td>
+                                <td align="left">
+                                    <span class="type">associative array</span>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    All other types
+                                </td>
+                                <td align="left">
+                                    <span class="classname">Zend_Serializer_Exception</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section" id="zend.serializer.adapter.phpcode">
+                    <div class="info">
+                        <h2>
+                            Zend_Serializer_Adapter_PhpCode
+                        </h2>
+                    </div>
+                    <p class="para">
+                        This adapter generates a parsable <acronym class="acronym">PHP</acronym> code representation using <a href="http://php.net/manual/function.var-export.php" class="link external">&raquo; var_export()</a>. On restoring, the data will be executed using <a href="http://php.net/manual/function.eval.php" class="link external">&raquo; eval</a>.
+                    </p>
+                    <p class="para">
+                        There are no configuration options for this adapter.
+                    </p>
+                    <div class="warning">
+                        <b class="warning">Warning</b>
+                        <div class="info">
+                            <h2>
+                                Unserializing objects
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Objects will be serialized using the <a href="http://php.net/manual/language.oop5.magic.php#language.oop5.magic.set-state" class="link external">&raquo; __set_state</a> magic method. If the class doesn't implement this method, a fatal error will occur during execution.
+                        </p>
+                    </div>
+                    <div class="warning">
+                        <b class="warning">Warning</b>
+                        <div class="info">
+                            <h2>
+                                Uses eval()
+                            </h2>
+                        </div>
+                        <p class="para">
+                            The <span class="classname">PhpCode</span> adapter utilizes <span class="methodname">eval()</span> to unserialize. This introduces both a performance and potential security issue as a new process will be executed. Typically, you should use the <span class="methodname">PhpSerialize</span> adapter unless you require human-readability of the serialized data.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.serializer.introduction.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.server.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.serializer.html">Zend_Serializer</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.serializer.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.serializer.adapter.html">Zend_Serializer_Adapter</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Interoperating with Java Lucene - Zend_Search_Lucene &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.search.lucene.java-lucene" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Interoperating with Java Lucene
+                    </h1>
+                </div>
+                <div class="section" id="zend.search.lucene.index-creation.file-formats">
+                    <div class="info">
+                        <h2>
+                            File Formats
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Search_Lucene</span> index file formats are binary compatible with Java Lucene version 1.4 and greater.
+                    </p>
+                    <p class="para">
+                        A detailed description of this format is available here: <tt class="uri">http://lucene.apache.org/java/2_3_0/fileformats.html</tt> <a href="#fnid1" name="fn1"><sup>[1]</sup></a> .
+                    </p>
+                </div>
+                <div class="section" id="zend.search.lucene.index-creation.index-directory">
+                    <div class="info">
+                        <h2>
+                            Index Directory
+                        </h2>
+                    </div>
+                    <p class="para">
+                        After index creation, the index directory will contain several files:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                The <var class="filename">segments</var> file is a list of index segments.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                The <var class="filename">*.cfs</var> files contain index segments. Note! An optimized index always has only one segment.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                The <var class="filename">deletable</var> file is a list of files that are no longer used by the index, but which could not be deleted.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.search.lucene.java-lucene.source-code">
+                    <div class="info">
+                        <h2>
+                            Java Source Code
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The Java program listing below provides an example of how to index a file using Java Lucene:
+                    </p>
+                    <div class="programlisting java">
+                        <div class="javacode">
+                            <div class="java" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">/**</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">* Index creation:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">*/</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #a1a100;">import org.apache.lucene.index.IndexWriter;</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #a1a100;">import org.apache.lucene.document.*;</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #a1a100;">import java.io.*</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            ...
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #006600;">IndexWriter</span> indexWriter = <span style="color: #000000; font-weight: bold;">new</span> IndexWriter<span style="color: #66cc66;">(</span><span style="color: #ff0000;">"/data/my_index"</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">new</span> SimpleAnalyzer<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>, <span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            ...
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3AString+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky"><span style="color: #aaaadd; font-weight: bold;">String</span></a> filename = <span style="color: #ff0000;">"/path/to/file-to-index.txt"</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3AFile+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky"><span style="color: #aaaadd; font-weight: bold;">File</span></a> f = <span style="color: #000000; font-weight: bold;">new</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3AFile+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky"><span style="color: #aaaadd; font-weight: bold;">File</span></a><span style="color: #66cc66;">(</span>filename<span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3ADocument+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky"><span style="color: #aaaadd; font-weight: bold;">Document</span></a> doc = <span style="color: #000000; font-weight: bold;">new</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3ADocument+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky"><span style="color: #aaaadd; font-weight: bold;">Document</span></a><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            doc.<span style="color: #006600;">add</span><span style="color: #66cc66;">(</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3AField+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky"><span style="color: #aaaadd; font-weight: bold;">Field</span></a>.<span style="color: #006600;">Text</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"path"</span>, filename<span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            doc.<span style="color: #006600;">add</span><span style="color: #66cc66;">(</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3AField+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky"><span style="color: #aaaadd; font-weight: bold;">Field</span></a>.<span style="color: #006600;">Keyword</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"modified"</span>,DateField.<span style="color: #006600;">timeToString</span><span style="color: #66cc66;">(</span>f.<span style="color: #006600;">lastModified</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            doc.<span style="color: #006600;">add</span><span style="color: #66cc66;">(</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3AField+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky"><span style="color: #aaaadd; font-weight: bold;">Field</span></a>.<span style="color: #006600;">Text</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"author"</span>, <span style="color: #ff0000;">"unknown"</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3AFileInputStream+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky"><span style="color: #aaaadd; font-weight: bold;">FileInputStream</span></a> is = <span style="color: #000000; font-weight: bold;">new</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3AFileInputStream+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky"><span style="color: #aaaadd; font-weight: bold;">FileInputStream</span></a><span style="color: #66cc66;">(</span>f<span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3AReader+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky"><span style="color: #aaaadd; font-weight: bold;">Reader</span></a> reader = <span style="color: #000000; font-weight: bold;">new</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3ABufferedReader+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky"><span style="color: #aaaadd; font-weight: bold;">BufferedReader</span></a><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">new</span> <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3AInputStreamReader+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky"><span style="color: #aaaadd; font-weight: bold;">InputStreamReader</span></a><span style="color: #66cc66;">(</span>is<span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            doc.<span style="color: #006600;">add</span><span style="color: #66cc66;">(</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3AField+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky"><span style="color: #aaaadd; font-weight: bold;">Field</span></a>.<span style="color: #006600;">Text</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"contents"</span>, reader<span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            indexWriter.<span style="color: #006600;">addDocument</span><span style="color: #66cc66;">(</span>doc<span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footnote">
+                    <a name="fnid1" href="#fn1"><sup>[1]</sup></a> <span class="para footnote">The currently supported Lucene index file format version is 2.3 (starting from Zend Framework 1.6).</span>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.search.lucene.extending.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.search.lucene.advanced.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.search.lucene.html">Zend_Search_Lucene</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.search.lucene.overview.html">Overview</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.search.lucene.index-creation.html">Building Indexes</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.search.lucene.searching.html">Searching an Index</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.search.lucene.query-language.html">Query Language</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.search.lucene.query-api.html">Query Construction API</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.search.lucene.charset.html">Character Set</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.search.lucene.extending.html">Extensibility</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.search.lucene.java-lucene.html">Interoperating with Java Lucene</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.search.lucene.advanced.html">Advanced</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.search.lucene.best-practice.html">Best Practices</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

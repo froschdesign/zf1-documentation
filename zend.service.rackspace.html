@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Service_Rackspace - Zend_Service &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.service.rackspace" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Service_Rackspace
+                    </h1>
+                </div>
+                <div class="section" id="zend.service.rackspace.introduction">
+                    <div class="info">
+                        <h2>
+                            Introduction
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The <span class="classname">Zend_Service_Rackspace</span> is a class that provides a simple <acronym class="acronym">API</acronym> to manage the Rackspace services Cloud Files and Cloud Servers.
+                    </p>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: <span class="info"><b>Load balancers service</b><br></span> The load balancers service of Rackspace is not implemented yet. We are planning to release it in the next future.<br>
+                        </p>
+                    </blockquote>
+                </div>
+                <div class="section" id="zend.service.rackspace.registering">
+                    <div class="info">
+                        <h2>
+                            Registering with Rackspace
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Before you can get started with <span class="classname">Zend_Service_Rackspace</span>, you must first register for an account. Please see the <a href="http://www.rackspace.com/cloud/" class="link external">&raquo; Cloud services</a> page on the Rackspace website for more information.
+                    </p>
+                    <p class="para">
+                        After registering, you can get the Username and the API Key from the Rackspace management console under the menu "Your Account" &gt; "API Access". These informations are required to use the <span class="classname">Zend_Service_Rackspace</span> classes.
+                    </p>
+                </div>
+                <div class="section" id="zend.service.rackspace.feature.files">
+                    <div class="info">
+                        <h2>
+                            Cloud Files
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The Cloud Files is a service to store any files in a cloud environment. A user can store an unlimited quantity of files and each file can be as large as 5 gigabytes. The files can be private or public. The private files can be accessed using the API of Rackspace. The public files are accessed using a <acronym class="acronym">CDN</acronym> (Content Delivery Network). Rackspace exposes a <acronym class="acronym">REST</acronym> API to manage the Cloud Files.
+                    </p>
+                    <p class="para">
+                        <span class="classname">Zend_Service_Rackspace_Files</span> provides the following functionality:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                Upload files programmatically for tight integration with your application
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Enable Cloud Files CDN integration on any container for public distribution
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Create Containers programmatically
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Retrieve lists of containers and files
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.service.rackspace.feature.servers">
+                    <div class="info">
+                        <h2>
+                            Cloud Servers
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Rackspace Cloud Servers is a compute service that provides server capacity in the cloud. Cloud Servers come in different flavors of memory, disk space, and CPU.
+                    </p>
+                    <p class="para">
+                        <span class="classname">Zend_Service_Rackspace_Servers</span> provides the following functionality:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                Create/delete new servers
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                List and get information on each server
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Manage the public/private IP addresses of a server
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Resize the server capacity
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Reboot a server
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Create new images for a server
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Manage the backup of a server
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Create a group of server to share the IP addresses for High Availability architecture
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.service.rackspace.methods">
+                    <div class="info">
+                        <h2>
+                            Available Methods
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Eeach service class (Files, Servers) of Rackspace extends the <span class="classname">Zend_Service_Rackspace</span> abstract class. This class contains a set of public methods shared with all the service. This public methods are reported as follow:
+                    </p>
+                    <dl>
+                        <dt id="zend.service.rackspace.files.methods.authenticate"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">authenticate</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Authenticate the Rackspace API using the user and the key specified in the concrete class that extend <span class="classname">Zend_Service_Rackspace</span>. Return <em class="emphasis">true</em> in case of success and <em class="emphasis">false</em> in case of error.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.set-service-net"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">setServiceNet</span> <span class="methodparam">( boolean $useServiceNet = true )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Use the Rackspace 'ServiceNet' internal network.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-service-net"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getServiceNet</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Are we using the Rackspace 'ServiceNet' internal network? Returns a boolean.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-auth-url"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getAuthUrl</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Get the authentication URL of Rackspace. Returns a string.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-cdn-url"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getCdnUrl</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Get the URL for the CDN. Returns a string.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-error-code"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getErrorCode</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Get the last HTTP error code. Returns a string.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-error-msg"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getErrorMsg</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Get the last error message. Returns a string.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-http-client"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getHttpClient</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Get the HTTP client used to call the API of the Rackspace. Returns a <span class="classname">Zend_Http_Client</span> instance.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-key"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getKey</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Get the authentication key. Returns a string.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-management-url"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getManagementUrl</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Get the URL for the management services. Returns a string.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-storage-url"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getStorageUrl</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Get the URL for the storage (files) service. Returns a string.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-token"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getToken</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Get the token returned after a successful authentication. Returns a string.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-user"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getUser</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Get the user authenticated with the Rackspace service. Returns a string.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.is-successful"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">isSuccessful</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return <em class="emphasis">true</em> if the last service call was successful, false otherwise.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.set-auth-url"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">setAuthUrl</span> <span class="methodparam">( string $url )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Set the authentication URL to be used.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$url</em> is the URL for the authentication
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.set-key"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">setKey</span> <span class="methodparam">( string $key )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Set the key for the API authentication.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$key</em> is the key string for the authentication
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.set-user"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">setUser</span> <span class="methodparam">( string $user )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Set the user for the API authentication.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$user</em> is the user string for the authentication
+                            </p>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.service.livedocx.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.service.rackspace.files.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.service.html">Zend_Service</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.akismet.html">Zend_Service_Akismet</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.html">Zend_Service_Amazon</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.html">Zend_Service_Amazon_Ec2</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.instance.html">Zend_Service_Amazon_Ec2: Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.windows.instance.html">Zend_Service_Amazon_Ec2: Windows Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.reserved.instance.html">Zend_Service_Amazon_Ec2: Reserved Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.cloudwatch.html">Zend_Service_Amazon_Ec2: CloudWatch Monitoring</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.images.html">Zend_Service_Amazon_Ec2: Amazon Machine Images (AMI)</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.ebs.html">Zend_Service_Amazon_Ec2: Elastic Block Storage (EBS)</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.elasticip.html">Zend_Service_Amazon_Ec2: Elastic IP Addresses</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.keypairs.html">Zend_Service_Amazon_Ec2: Keypairs</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.zones.html">Zend_Service_Amazon_Ec2: Regions and Availability Zones</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.securitygroups.html">Zend_Service_Amazon_Ec2: Security Groups</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.s3.html">Zend_Service_Amazon_S3</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.sqs.html">Zend_Service_Amazon_Sqs</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.audioscrobbler.html">Zend_Service_Audioscrobbler</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.delicious.html">Zend_Service_Delicious</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.ebay.html">Zend_Service_Ebay</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.ebay.finding.html">Zend_Service_Ebay_Finding</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.flickr.html">Zend_Service_Flickr</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.livedocx.html">Zend_Service_LiveDocx</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.service.rackspace.html">Zend_Service_Rackspace</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.rackspace.files.html">Zend_Service_Rackspace_Files</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.rackspace.servers.html">Zend_Service_Rackspace_Servers</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.recaptcha.html">Zend_Service_ReCaptcha</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.short-url.html">Zend_Service_ShortUrl</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.slideshare.html">Zend_Service_SlideShare</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.html">Zend_Service_StrikeIron</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.bundled-services.html">Zend_Service_StrikeIron: Bundled Services</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.advanced-uses.html">Zend_Service_StrikeIron: Advanced Uses</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.twitter.html">Zend_Service_Twitter</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.html">Zend_Service_WindowsAzure</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.blob.html">Zend_Service_WindowsAzure_Storage_Blob</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.diagnostics.manager.html">Zend_Service_WindowsAzure_Diagnostics_Manager</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.queue.html">Zend_Service_WindowsAzure_Storage_Queue</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.table.html">Zend_Service_WindowsAzure_Storage_Table</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.yahoo.html">Zend_Service_Yahoo</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Introduction - Zend_Console_Getopt &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.console.getopt.introduction" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Introduction
+                    </h1>
+                </div>
+                <p class="para">
+                    The <span class="classname">Zend_Console_Getopt</span> class helps command-line applications to parse their options and arguments.
+                </p>
+                <p class="para">
+                    Users may specify command-line arguments when they execute your application. These arguments have meaning to the application, to change the behavior in some way, or choose resources, or specify parameters. Many options have developed customary meaning, for example <strong class="command">--verbose</strong> enables extra output from many applications. Other options may have a meaning that is different for each application. For example, <strong class="command">-c</strong> enables different features in <strong class="command">grep</strong>, <strong class="command">ls</strong>, and <strong class="command">tar</strong>.
+                </p>
+                <p class="para">
+                    Below are a few definitions of terms. Common usage of the terms varies, but this documentation will use the definitions below.
+                </p>
+                <ul class="itemizedlist">
+                    <li class="listitem">
+                        <p class="para">
+                            "argument": a string that occurs on the command-line following the name of the command. Arguments may be options or else may appear without an option, to name resources on which the command operates.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            "option": an argument that signifies that the command should change its default behavior in some way.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            "flag": the first part of an option, identifies the purpose of the option. A flag is preceded conventionally by one or two dashes (<strong class="command">-</strong> or <strong class="command">--</strong>). A single dash precedes a single-character flag or a cluster of single-character flags. A double-dash precedes a multi-character flag. Long flags cannot be clustered.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            "parameter": the secondary part of an option; a data value that may accompany a flag, if it is applicable to the given option. For example, many commands accept a <strong class="command">--verbose</strong> option, but typically this option has no parameter. However, an option like <strong class="command">--user</strong> almost always requires a following parameter.
+                        </p>
+                        <p class="para">
+                            A parameter may be given as a separate argument following a flag argument, or as part of the same argument string, separated from the flag by an equals symbol (<strong class="command">=</strong>). The latter form is supported only by long flags. For example, <strong class="command">-u username</strong>, <strong class="command">--user username</strong>, and <strong class="command">--user=username</strong> are forms supported by <span class="classname">Zend_Console_Getopt</span>.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            "cluster": multiple single-character flags combined in a single string argument and preceded by a single dash. For example, "<strong class="command">ls -1str</strong>" uses a cluster of four short flags. This command is equivalent to "<strong class="command">ls -1 -s -t -r</strong>". Only single-character flags can be clustered. You cannot make a cluster of long flags.
+                        </p>
+                    </li>
+                </ul>
+                <p class="para">
+                    For example, in <strong class="command">mysql --user=root mydatabase</strong>, <strong class="command">mysql</strong> is a <em class="emphasis">command</em>, <strong class="command">--user=root</strong> is an <em class="emphasis">option</em>, <strong class="command">--user</strong> is a <em class="emphasis">flag</em>, <strong class="command">root</strong> is a <em class="emphasis">parameter</em> to the option, and <strong class="command">mydatabase</strong> is an argument but not an option by our definition.
+                </p>
+                <p class="para">
+                    <span class="classname">Zend_Console_Getopt</span> provides an interface to declare which flags are valid for your application, output an error and usage message if they use an invalid flag, and report to your application code which flags the user specified.
+                </p>
+                <blockquote>
+                    <p>
+                        <b class="note">Note</b>: <span class="info"><b>Getopt is not an Application Framework</b><br></span> <span class="classname">Zend_Console_Getopt</span> does <em class="emphasis">not</em> interpret the meaning of flags and parameters, nor does this class implement application workflow or invoke application code. You must implement those actions in your own application code. You can use the <span class="classname">Zend_Console_Getopt</span> class to parse the command-line and provide object-oriented methods for querying which options were given by a user, but code to use this information to invoke parts of your application should be in another <acronym class="acronym">PHP</acronym> class.<br>
+                    </p>
+                </blockquote>
+                <p class="para">
+                    The following sections describe usage of <span class="classname">Zend_Console_Getopt</span>.
+                </p>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.console.getopt.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.console.getopt.rules.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.console.getopt.html">Zend_Console_Getopt</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.console.getopt.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.console.getopt.rules.html">Declaring Getopt Rules</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.console.getopt.fetching.html">Fetching Options and Arguments</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.console.getopt.configuration.html">Configuring Zend_Console_Getopt</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

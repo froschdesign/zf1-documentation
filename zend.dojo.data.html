@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Dojo_Data: dojo.data Envelopes - Zend_Dojo &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.dojo.data" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Dojo_Data: dojo.data Envelopes
+                    </h1>
+                </div>
+                <p class="para">
+                    Dojo provides data abstractions for data-enabled widgets via its <strong class="command">dojo.data</strong> component. This component provides the ability to attach a data store, provide some metadata regarding the identity field and optionally a label field, and an <acronym class="acronym">API</acronym> for querying, sorting, and retrieving records and sets of records from the datastore.
+                </p>
+                <p class="para">
+                    <strong class="command">dojo.data</strong> is often used with XmlHttpRequest to pull dynamic data from the server. The primary mechanism for this is to extend the QueryReadStore to point at a <acronym class="acronym">URL</acronym> and specify the query information. The server side then returns data in the following <acronym class="acronym">JSON</acronym> format:
+                </p>
+                <div class="programlisting javascript">
+                    <div class="javascriptcode">
+                        <div class="javascript" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #66cc66;">{</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; identifier: <span style="color: #3366CC;">'&lt;name&gt;'</span>,
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &lt;label: <span style="color: #3366CC;">'&lt;label&gt;'</span>,&gt;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; items: <span style="color: #66cc66;">[</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">{</span> <span style="color: #000066;">name</span>: <span style="color: #3366CC;">'...'</span>, label: <span style="color: #3366CC;">'...'</span>, someKey: <span style="color: #3366CC;">'...'</span> <span style="color: #66cc66;">}</span>,
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; ...
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; <span style="color: #66cc66;">]</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #66cc66;">}</span>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    <span class="classname">Zend_Dojo_Data</span> provides a simple interface for building such structures programmatically, interacting with them, and serializing them to an array or <acronym class="acronym">JSON</acronym>.
+                </p>
+                <div class="section" id="zend.dojo.data.usage">
+                    <div class="info">
+                        <h2>
+                            Zend_Dojo_Data Usage
+                        </h2>
+                    </div>
+                    <p class="para">
+                        At its simplest, <strong class="command">dojo.data</strong> requires that you provide the name of the identifier field in each item, and a set of items (data). You can either pass these in via the constructor, or via mutators:
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #1 Zend_Dojo_Data initialization via constructor</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$data</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Dojo_Data<span style="color: #66cc66;">(</span><span style="color: #ff0000;">'id'</span>, <span style="color: #0000ff;">$items</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #2 Zend_Dojo_Data initialization via mutators</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$data</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Dojo_Data<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$data</span>-&gt;<span style="color: #006600;">setIdentifier</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'id'</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp;-&gt;<span style="color: #006600;">addItems</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$items</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        You can also add a single item at a time, or append items, using <span class="methodname">addItem()</span> and <span class="methodname">addItems()</span>.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #3 Appending data to Zend_Dojo_Data</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$data</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Dojo_Data<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$identifier</span>, <span style="color: #0000ff;">$items</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$data</span>-&gt;<span style="color: #006600;">addItem</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$someItem</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$data</span>-&gt;<span style="color: #006600;">addItems</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$someMoreItems</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: <span class="info"><b>Always use an identifier!</b><br></span> Every <strong class="command">dojo.data</strong> datastore requires that the identifier column be provided as metadata, including <span class="classname">Zend_Dojo_Data</span>. In fact, if you attempt to add items without an identifier, it will raise an exception.<br>
+                        </p>
+                    </blockquote>
+                    <p class="para">
+                        Individual items may be one of the following:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                Associative arrays
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Objects implementing a <span class="methodname">toArray()</span> method
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Any other objects (will serialize via <span class="methodname">get_object_vars()</span>)
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        You can attach collections of the above items via <span class="methodname">addItems()</span> or <span class="methodname">setItems()</span> (overwrites all previously set items); when doing so, you may pass a single argument:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                Arrays
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Objects implementing the <span class="classname">Traversable</span> interface ,which includes the interfaces <span class="classname">Iterator</span> and <span class="classname">ArrayAccess</span>.
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        If you want to specify a field that will act as a label for the item, call <span class="methodname">setLabel()</span>:
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #4 Specifying a label field in Zend_Dojo_Data</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$data</span>-&gt;<span style="color: #006600;">setLabel</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'name'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Finally, you can also load a <span class="classname">Zend_Dojo_Data</span> item from a <strong class="command">dojo.data</strong> <acronym class="acronym">JSON</acronym> array, using the <span class="methodname">fromJson()</span> method.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #5 Populating Zend_Dojo_Data from JSON</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$data</span>-&gt;<span style="color: #006600;">fromJson</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$json</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.dojo.data.metadata">
+                    <div class="info">
+                        <h2>
+                            Adding metadata to your containers
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Some Dojo components require additional metadata along with the <strong class="command">dojo.data</strong> payload. As an example, <strong class="command">dojox.grid.Grid</strong> can pull data dynamically from a <strong class="command">dojox.data.QueryReadStore</strong>. For pagination to work correctly, each return payload should contain a <span class="property">numRows</span> key with the total number of rows that could be returned by the query. With this data, the grid knows when to continue making small requests to the server for subsets of data and when to stop making more requests (i.e., it has reached the last page of data). This technique is useful for serving large sets of data in your grids without loading the entire set at once.
+                    </p>
+                    <p class="para">
+                        <span class="classname">Zend_Dojo_Data</span> allows assigning metadata properties as to the object. The following illustrates usage:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Set the "numRows" to 100</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$data</span>-&gt;<span style="color: #006600;">setMetadata</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'numRows'</span>, <span style="color: #cc66cc;">100</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Set several items at once:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$data</span>-&gt;<span style="color: #006600;">setMetadata</span><span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #ff0000;">'numRows'</span> =&gt; <span style="color: #cc66cc;">100</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #ff0000;">'sort'</span>&nbsp; &nbsp; =&gt; <span style="color: #ff0000;">'name'</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Inspect a single metadata value:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$numRows</span> = <span style="color: #0000ff;">$data</span>-&gt;<span style="color: #006600;">getMetadata</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'numRows'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Inspect all metadata:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$metadata</span> = <span style="color: #0000ff;">$data</span>-&gt;<span style="color: #006600;">getMetadata</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Remove a metadata item:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$data</span>-&gt;<span style="color: #006600;">clearMetadata</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'numRows'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Remove all metadata:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$data</span>-&gt;<span style="color: #006600;">clearMetadata</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.dojo.data.advanced">
+                    <div class="info">
+                        <h2>
+                            Advanced Use Cases
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Besides acting as a serializable data container, <span class="classname">Zend_Dojo_Data</span> also provides the ability to manipulate and traverse the data in a variety of ways.
+                    </p>
+                    <p class="para">
+                        <span class="classname">Zend_Dojo_Data</span> implements the interfaces <span class="classname">ArrayAccess</span>, <span class="classname">Iterator</span>, and <span class="classname">Countable</span>. You can therefore use the data collection almost as if it were an array.
+                    </p>
+                    <p class="para">
+                        All items are referenced by the identifier field. Since identifiers must be unique, you can use the values of this field to pull individual records. There are two ways to do this: with the <span class="methodname">getItem()</span> method, or via array notation.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Using getItem():</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$item</span> = <span style="color: #0000ff;">$data</span>-&gt;<span style="color: #006600;">getItem</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Or use array notation:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$item</span> = <span style="color: #0000ff;">$data</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'foo'</span><span style="color: #66cc66;">]</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        If you know the identifier, you can use it to retrieve an item, update it, delete it, create it, or test for it:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Update or create an item:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$data</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'foo'</span><span style="color: #66cc66;">]</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'title'</span> =&gt; <span style="color: #ff0000;">'Foo'</span>, <span style="color: #ff0000;">'email'</span> =&gt; <span style="color: #ff0000;">'foo@foo.com'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Delete an item:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/unset"><span style="color: #000066;">unset</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$data</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'foo'</span><span style="color: #66cc66;">]</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Test for an item:</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><a href="http://www.php.net/isset"><span style="color: #000066;">isset</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$data</span><span style="color: #66cc66;">[</span>foo<span style="color: #66cc66;">]</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        You can loop over all items as well. Internally, all items are stored as arrays.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">foreach</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$data</span> <span style="color: #b1b100;">as</span> <span style="color: #0000ff;">$item</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$item</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'title'</span><span style="color: #66cc66;">]</span> . <span style="color: #ff0000;">': '</span> . <span style="color: #0000ff;">$item</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'description'</span><span style="color: #66cc66;">]</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Or even count to see how many items you have:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <a href="http://www.php.net/count"><span style="color: #000066;">count</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$data</span><span style="color: #66cc66;">)</span>, <span style="color: #ff0000;">" items found!"</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Finally, as the class implements <span class="methodname">__toString()</span>, you can also cast it to <acronym class="acronym">JSON</acronym> simply by echoing it or casting to string:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$data</span>; <span style="color: #808080; font-style: italic;">// echo as JSON string</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$json</span> = <span style="color: #66cc66;">(</span>string<span style="color: #66cc66;">)</span> <span style="color: #0000ff;">$data</span>; <span style="color: #808080; font-style: italic;">// cast to string == cast to JSON</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section" id="zend.dojo.data.advanced.methods">
+                        <div class="info">
+                            <h2>
+                                Available Methods
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Besides the methods necessary for implementing the interfaces listed above, the following methods are available.
+                        </p>
+                        <ul class="itemizedlist">
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">setItems($items)</span>: set multiple items at once, overwriting any items that were previously set in the object. <var class="varname">$items</var> should be an array or a <span class="classname">Traversable</span> object.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">setItem($item, $id = null)</span>: set an individual item, optionally passing an explicit identifier. Overwrites the item if it is already in the collection. Valid items include associative arrays, objects implementing <span class="methodname">toArray()</span>, or any object with public properties.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">addItem($item, $id = null)</span>: add an individual item, optionally passing an explicit identifier. Will raise an exception if the item already exists in the collection. Valid items include associative arrays, objects implementing <span class="methodname">toArray()</span>, or any object with public properties.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">addItems($items)</span>: add multiple items at once, appending them to any current items. Will raise an exception if any of the new items have an identifier matching an identifier already in the collection. <var class="varname">$items</var> should be an array or a <span class="classname">Traversable</span> object.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">getItems()</span>: retrieve all items as an array of arrays.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">hasItem($id)</span>: determine whether an item with the given identifier exists in the collection.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">getItem($id)</span>: retrieve an item with the given identifier from the collection; the item returned will be an associative array. If no item matches, a <b><tt>NULL</tt></b> value is returned.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">removeItem($id)</span>: remove an item with the given identifier from the collection.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">clearItems()</span>: remove all items from the collection.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">setIdentifier($identifier)</span>: set the name of the field that represents the unique identifier for each item in the collection.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">getIdentifier()</span>: retrieve the name of the identifier field.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">setLabel($label)</span>: set the name of a field to be used as a display label for an item.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">getLabel()</span>: retrieve the label field name.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">toArray()</span>: cast the object to an array. At a minimum, the array will contain the keys 'identifier', 'items', and 'label' if a label field has been set in the object.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="methodname">toJson()</span>: cast the object to a <acronym class="acronym">JSON</acronym> representation.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.dojo.introduction.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.dojo.view.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.dojo.html">Zend_Dojo</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.dojo.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.dojo.data.html">Zend_Dojo_Data: dojo.data Envelopes</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.dojo.view.html">Dojo View Helpers</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.dojo.form.html">Dojo Form Elements and Decorators</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.dojo.build-layers.html">Zend_Dojo build layer support</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

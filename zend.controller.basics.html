@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Controller Basics - Zend_Controller &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.controller.basics" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Controller Basics
+                    </h1>
+                </div>
+                <p class="para">
+                    The <span class="classname">Zend_Controller</span> system is designed to be lightweight, modular, and extensible. It is a minimalist design to permit flexibility and some freedom to users while providing enough structure so that systems built around <span class="classname">Zend_Controller</span> share some common conventions and similar code layout.
+                </p>
+                <p class="para">
+                    The following diagram depicts the workflow, and the narrative following describes in detail the interactions:
+                </p>
+                <p class="para"></p>
+                <div class="inlinemediaobject">
+                    <div class="imageobject">
+                        <a href="images/d481d625821a97b9a5eb2cec99dca50e-zend.controller.basics.png"><img src="images/d481d625821a97b9a5eb2cec99dca50e-zend.controller.basics.png" alt="zend.controller.basics.png" width="450" height="525"></a>
+                    </div>
+                </div>
+                <p class="para">
+                    The <span class="classname">Zend_Controller</span> workflow is implemented by several components. While it is not necessary to completely understand the underpinnings of all of these components to use the system, having a working knowledge of the process is helpful.
+                </p>
+                <ul class="itemizedlist">
+                    <li class="listitem">
+                        <p class="para">
+                            <span class="classname">Zend_Controller_Front</span> orchestrates the entire workflow of the <span class="classname">Zend_Controller</span> system. It is an interpretation of the FrontController pattern. <span class="classname">Zend_Controller_Front</span> processes all requests received by the server and is ultimately responsible for delegating requests to ActionControllers (<span class="classname">Zend_Controller_Action</span>).
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <span class="classname">Zend_Controller_Request_Abstract</span> (often referred to as the <em class="emphasis">Request Object</em>) represents the request environment and provides methods for setting and retrieving the controller and action names and any request parameters. Additionally it keeps track of whether or not the action it contains has been dispatched by <span class="classname">Zend_Controller_Dispatcher</span>. Extensions to the abstract request object can be used to encapsulate the entire request environment, allowing routers to pull information from the request environment in order to set the controller and action names.
+                        </p>
+                        <p class="para">
+                            By default, <span class="classname">Zend_Controller_Request_Http</span> is used, which provides access to the entire <acronym class="acronym">HTTP</acronym> request environment.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <span class="classname">Zend_Controller_Router_Interface</span> is used to define routers. Routing is the process of examining the request environment to determine which controller, and action of that controller, should receive the request. This controller, action, and optional parameters are then set in the request object to be processed by <span class="classname">Zend_Controller_Dispatcher_Standard</span>. Routing occurs only once: when the request is initially received and before the first controller is dispatched.
+                        </p>
+                        <p class="para">
+                            The default router, <span class="classname">Zend_Controller_Router_Rewrite</span>, takes a <acronym class="acronym">URI</acronym> endpoint as specified in <span class="classname">Zend_Controller_Request_Http</span> and decomposes it into a controller, action, and parameters based on the path information in the <acronym class="acronym">URL</acronym>. As an example, the <acronym class="acronym">URL</acronym> <var class="filename">http://localhost/foo/bar/key/value</var> would be decoded to use the <em class="emphasis">foo</em> controller, <em class="emphasis">bar</em> action, and specify a parameter <em class="emphasis">key</em> with a value of <em class="emphasis">value</em>.
+                        </p>
+                        <p class="para">
+                            <span class="classname">Zend_Controller_Router_Rewrite</span> can also be used to match arbitrary paths; see <a href="zend.controller.router.html" class="link">the router documentation</a> for more information.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <span class="classname">Zend_Controller_Dispatcher_Interface</span> is used to define dispatchers. Dispatching is the process of pulling the controller and action from the request object and mapping them to a controller file (or class) and action method in the controller class. If the controller or action do not exist, it handles determining default controllers and actions to dispatch.
+                        </p>
+                        <p class="para">
+                            The actual dispatching process consists of instantiating the controller class and calling the action method in that class. Unlike routing, which occurs only once, dispatching occurs in a loop. If the request object's dispatched status is reset at any point, the loop will be repeated, calling whatever action is currently set in the request object. The first time the loop finishes with the request object's dispatched status set ( <span class="type">Boolean</span> <b><tt>TRUE</tt></b>), it will finish processing.
+                        </p>
+                        <p class="para">
+                            The default dispatcher is <span class="classname">Zend_Controller_Dispatcher_Standard</span>. It defines controllers as MixedCasedClasses ending in the word Controller, and action methods as camelCasedMethods ending in the word Action: <span class="methodname">FooController::barAction()</span>. In this case, the controller would be referred to as <em class="emphasis">foo</em> and the action as <em class="emphasis">bar</em>.
+                        </p>
+                        <blockquote>
+                            <p>
+                                <b class="note">Note</b>: <span class="info"><b>Case Naming Conventions</b><br></span> Since humans are notoriously inconsistent at maintaining case sensitivity when typing links, Zend Framework actually normalizes path information to lowercase. This, of course, will affect how you name your controller and actions... or refer to them in links.<br>
+                                If you wish to have your controller class or action method name have multiple MixedCasedWords or camelCasedWords, you will need to separate those words on the url with either a '-' or '.' (though you can configure the character used).<br>
+                                As an example, if you were going to the action in <span class="methodname">FooBarController::bazBatAction()</span>, you'd refer to it on the url as <var class="filename">/foo-bar/baz-bat</var> or <var class="filename">/foo.bar/baz.bat</var>.<br>
+                            </p>
+                        </blockquote>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <span class="classname">Zend_Controller_Action</span> is the base action controller component. Each controller is a single class that extends the <span class="classname">Zend_Controller_Action</span> class and should contain one or more action methods.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <span class="classname">Zend_Controller_Response_Abstract</span> defines a base response class used to collect and return responses from the action controllers. It collects both headers and body content.
+                        </p>
+                        <p class="para">
+                            The default response class is <span class="classname">Zend_Controller_Response_Http</span>, which is suitable for use in an <acronym class="acronym">HTTP</acronym> environment.
+                        </p>
+                    </li>
+                </ul>
+                <p class="para">
+                    The workflow of <span class="classname">Zend_Controller</span> is relatively simple. A request is received by <span class="classname">Zend_Controller_Front</span>, which in turn calls <span class="classname">Zend_Controller_Router_Rewrite</span> to determine which controller (and action in that controller) to dispatch. <span class="classname">Zend_Controller_Router_Rewrite</span> decomposes the <acronym class="acronym">URI</acronym> in order to set the controller and action names in the request. <span class="classname">Zend_Controller_Front</span> then enters a dispatch loop. It calls <span class="classname">Zend_Controller_Dispatcher_Standard</span>, passing it the request, to dispatch to the controller and action specified in the request (or use defaults). After the
+                    controller has finished, control returns to <span class="classname">Zend_Controller_Front</span>. If the controller has indicated that another controller should be dispatched by resetting the dispatched status of the request, the loop continues and another dispatch is performed. Otherwise, the process ends.
+                </p>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.controller.quickstart.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.controller.front.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.controller.html">Zend_Controller</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.quickstart.html">Zend_Controller Quick Start</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.controller.basics.html">Zend_Controller Basics</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.front.html">The Front Controller</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.request.html">The Request Object</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.router.html">The Standard Router</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.dispatcher.html">The Dispatcher</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.action.html">Action Controllers</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.actionhelpers.html">Action Helpers</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.response.html">The Response Object</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.plugins.html">Plugins</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.modular.html">Using a Conventional Modular Directory Structure</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.controller.exceptions.html">MVC Exceptions</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Recommended Project Directory Structure - Recommended Project Structure for Zend Framework MVC Applications &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="project-structure.project" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Recommended Project Directory Structure
+                    </h1>
+                </div>
+                <div class="programlisting text">
+                    <div class="textcode">
+                        <div class="text" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &lt;project name&gt;/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; application/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; configs/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; application.ini
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; controllers/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; helpers/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; forms/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; layouts/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; filters/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; helpers/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; scripts/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; models/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; modules/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; services/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; views/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; filters/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; helpers/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; scripts/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; Bootstrap.php
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; data/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; cache/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; indexes/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; locales/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; logs/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; sessions/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; uploads/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; docs/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; library/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; public/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; css/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; images/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; js/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; .htaccess
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; index.php
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; scripts/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; jobs/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; build/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; temp/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; tests/
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    The following describes the use cases for each directory as listed.
+                </p>
+                <ul class="itemizedlist">
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis"><var class="filename">application/</var></em>: This directory contains your application. It will house the <acronym class="acronym">MVC</acronym> system, as well as configurations, services used, and your bootstrap file.
+                        </p>
+                        <ul class="itemizedlist">
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis"><var class="filename">configs/</var></em>: The application-wide configuration directory.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis"><var class="filename">controllers/</var></em>, <em class="emphasis"><var class="filename">models/</var></em>, and <em class="emphasis"><var class="filename">views/</var></em>: These directories serve as the default controller, model or view directories. Having these three directories inside the application directory provides the best layout for starting a simple project as well as starting a modular project that has global <var class="filename">controllers/models/views</var>.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis"><var class="filename">controllers/helpers/</var></em>: These directories will contain action helpers. Action helpers will be namespaced either as "<span class="classname">Controller_Helper_</span>" for the default module or "&lt;Module&gt;_Controller_Helper" in other modules.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis"><var class="filename">layouts/</var></em>: This layout directory is for <acronym class="acronym">MVC</acronym>-based layouts. Since <span class="classname">Zend_Layout</span> is capable of <acronym class="acronym">MVC</acronym>- and non-<acronym class="acronym">MVC</acronym>-based layouts, the location of this directory reflects that layouts are not on a 1-to-1 relationship with controllers and are independent of templates within <var class="filename">views/</var>.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis"><var class="filename">modules/</var></em>: Modules allow a developer to group a set of related controllers into a logically organized group. The structure under the modules directory would resemble the structure under the application directory.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis"><var class="filename">services/</var></em>: This directory is for your application specific web-service files that are provided by your application, or for implementing a <a href="http://www.martinfowler.com/eaaCatalog/serviceLayer.html" class="link external">&raquo; Service Layer</a> for your models.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis"><var class="filename">Bootstrap.php</var></em>: This file is the entry point for your application, and should implement <span class="classname">Zend_Application_Bootstrap_Bootstrapper</span>. The purpose for this file is to bootstrap the application and make components available to the application by initializing them.
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis"><var class="filename">data/</var></em>: This directory provides a place to store application data that is volatile and possibly temporary. The disturbance of data in this directory might cause the application to fail. Also, the information in this directory may or may not be committed to a subversion repository. Examples of things in this directory are session files, cache files, sqlite databases, logs and indexes.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis"><var class="filename">docs/</var></em>: This directory contains documentation, either generated or directly authored.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis"><var class="filename">library/</var></em>: This directory is for common libraries on which the application depends, and should be on the <acronym class="acronym">PHP</acronym> <span class="property">include_path</span>. Developers should place their application's library code under this directory in a unique namespace, following the guidelines established in the <acronym class="acronym">PHP</acronym> manual's <a href="http://www.php.net/manual/en/userlandnaming.php" class="link external">&raquo; Userland Naming Guide</a>, as well as those established by Zend itself. This directory may also include Zend Framework itself; if so, you would house it in <var class="filename">library/Zend/</var>.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis"><var class="filename">public/</var></em>: This directory contains all public files for your application. <var class="filename">index.php</var> sets up and invokes <span class="classname">Zend_Application</span>, which in turn invokes the <var class="filename">application/Bootstrap.php</var> file, resulting in dispatching the front controller. The web root of your web server would typically be set to this directory.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis"><var class="filename">scripts/</var></em>: This directory contains maintenance and/or build scripts. Such scripts might include command line, cron, or phing build scripts that are not executed at runtime but are part of the correct functioning of the application.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis"><var class="filename">temp/</var></em>: The <var class="filename">temp/</var> folder is set aside for transient application data. This information would not typically be committed to the applications svn repository. If data under the <var class="filename">temp/</var> directory were deleted, the application should be able to continue running with a possible decrease in performance until data is once again restored or recached.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis"><var class="filename">tests/</var></em>: This directory contains application tests. These could be hand-written, PHPUnit tests, Selenium-RC based tests or based on some other testing framework. By default, library code can be tested by mimicing the directory structure of your <var class="filename">library/</var> directory. Additionally, functional tests for your application could be written mimicing the <var class="filename">application/</var> directory structure (including the application subdirectory).
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="project-structure.overview.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="project-structure.filesystem.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="project-structure.html">Recommended Project Structure for Zend Framework MVC Applications</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="project-structure.overview.html">Overview</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="project-structure.project.html">Recommended Project Directory Structure</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="project-structure.filesystem.html">Module Structure</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="project-structure.rewrite.html">Rewrite Configuration Guide</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Resource Autoloading - Autoloading in Zend Framework &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="learning.autoloading.resources" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Resource Autoloading
+                    </h1>
+                </div>
+                <p class="para">
+                    Often, when developing an application, it's either difficult to package classes in the 1:1 classname:filename standard Zend Framework recommends, or it's advantageous for purposes of packaging not to do so. However, this means you class files will not be found by the autoloader.
+                </p>
+                <p class="para">
+                    If you read through <a href="learning.autoloading.design.html" class="link">the design goals</a> for the autoloader, the last point in that section indicated that the solution should cover this situation. Zend Framework does so with <span class="classname">Zend_Loader_Autoloader_Resource</span>.
+                </p>
+                <p class="para">
+                    A resource is just a name that corresponds to a component namespace (which is appended to the autoloader's namespace) and a path (which is relative to the autoloader's base path). In action, you'd do something like this:
+                </p>
+                <div class="programlisting php">
+                    <div class="phpcode">
+                        <div class="php" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$loader</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Application_Module_Autoloader<span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; <span style="color: #ff0000;">'namespace'</span> =&gt; <span style="color: #ff0000;">'Blog'</span>,
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; <span style="color: #ff0000;">'basePath'</span>&nbsp; =&gt; APPLICATION_PATH . <span style="color: #ff0000;">'/modules/blog'</span>,
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    Once you have the loader in place, you then need to inform it of the various resource types it's aware of. These resource types are simply pairs of subtree and prefix.
+                </p>
+                <p class="para">
+                    As an example, consider the following tree:
+                </p>
+                <div class="programlisting text">
+                    <div class="textcode">
+                        <div class="text" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        path/to/some/resources/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        |-- forms/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        |&nbsp; &nbsp;`-- Guestbook.php&nbsp; &nbsp; &nbsp; &nbsp; // Foo_Form_Guestbook
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        |-- models/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        |&nbsp; &nbsp;|-- DbTable/
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        |&nbsp; &nbsp;|&nbsp; &nbsp;`-- Guestbook.php&nbsp; &nbsp; // Foo_Model_DbTable_Guestbook
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        |&nbsp; &nbsp;|-- Guestbook.php&nbsp; &nbsp; &nbsp; &nbsp; // Foo_Model_Guestbook
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        |&nbsp; &nbsp;`-- GuestbookMapper.php&nbsp; // Foo_Model_GuestbookMapper
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    Our first step is creating the resource loader:
+                </p>
+                <div class="programlisting php">
+                    <div class="phpcode">
+                        <div class="php" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$loader</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Loader_Autoloader_Resource<span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; <span style="color: #ff0000;">'basePath'</span>&nbsp; =&gt; <span style="color: #ff0000;">'path/to/some/resources/'</span>,
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; <span style="color: #ff0000;">'namespace'</span> =&gt; <span style="color: #ff0000;">'Foo'</span>,
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    Next, we need to define some resource types. <span class="methodname">Zend_Loader_Autoloader_Resourse::addResourceType()</span> has three arguments: the "type" of resource (an arbitrary string), the path under the base path in which the resource type may be found, and the component prefix to use for the resource type. In the above tree, we have three resource types: form (in the subdirectory "forms", with a component prefix of "Form"), model (in the subdirectory "models", with a component prefix of "Model"), and dbtable (in the subdirectory "<var class="filename">models/DbTable</var>", with a component prefix of "<span class="classname">Model_DbTable</span>"). We'd define them as follows:
+                </p>
+                <div class="programlisting php">
+                    <div class="phpcode">
+                        <div class="php" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$loader</span>-&gt;<span style="color: #006600;">addResourceType</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'form'</span>, <span style="color: #ff0000;">'forms'</span>, <span style="color: #ff0000;">'Form'</span><span style="color: #66cc66;">)</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp;-&gt;<span style="color: #006600;">addResourceType</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'model'</span>, <span style="color: #ff0000;">'models'</span>, <span style="color: #ff0000;">'Model'</span><span style="color: #66cc66;">)</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp;-&gt;<span style="color: #006600;">addResourceType</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'dbtable'</span>, <span style="color: #ff0000;">'models/DbTable'</span>, <span style="color: #ff0000;">'Model_DbTable'</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    Once defined, we can simply use these classes:
+                </p>
+                <div class="programlisting php">
+                    <div class="phpcode">
+                        <div class="php" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$form</span>&nbsp; &nbsp; &nbsp; = <span style="color: #000000; font-weight: bold;">new</span> Foo_Form_Guestbook<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$guestbook</span> = <span style="color: #000000; font-weight: bold;">new</span> Foo_Model_Guestbook<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <blockquote>
+                    <p>
+                        <b class="note">Note</b>: <span class="info"><b>Module Resource Autoloading</b><br></span> Zend Framework's <acronym class="acronym">MVC</acronym> layer encourages the use of "modules", which are self-contained applications within your site. Modules typically have a number of resource types by default, and Zend Framework even <a href="project-structure.filesystem.html" class="link">recommends a standard directory layout for modules</a>. Resource autoloaders are therefore quite useful in this paradigm -- so useful that they are enabled by default when you create a bootstrap class for your module that extends <span class="classname">Zend_Application_Module_Bootstrap</span>. For more information, read the <a href="zend.loader.autoloader-resource.html#zend.loader.autoloader-resource.module" class="link">Zend_Loader_Autoloader_Module documentation</a>.<br>
+                    </p>
+                </blockquote>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="learning.autoloading.usage.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="learning.autoloading.conclusion.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="learning.autoloading.html">Autoloading in Zend Framework</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.autoloading.intro.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.autoloading.design.html">Goals and Design</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.autoloading.usage.html">Basic Autoloader Usage</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="learning.autoloading.resources.html">Resource Autoloading</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.autoloading.conclusion.html">Conclusion</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

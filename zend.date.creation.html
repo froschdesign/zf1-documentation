@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Creation of Dates - Zend_Date &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.date.creation" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Creation of Dates
+                    </h1>
+                </div>
+                <p class="para">
+                    <span class="classname">Zend_Date</span> provides several different ways to create a new instance of itself. As there are different needs the most convenient ways will be shown in this chapter.
+                </p>
+                <div class="section" id="zend.date.creation.actual">
+                    <div class="info">
+                        <h2>
+                            Create the Actual Date
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The simplest way of creating a date object is to create the actual date. You can either create a new instance with <strong class="command">new Zend_Date()</strong> or use the convenient static method <span class="methodname">Zend_Date::now()</span> which both will return the actual date as new instance of <span class="classname">Zend_Date</span>. The actual date always include the actual date and time for the actual set timezone.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #1 Date Creation by Instance</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Date creation by creating a new instance means that you do not need to give an parameter. Of course there are several parameters which will be described later but normally this is the simplest and most used way to get the actual date as <span class="classname">Zend_Date</span> instance.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$date</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Date<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #2 Static Date Creation</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Sometimes it is easier to use a static method for date creation. Therefor you can use the <em class="emphasis"><span class="methodname">now()</span></em> method. It returns a new instance of <span class="classname">Zend_Date</span> the same way as if you would use <strong class="command">new Zend_Date()</strong>. But it will always return the actual date and can not be changed by giving optional parameters.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$date</span> = Zend_Date::<span style="color: #006600;">now</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.date.creation.database">
+                    <div class="info">
+                        <h2>
+                            Create a Date from Database
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Databases are often used to store date values. But the problem is, that every database outputs its date values in a different way. <em class="emphasis">MsSQL</em> databases use a quite different standard date output than <em class="emphasis">MySQL</em> databases. But for simplification <span class="classname">Zend_Date</span> makes it very easy to create a date from database date values.
+                    </p>
+                    <p class="para">
+                        Of course each database can be said to convert the output of a defined column to a special value. For example you could convert a <em class="emphasis">datetime</em> value to output a minute value. But this is time expensive and often you are in need of handling dates in an other way than expected when creating the database query.
+                    </p>
+                    <p class="para">
+                        So we have one quick and one convenient way of creating dates from database values.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #3 Quick Creation of Dates from Database Date Values</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                All databases are known to handle queries as fast as possible. They are built to act and respond quick. The quickest way for handling dates is to get unix timestamps from the database. All databases store date values internal as timestamp (not unix timestamp). This means that the time for creating a timestamp through a query is much smaller than converting it to a specified format.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// SELECT UNIX_TIMESTAMP(my_datetime_column) FROM my_table</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$date</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Date<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$unixtimestamp</span>, Zend_Date::<span style="color: #006600;">TIMESTAMP</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #4 Convenient Creation of Dates from Database Date Values</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                The standard output of all databases is quite different even if it looks the same on the first eyecatch. But all are part of the <acronym class="acronym">ISO</acronym> Standard and explained through it. So the easiest way of date creation is the usage of <b><tt>Zend_Date::ISO_8601</tt></b>. Databases which are known to be recognised by <b><tt>Zend_Date::ISO_8601</tt></b> are <em class="emphasis">MySQL</em>, <em class="emphasis">MsSQL</em> for example. But all databases are also able to return a <acronym class="acronym">ISO-8601</acronym> representation of a date column. <acronym class="acronym">ISO-8601</acronym> has the big advantage that it is human readable. The disadvantage is that <acronym class="acronym">ISO-8601</acronym> needs more time for
+                                computation than a simple unix timestamp. But it should also be mentioned that unix timestamps are only supported for dates after 1 January 1970.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// SELECT datecolumn FROM my_table</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$date</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Date<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$datecolumn</span>, Zend_Date::<span style="color: #006600;">ISO_8601</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.date.creation.array">
+                    <div class="info">
+                        <h2>
+                            Create Dates from an Array
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Dates can also be created by the usage of an array. This is a simple and easy way. The used array keys are:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">day</em>: day of the date as number
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">month</em>: month of the date as number
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">year</em>: full year of the date
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">hour</em>: hour of the date
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">minute</em>: minute of the date
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">second</em>: second of the date
+                            </p>
+                        </li>
+                    </ul>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #5 Date Creation by Array</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Normally you will give a complete date array for creation of a new date instance. But when you do not give all values, the not given array values are zeroed. This means that if f.e. no hour is given the hour <em class="emphasis">0</em> is used.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$datearray</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'year'</span> =&gt; <span style="color: #cc66cc;">2006</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'month'</span> =&gt; <span style="color: #cc66cc;">4</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'day'</span> =&gt; <span style="color: #cc66cc;">18</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'hour'</span> =&gt; <span style="color: #cc66cc;">12</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'minute'</span> =&gt; <span style="color: #cc66cc;">3</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'second'</span> =&gt; <span style="color: #cc66cc;">10</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$date</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Date<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$datearray</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$datearray</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'year'</span> =&gt; <span style="color: #cc66cc;">2006</span>, <span style="color: #ff0000;">'month'</span> =&gt; <span style="color: #cc66cc;">4</span>, <span style="color: #ff0000;">'day'</span> =&gt; <span style="color: #cc66cc;">18</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$date</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Date<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$datearray</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.date.overview.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.date.constants.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.date.html">Zend_Date</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.date.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.date.definition.theory.html">Theory of Operation</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.date.basic.html">Basic Methods</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.date.overview.html">Zend_Date API Overview</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.date.creation.html">Creation of Dates</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.date.constants.html">Constants for General Date Functions</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.date.additional.html">Working Examples</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

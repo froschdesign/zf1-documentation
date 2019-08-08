@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Search_Lucene Introduction - Getting Started with Zend_Search_Lucene &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="learning.lucene.intro" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Search_Lucene Introduction
+                    </h1>
+                </div>
+                <p class="para">
+                    The <span class="classname">Zend_Search_Lucene</span> component is intended to provide a ready-for-use full-text search solution. It doesn't require any <acronym class="acronym">PHP</acronym> extensions<a href="#fnid1" name="fn1" id="fn1"><sup>[1]</sup></a><acronym class="acronym">UTF-8</acronym><em class="emphasis">mbstring</em> or additional software to be installed, and can be used immediately after Zend Framework installation.
+                </p>
+                <p class="para">
+                    <span class="classname">Zend_Search_Lucene</span> is a pure <acronym class="acronym">PHP</acronym> port of the popular open source full-text search engine known as Apache Lucene. See <a href="http://lucene.apache.org" class="link external">&raquo; http://lucene.apache.org/</a> for the details.
+                </p>
+                <p class="para">
+                    Information must be indexed to be available for searching. <span class="classname">Zend_Search_Lucene</span> and Java Lucene use a document concept known as an "atomic indexing item."
+                </p>
+                <p class="para">
+                    Each document is a set of fields: &lt;name, value&gt; pairs where name and value are <acronym class="acronym">UTF-8</acronym> strings<a href="#fnid2" name="fn2" id="fn2"><sup>[2]</sup></a>. Any subset of the document fields may be marked as "indexed" to include field data in the text indexing process.
+                </p>
+                <p class="para">
+                    Field values may or may not be tokenized while indexing. If a field is not tokenized, then the field value is stored as one term; otherwise, the current analyzer is used for tokenization.
+                </p>
+                <p class="para">
+                    Several analyzers are provided within the <span class="classname">Zend_Search_Lucene</span> package. The default analyzer works with <acronym class="acronym">ASCII</acronym> text (since the <acronym class="acronym">UTF-8</acronym> analyzer needs the <em class="emphasis">mbstring</em> extension to be turned on). It is case insensitive, and it skips numbers. Use other analyzers or create your own analyzer if you need to change this behavior.
+                </p>
+                <blockquote>
+                    <p>
+                        <b class="note">Note</b>: <span class="info"><b>Using analyzers during indexing and searching</b><br></span> Important note! Search queries are also tokenized using the "current analyzer", so the same analyzer must be set as the default during both the indexing and searching process. This will guarantee that source and searched text will be transformed into terms in the same way.<br>
+                    </p>
+                </blockquote>
+                <p class="para">
+                    Field values are optionally stored within an index. This allows the original field data to be retrieved from the index while searching. This is the only way to associate search results with the original data (internal document IDs may be changed after index optimization or auto-optimization).
+                </p>
+                <p class="para">
+                    The thing that should be remembered is that a Lucene index is not a database. It doesn't provide index backup mechanisms except backup of the file system directory. It doesn't provide transactional mechanisms though concurrent index update as well as concurrent update and read are supported. It doesn't compare with databases in data retrieving speed.
+                </p>
+                <p class="para">
+                    So it's good idea:
+                </p>
+                <ul class="itemizedlist">
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Not</em> to use Lucene index as a storage since it may dramatically decrease search hit retrieving performance. Store only unique document identifiers (doc paths, <acronym class="acronym">URL</acronym>s, database unique IDs) and associated data within an index. E.g. title, annotation, category, language info, avatar. (Note: a field may be included in indexing, but not stored, or stored, but not indexed).
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            To write functionality that can rebuild an index completely if it's corrupted for any reason.
+                        </p>
+                    </li>
+                </ul>
+                <p class="para">
+                    Individual documents in the index may have completely different sets of fields. The same fields in different documents don't need to have the same attributes. E.g. a field may be indexed for one document and skipped from indexing for another. The same applies for storing, tokenizing, or treating field value as a binary string.
+                </p>
+                <div class="footnote">
+                    <a name="fnid1" href="#fn1" id="fnid1"><sup>[1]</sup></a><span class="para footnote">Though some processing functionality requires the extension to be turned on</span>
+                </div>
+                <div class="footnote">
+                    <a name="fnid2" href="#fn2" id="fnid2"><sup>[2]</sup></a><span class="para footnote">Binary strings are also allowed to be used as field values</span>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="learning.lucene.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="learning.lucene.index-structure.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="learning.lucene.html">Getting Started with Zend_Search_Lucene</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="learning.lucene.intro.html">Zend_Search_Lucene Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.lucene.index-structure.html">Lucene Index Structure</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.lucene.index-opening.html">Index Opening and Creation</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.lucene.indexing.html">Indexing</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.lucene.searching.html">Searching</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.lucene.queries.html">Supported queries</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.lucene.pagination.html">Search result pagination</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

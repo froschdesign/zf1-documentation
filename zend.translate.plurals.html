@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Plural notations for Translation - Zend_Translate &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.translate.plurals" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Plural notations for Translation
+                    </h1>
+                </div>
+                <p class="para">
+                    As of Zend Framework 1.9, <span class="classname">Zend_Translate</span> is able to provide plural support. Professional translation will always have the need to use plurals as they are native in almost all languages.
+                </p>
+                <p class="para">
+                    So what are plurals? Generally spoken plurals are words which take into account numeric meanings. But as you may imagine each language has it's own definition of plurals. English, for example, supports one plural. We have a singular definition, for example "car", which means implicit one car, and we have the plural definition, "cars" which could mean more than one car but also zero cars. Other languages like Russian or Polish have more plurals and also the rules for plurals are different.
+                </p>
+                <p class="para">
+                    When you want to use plurals with <span class="classname">Zend_Translate</span> you must not need to know how the plurals are defined, only the translator must know as he does the translation. The only information you need to have is the language.
+                </p>
+                <p class="para">
+                    There are two ways for using plurals... the traditional one, which means that you use a own method, and a modern one, which allows you to do plural translations with the same method as normal translations.
+                </p>
+                <div class="section" id="zend.translate.plurals.traditional">
+                    <div class="info">
+                        <h2>
+                            Traditional plural translations
+                        </h2>
+                    </div>
+                    <p class="para">
+                        People who worked with gettext in past will be more common with traditional plural translations. There is a own <span class="methodname">plural()</span> method which can be used for plural translations.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #1 Example of traditional plural translations</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                The <span class="methodname">plural()</span> method accepts 4 parameters. The first parameter is the singular messageId, the second is the plural messageId and the third is the number or amount.
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                The number will be used to detect the plural which has to be returned. A optional fourth parameter can be used to give a locale which will be used to return the translation.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$translate</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Translate<span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'adapter'</span> =&gt; <span style="color: #ff0000;">'gettext'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'content'</span> =&gt; <span style="color: #ff0000;">'/path/to/german.mo'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'locale'</span>&nbsp; =&gt; <span style="color: #ff0000;">'de'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$translate</span>-&gt;<span style="color: #006600;">plural</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Car'</span>, <span style="color: #ff0000;">'Cars'</span>, <span style="color: #0000ff;">$number</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.translate.plurals.modern">
+                    <div class="info">
+                        <h2>
+                            Modern plural translations
+                        </h2>
+                    </div>
+                    <p class="para">
+                        As traditional plural translations are restricted to source code using English plurals we added a new way for plural translations. It allows to use the same <span class="methodname">translate()</span> for standard and for plural translations.
+                    </p>
+                    <p class="para">
+                        To use plural translations with <span class="methodname">translate()</span> you need to give an array as messageId instead of an string. This array must have the original plural messageId's, then the amount and at last an optional locale when your given messageId's are not in English notation.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #2 Example of modern plural translations</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                When we want to translate the same plural definitions like in the previous our example would have to be defined like below.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$translate</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Translate<span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'adapter'</span> =&gt; <span style="color: #ff0000;">'gettext'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'content'</span> =&gt; <span style="color: #ff0000;">'/path/to/german.mo'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'locale'</span>&nbsp; =&gt; <span style="color: #ff0000;">'de'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$translate</span>-&gt;<span style="color: #006600;">translate</span><span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Car'</span>, <span style="color: #ff0000;">'Cars'</span>, <span style="color: #0000ff;">$number</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Using modern plural translations it is also possible to use any language as source for messageId's.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #3 Example of modern plural translations using a different source language</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Let's expect we want to use Russian and let's also expect that the given messageId's are Russian and not English.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$translate</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Translate<span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'adapter'</span> =&gt; <span style="color: #ff0000;">'gettext'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'content'</span> =&gt; <span style="color: #ff0000;">'/path/to/german.mo'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'locale'</span>&nbsp; =&gt; <span style="color: #ff0000;">'de'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$translate</span>-&gt;<span style="color: #006600;">translate</span><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'Car'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'Cars first plural'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'Cars second plural'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$number</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'ru'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        As you can see you can give more than just the one English plural. But you must give the source language in this case so <span class="classname">Zend_Translate</span> knows which plural rules it has to apply.
+                    </p>
+                    <p class="para">
+                        When you omit the plural language then English will be used per default and any additional plural definition will be ignored.
+                    </p>
+                </div>
+                <div class="section" id="zend.translate.plurals.source">
+                    <div class="info">
+                        <h2>
+                            Plural source files
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Not all source formats support plural forms. Look into this list for details:
+                    </p>
+                    <div class="info"></div>
+                    <table class="doctable table">
+                        <caption>
+                            <b>Plural support</b>
+                        </caption>
+                        <thead valign="middle">
+                            <tr valign="middle">
+                                <th>
+                                    Adapter
+                                </th>
+                                <th>
+                                    Plurals supported
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody valign="middle" class="tbody">
+                            <tr valign="middle">
+                                <td align="left">
+                                    Array
+                                </td>
+                                <td align="left">
+                                    <em class="emphasis">yes</em>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    Csv
+                                </td>
+                                <td align="left">
+                                    <em class="emphasis">yes</em>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    Gettext
+                                </td>
+                                <td align="left">
+                                    <em class="emphasis">yes</em>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    Ini
+                                </td>
+                                <td align="left">
+                                    <em class="emphasis">no</em>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    Qt
+                                </td>
+                                <td align="left">
+                                    <em class="emphasis">no</em>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    Tbx
+                                </td>
+                                <td align="left">
+                                    <em class="emphasis">no</em>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    Tmx
+                                </td>
+                                <td align="left">
+                                    <em class="emphasis">no</em>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    Xliff
+                                </td>
+                                <td align="left">
+                                    <em class="emphasis">no</em>
+                                </td>
+                            </tr>
+                            <tr valign="middle">
+                                <td align="left">
+                                    XmlTm
+                                </td>
+                                <td align="left">
+                                    <em class="emphasis">no</em>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="para">
+                        Below you can find examples of plural defined source files.
+                    </p>
+                    <div class="section" id="zend.translate.plurals.source.array">
+                        <div class="info">
+                            <h2>
+                                Array source with plural definitions
+                            </h2>
+                        </div>
+                        <p class="para">
+                            An array with plural definitions has to look like the following example.
+                        </p>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'plural_0'</span> =&gt; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'plural_0 (ru)'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'plural_1 (ru)'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'plural_2 (ru)'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'plural_3 (ru)'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">)</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'plural_1'</span> =&gt; <span style="color: #ff0000;">''</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            In the above example 'plural_0' and 'plural_1' are the plural definitions from the source code. And the array at 'plural_0' has all translated plural forms available. Take a look at the following example with real content and translation from English source to German.
+                        </p>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'Car'</span> =&gt; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'Auto'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'Autos'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">)</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'Cars'</span> =&gt; <span style="color: #ff0000;">''</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            When your translated language supports more plural forms then simply add them to the array below the first plural form. When your source language supports more plural forms, than simply add a new empty translation.
+                        </p>
+                    </div>
+                    <div class="section" id="zend.translate.plurals.source.csv">
+                        <div class="info">
+                            <h2>
+                                Csv source with plural definitions
+                            </h2>
+                        </div>
+                        <p class="para">
+                            A csv file with plural definitions has to look like the following example.
+                        </p>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #ff0000;">"plural_0"</span>;<span style="color: #ff0000;">"plural_0 (ru)"</span>;<span style="color: #ff0000;">"plural_1 (ru)"</span>;<span style="color: #ff0000;">"plural_2 (ru)"</span>;<span style="color: #ff0000;">"plural_3 (ru)"</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #ff0000;">"plural_1"</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            All translated plural forms have to be added after the first plural of the source language. And all further plural forms of the source language have to be added below but without translation. Note that you must add a delimiter to empty source plurals.
+                        </p>
+                    </div>
+                    <div class="section" id="zend.translate.plurals.source.gettext">
+                        <div class="info">
+                            <h2>
+                                Gettext source with plural definitions
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Gettext sources support plural forms out of the box. There is no need for adoption as the <var class="filename">*.mo</var> file will contain all necessary data.
+                        </p>
+                        <blockquote>
+                            <p>
+                                <b class="note">Note</b>: Note that gettext does not support the usage of source languages which are not using english plural forms. When you plan to use a source language which supports other plural forms like russian for example, then you can not use gettext sources.<br>
+                            </p>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="section" id="zend.translate.plurals.customrules">
+                    <div class="info">
+                        <h2>
+                            Custom plural rules
+                        </h2>
+                    </div>
+                    <p class="para">
+                        In rare cases it could be useful to be able to define own plural rules. See Chinese for example. This language defines two plural rules. Per default it does not use plurals. But in rare cases it uses a rule like <em class="emphasis">(number == 1) ? 0 : 1</em>.
+                    </p>
+                    <p class="para">
+                        Also when you want to use a language which has no known plural rules, and would want to define your own rules.
+                    </p>
+                    <p class="para">
+                        This can be done by using <span class="methodname">Zend_Translate_Plural::setRule()</span>. The method expects two parameters which must be given. A rule, which is simply a callback to a self defined method. And a locale for which the rule will be used.
+                    </p>
+                    <p class="para">
+                        Your rule could look like this:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> MyRule<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$number</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #b1b100;">return</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$number</span> == <span style="color: #cc66cc;">10</span><span style="color: #66cc66;">)</span> ? <span style="color: #cc66cc;">0</span> : <span style="color: #cc66cc;">1</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        As you see, your rule must accept one parameter. It is the number which you will use to return which plural the translation has to use. In our example we defined that when we get a '10' the plural definition 0 has to be used, in all other cases we're using 1.
+                    </p>
+                    <p class="para">
+                        Your rules can be as simple or as complicated as you want. You must only return an integer value. The plural definition 0 stands for singular translation, and 1 stands for the first plural rule.
+                    </p>
+                    <p class="para">
+                        To activate your rule, and to link it to the wished locale, you have to call it like this:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            Zend_Translate_Plural::<span style="color: #006600;">setPlural</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'MyPlural'</span>, <span style="color: #ff0000;">'zh'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Now we linked our plural definition to the Chinese language.
+                    </p>
+                    <p class="para">
+                        You can define one plural rule for every language. But you should be aware that you set the plural rules before you are doing translations.
+                    </p>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: <span class="info"><b>Define custom plurals only when needed</b><br></span> <span class="classname">Zend_Translate</span> defines plurals for most known languages. You should not define own plurals when you are not in need. The default rules work most of time.<br>
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.translate.additional.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.uri.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.translate.html">Zend_Translate</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.adapter.html">Adapters for Zend_Translate</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.using.html">Using Translation Adapters</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.sourcecreation.html">Creating source files</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.additional.html">Additional features for translation</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.translate.plurals.html">Plural notations for Translation</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

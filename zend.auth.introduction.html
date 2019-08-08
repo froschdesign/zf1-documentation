@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Introduction - Zend_Auth &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.auth.introduction" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Introduction
+                    </h1>
+                </div>
+                <p class="para">
+                    <span class="classname">Zend_Auth</span> provides an <acronym class="acronym">API</acronym> for authentication and includes concrete authentication adapters for common use case scenarios.
+                </p>
+                <p class="para">
+                    <span class="classname">Zend_Auth</span> is concerned only with <em class="emphasis">authentication</em> and not with <em class="emphasis">authorization</em>. Authentication is loosely defined as determining whether an entity actually is what it purports to be (i.e., identification), based on some set of credentials. Authorization, the process of deciding whether to allow an entity access to, or to perform operations upon, other entities is outside the scope of <span class="classname">Zend_Auth</span>. For more information about authorization and access control with Zend Framework, please see <a href="zend.acl.html" class="link"><span class="classname">Zend_Acl</span></a>.
+                </p>
+                <blockquote>
+                    <p>
+                        <b class="note">Note</b>: The <span class="classname">Zend_Auth</span> class implements the Singleton pattern - only one instance of the class is available - through its static <span class="methodname">getInstance()</span> method. This means that using the <em class="emphasis">new</em> operator and the <em class="emphasis">clone</em> keyword will not work with the <span class="classname">Zend_Auth</span> class; use <span class="methodname">Zend_Auth::getInstance()</span> instead.<br>
+                    </p>
+                </blockquote>
+                <div class="section" id="zend.auth.introduction.adapters">
+                    <div class="info">
+                        <h2>
+                            Adapters
+                        </h2>
+                    </div>
+                    <p class="para">
+                        A <span class="classname">Zend_Auth</span> adapter is used to authenticate against a particular type of authentication service, such as <acronym class="acronym">LDAP</acronym>, <acronym class="acronym">RDBMS</acronym>, or file-based storage. Different adapters are likely to have vastly different options and behaviors, but some basic things are common among authentication adapters. For example, accepting authentication credentials (including a purported identity), performing queries against the authentication service, and returning results are common to <span class="classname">Zend_Auth</span> adapters.
+                    </p>
+                    <p class="para">
+                        Each <span class="classname">Zend_Auth</span> adapter class implements <span class="classname">Zend_Auth_Adapter_Interface</span>. This interface defines one method, <span class="methodname">authenticate()</span>, that an adapter class must implement for performing an authentication query. Each adapter class must be prepared prior to calling <span class="methodname">authenticate()</span>. Such adapter preparation includes setting up credentials (e.g., username and password) and defining values for adapter-specific configuration options, such as database connection settings for a database table adapter.
+                    </p>
+                    <p class="para">
+                        The following is an example authentication adapter that requires a username and password to be set for authentication. Other details, such as how the authentication service is queried, have been omitted for brevity:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #000000; font-weight: bold;">class</span> MyAuthAdapter implements Zend_Auth_Adapter_Interface
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/**</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* Sets username and password for authentication</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* @return void</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*/</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> __construct<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$username</span>, <span style="color: #0000ff;">$password</span><span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// ...</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/**</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* Performs an authentication attempt</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* @throws Zend_Auth_Adapter_Exception If authentication cannot</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;be performed</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* @return Zend_Auth_Result</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*/</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> authenticate<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// ...</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        As indicated in its docblock, <span class="methodname">authenticate()</span> must return an instance of <span class="classname">Zend_Auth_Result</span> (or of a class derived from <span class="classname">Zend_Auth_Result</span>). If for some reason performing an authentication query is impossible, <span class="methodname">authenticate()</span> should throw an exception that derives from <span class="classname">Zend_Auth_Adapter_Exception</span>.
+                    </p>
+                </div>
+                <div class="section" id="zend.auth.introduction.results">
+                    <div class="info">
+                        <h2>
+                            Results
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Auth</span> adapters return an instance of <span class="classname">Zend_Auth_Result</span> with <span class="methodname">authenticate()</span> in order to represent the results of an authentication attempt. Adapters populate the <span class="classname">Zend_Auth_Result</span> object upon construction, so that the following four methods provide a basic set of user-facing operations that are common to the results of <span class="classname">Zend_Auth</span> adapters:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">isValid()</span> - returns <b><tt>TRUE</tt></b> if and only if the result represents a successful authentication attempt
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getCode()</span> - returns a <span class="classname">Zend_Auth_Result</span> constant identifier for determining the type of authentication failure or whether success has occurred. This may be used in situations where the developer wishes to distinguish among several authentication result types. This allows developers to maintain detailed authentication result statistics, for example. Another use of this feature is to provide specific, customized messages to users for usability reasons, though developers are encouraged to consider the risks of providing such detailed reasons to users, instead of a general authentication failure message. For more information, see the notes below.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getIdentity()</span> - returns the identity of the authentication attempt
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getMessages()</span> - returns an array of messages regarding a failed authentication attempt
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        A developer may wish to branch based on the type of authentication result in order to perform more specific operations. Some operations developers might find useful are locking accounts after too many unsuccessful password attempts, flagging an IP address after too many nonexistent identities are attempted, and providing specific, customized authentication result messages to the user. The following result codes are available:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            Zend_Auth_Result::<span style="color: #006600;">SUCCESS</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            Zend_Auth_Result::<span style="color: #006600;">FAILURE</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            Zend_Auth_Result::<span style="color: #006600;">FAILURE_IDENTITY_NOT_FOUND</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            Zend_Auth_Result::<span style="color: #006600;">FAILURE_IDENTITY_AMBIGUOUS</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            Zend_Auth_Result::<span style="color: #006600;">FAILURE_CREDENTIAL_INVALID</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            Zend_Auth_Result::<span style="color: #006600;">FAILURE_UNCATEGORIZED</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        The following example illustrates how a developer may branch on the result code:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// inside of AuthController / loginAction</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$result</span> = <span style="color: #0000ff;">$this</span>-&gt;_auth-&gt;<span style="color: #006600;">authenticate</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$adapter</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">switch</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$result</span>-&gt;<span style="color: #006600;">getCode</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #b1b100;">case</span> Zend_Auth_Result::<span style="color: #006600;">FAILURE_IDENTITY_NOT_FOUND</span>:
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/** do stuff for nonexistent identity **/</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">break</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #b1b100;">case</span> Zend_Auth_Result::<span style="color: #006600;">FAILURE_CREDENTIAL_INVALID</span>:
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/** do stuff for invalid credential **/</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">break</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #b1b100;">case</span> Zend_Auth_Result::<span style="color: #006600;">SUCCESS</span>:
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/** do stuff for successful authentication **/</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">break</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">default</span>:
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/** do stuff for other failure **/</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">break</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.auth.introduction.persistence">
+                    <div class="info">
+                        <h2>
+                            Identity Persistence
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Authenticating a request that includes authentication credentials is useful per se, but it is also important to support maintaining the authenticated identity without having to present the authentication credentials with each request.
+                    </p>
+                    <p class="para">
+                        <acronym class="acronym">HTTP</acronym> is a stateless protocol, however, and techniques such as cookies and sessions have been developed in order to facilitate maintaining state across multiple requests in server-side web applications.
+                    </p>
+                    <div class="section" id="zend.auth.introduction.persistence.default">
+                        <div class="info">
+                            <h2>
+                                Default Persistence in the PHP Session
+                            </h2>
+                        </div>
+                        <p class="para">
+                            By default, <span class="classname">Zend_Auth</span> provides persistent storage of the identity from a successful authentication attempt using the <acronym class="acronym">PHP</acronym> session. Upon a successful authentication attempt, <span class="methodname">Zend_Auth::authenticate()</span> stores the identity from the authentication result into persistent storage. Unless configured otherwise, <span class="classname">Zend_Auth</span> uses a storage class named <span class="classname">Zend_Auth_Storage_Session</span>, which, in turn, uses <a href="zend.session.html" class="link"><span class="classname">Zend_Session</span></a>. A custom class may instead be used by providing an object that implements <span class="classname">Zend_Auth_Storage_Interface</span>
+                            to <span class="methodname">Zend_Auth::setStorage()</span>.
+                        </p>
+                        <blockquote>
+                            <p>
+                                <b class="note">Note</b>: If automatic persistent storage of the identity is not appropriate for a particular use case, then developers may forgot using the <span class="classname">Zend_Auth</span> class altogether, instead using an adapter class directly.<br>
+                            </p>
+                        </blockquote>
+                        <div class="example">
+                            <div class="info">
+                                <p>
+                                    <b>Example #1 Modifying the Session Namespace</b>
+                                </p>
+                            </div>
+                            <div class="example-contents">
+                                <p>
+                                    <span class="classname">Zend_Auth_Storage_Session</span> uses a session namespace of '<span class="classname">Zend_Auth</span>'. This namespace may be overridden by passing a different value to the constructor of <span class="classname">Zend_Auth_Storage_Session</span>, and this value is internally passed along to the constructor of <span class="classname">Zend_Session_Namespace</span>. This should occur before authentication is attempted, since <span class="methodname">Zend_Auth::authenticate()</span> performs the automatic storage of the identity.
+                                </p>
+                            </div>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// Save a reference to the Singleton instance of Zend_Auth</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$auth</span> = Zend_Auth::<span style="color: #006600;">getInstance</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// Use 'someNamespace' instead of 'Zend_Auth'</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$auth</span>-&gt;<span style="color: #006600;">setStorage</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">new</span> Zend_Auth_Storage_Session<span style="color: #66cc66;">(</span><span style="color: #ff0000;">'someNamespace'</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">/**</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">* @todo Set up the auth adapter, $authAdapter</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">*/</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// Authenticate, saving the result, and persisting the identity on</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// success</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$result</span> = <span style="color: #0000ff;">$auth</span>-&gt;<span style="color: #006600;">authenticate</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$authAdapter</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section" id="zend.auth.introduction.persistence.custom">
+                        <div class="info">
+                            <h2>
+                                Implementing Customized Storage
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Sometimes developers may need to use a different identity storage mechanism than that provided by <span class="classname">Zend_Auth_Storage_Session</span>. For such cases developers may simply implement <span class="classname">Zend_Auth_Storage_Interface</span> and supply an instance of the class to <span class="methodname">Zend_Auth::setStorage()</span>.
+                        </p>
+                        <div class="example">
+                            <div class="info">
+                                <p>
+                                    <b>Example #2 Using a Custom Storage Class</b>
+                                </p>
+                            </div>
+                            <div class="example-contents">
+                                <p>
+                                    In order to use an identity persistence storage class other than <span class="classname">Zend_Auth_Storage_Session</span>, a developer implements <span class="classname">Zend_Auth_Storage_Interface</span>:
+                                </p>
+                            </div>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #000000; font-weight: bold;">class</span> MyStorage implements Zend_Auth_Storage_Interface
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #66cc66;">{</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/**</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* Returns true if and only if storage is empty</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* @throws Zend_Auth_Storage_Exception If it is impossible to</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;determine whether storage</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;is empty</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* @return boolean</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*/</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> isEmpty<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/**</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;* @todo implementation</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*/</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/**</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* Returns the contents of storage</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* Behavior is undefined when storage is empty.</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* @throws Zend_Auth_Storage_Exception If reading contents from</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;storage is impossible</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* @return mixed</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*/</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> read<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/**</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;* @todo implementation</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*/</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/**</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* Writes $contents to storage</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* @param&nbsp; mixed $contents</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* @throws Zend_Auth_Storage_Exception If writing $contents to</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;storage is impossible</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* @return void</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*/</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> write<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$contents</span><span style="color: #66cc66;">)</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/**</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;* @todo implementation</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*/</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/**</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* Clears contents from storage</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* @throws Zend_Auth_Storage_Exception If clearing contents from</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;storage is impossible</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* @return void</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*/</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> clear<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/**</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;* @todo implementation</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*/</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #66cc66;">}</span>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="example-contents">
+                                <p>
+                                    In order to use this custom storage class, <span class="methodname">Zend_Auth::setStorage()</span> is invoked before an authentication query is attempted:
+                                </p>
+                            </div>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// Instruct Zend_Auth to use the custom storage class</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    Zend_Auth::<span style="color: #006600;">getInstance</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>-&gt;<span style="color: #006600;">setStorage</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">new</span> MyStorage<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">/**</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">* @todo Set up the auth adapter, $authAdapter</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">*/</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// Authenticate, saving the result, and persisting the identity on</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// success</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$result</span> = Zend_Auth::<span style="color: #006600;">getInstance</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>-&gt;<span style="color: #006600;">authenticate</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$authAdapter</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.auth.introduction.using">
+                    <div class="info">
+                        <h2>
+                            Usage
+                        </h2>
+                    </div>
+                    <p class="para">
+                        There are two provided ways to use <span class="classname">Zend_Auth</span> adapters:
+                    </p>
+                    <ol type="1">
+                        <li class="listitem">
+                            <p class="para">
+                                indirectly, through <span class="methodname">Zend_Auth::authenticate()</span>
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                directly, through the adapter's <span class="methodname">authenticate()</span> method
+                            </p>
+                        </li>
+                    </ol>
+                    <p class="para">
+                        The following example illustrates how to use a <span class="classname">Zend_Auth</span> adapter indirectly, through the use of the <span class="classname">Zend_Auth</span> class:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Get a reference to the singleton instance of Zend_Auth</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$auth</span> = Zend_Auth::<span style="color: #006600;">getInstance</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Set up the authentication adapter</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$authAdapter</span> = <span style="color: #000000; font-weight: bold;">new</span> MyAuthAdapter<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$username</span>, <span style="color: #0000ff;">$password</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Attempt authentication, saving the result</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$result</span> = <span style="color: #0000ff;">$auth</span>-&gt;<span style="color: #006600;">authenticate</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$authAdapter</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$result</span>-&gt;<span style="color: #006600;">isValid</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// Authentication failed; print the reasons why</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #b1b100;">foreach</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$result</span>-&gt;<span style="color: #006600;">getMessages</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span> <span style="color: #b1b100;">as</span> <span style="color: #0000ff;">$message</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"$message<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span> <span style="color: #b1b100;">else</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// Authentication succeeded; the identity ($username) is stored</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// in the session</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// $result-&gt;getIdentity() === $auth-&gt;getIdentity()</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// $result-&gt;getIdentity() === $username</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Once authentication has been attempted in a request, as in the above example, it is a simple matter to check whether a successfully authenticated identity exists:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$auth</span> = Zend_Auth::<span style="color: #006600;">getInstance</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$auth</span>-&gt;<span style="color: #006600;">hasIdentity</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// Identity exists; get it</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #0000ff;">$identity</span> = <span style="color: #0000ff;">$auth</span>-&gt;<span style="color: #006600;">getIdentity</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        To remove an identity from persistent storage, simply use the <span class="methodname">clearIdentity()</span> method. This typically would be used for implementing an application "logout" operation:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            Zend_Auth::<span style="color: #006600;">getInstance</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>-&gt;<span style="color: #006600;">clearIdentity</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        When the automatic use of persistent storage is inappropriate for a particular use case, a developer may simply bypass the use of the <span class="classname">Zend_Auth</span> class, using an adapter class directly. Direct use of an adapter class involves configuring and preparing an adapter object and then calling its <span class="methodname">authenticate()</span> method. Adapter-specific details are discussed in the documentation for each adapter. The following example directly utilizes <span class="classname">MyAuthAdapter</span>:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Set up the authentication adapter</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$authAdapter</span> = <span style="color: #000000; font-weight: bold;">new</span> MyAuthAdapter<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$username</span>, <span style="color: #0000ff;">$password</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Attempt authentication, saving the result</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$result</span> = <span style="color: #0000ff;">$authAdapter</span>-&gt;<span style="color: #006600;">authenticate</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$result</span>-&gt;<span style="color: #006600;">isValid</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// Authentication failed; print the reasons why</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #b1b100;">foreach</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$result</span>-&gt;<span style="color: #006600;">getMessages</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span> <span style="color: #b1b100;">as</span> <span style="color: #0000ff;">$message</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"$message<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span> <span style="color: #b1b100;">else</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// Authentication succeeded</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// $result-&gt;getIdentity() === $username</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.auth.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.auth.adapter.dbtable.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.auth.html">Zend_Auth</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.auth.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.auth.adapter.dbtable.html">Database Table Authentication</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.auth.adapter.digest.html">Digest Authentication</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.auth.adapter.http.html">HTTP Authentication Adapter</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.auth.adapter.ldap.html">LDAP Authentication</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.auth.adapter.openid.html">Open ID Authentication</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

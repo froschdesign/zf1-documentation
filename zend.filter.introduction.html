@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Introduction - Zend_Filter &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.filter.introduction" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Introduction
+                    </h1>
+                </div>
+                <p class="para">
+                    The <span class="classname">Zend_Filter</span> component provides a set of commonly needed data filters. It also provides a simple filter chaining mechanism by which multiple filters may be applied to a single datum in a user-defined order.
+                </p>
+                <div class="section" id="zend.filter.introduction.definition">
+                    <div class="info">
+                        <h2>
+                            What is a filter?
+                        </h2>
+                    </div>
+                    <p class="para">
+                        In the physical world, a filter is typically used for removing unwanted portions of input, and the desired portion of the input passes through as filter output (e.g., coffee). In such scenarios, a filter is an operator that produces a subset of the input. This type of filtering is useful for web applications - removing illegal input, trimming unnecessary white space, etc.
+                    </p>
+                    <p class="para">
+                        This basic definition of a filter may be extended to include generalized transformations upon input. A common transformation applied in web applications is the escaping of <acronym class="acronym">HTML</acronym> entities. For example, if a form field is automatically populated with untrusted input (e.g., from a web browser), this value should either be free of <acronym class="acronym">HTML</acronym> entities or contain only escaped <acronym class="acronym">HTML</acronym> entities, in order to prevent undesired behavior and security vulnerabilities. To meet this requirement, <acronym class="acronym">HTML</acronym> entities that appear in the input must either be removed or escaped. Of course, which approach is more appropriate depends on the situation. A filter that
+                        removes the <acronym class="acronym">HTML</acronym> entities operates within the scope of the first definition of filter - an operator that produces a subset of the input. A filter that escapes the <acronym class="acronym">HTML</acronym> entities, however, transforms the input (e.g., "&amp;" is transformed to "&amp;amp;"). Supporting such use cases for web developers is important, and "to filter," in the context of using <span class="classname">Zend_Filter</span>, means to perform some transformations upon input data.
+                    </p>
+                </div>
+                <div class="section" id="zend.filter.introduction.using">
+                    <div class="info">
+                        <h2>
+                            Basic usage of filters
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Having this filter definition established provides the foundation for <span class="classname">Zend_Filter_Interface</span>, which requires a single method named <span class="methodname">filter()</span> to be implemented by a filter class.
+                    </p>
+                    <p class="para">
+                        Following is a basic example of using a filter upon two input data, the ampersand (<em class="emphasis">&amp;</em>) and double quote (<em class="emphasis">"</em>) characters:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$htmlEntities</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Filter_HtmlEntities<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$htmlEntities</span>-&gt;<span style="color: #006600;">filter</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'&amp;'</span><span style="color: #66cc66;">)</span>; <span style="color: #808080; font-style: italic;">// &amp;amp;</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$htmlEntities</span>-&gt;<span style="color: #006600;">filter</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'"'</span><span style="color: #66cc66;">)</span>; <span style="color: #808080; font-style: italic;">// &amp;quot;</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.filter.introduction.static">
+                    <div class="info">
+                        <h2>
+                            Using the static staticFilter() method
+                        </h2>
+                    </div>
+                    <p class="para">
+                        If it is inconvenient to load a given filter class and create an instance of the filter, you can use the static method <span class="methodname">Zend_Filter::filterStatic()</span> as an alternative invocation style. The first argument of this method is a data input value, that you would pass to the <span class="methodname">filter()</span> method. The second argument is a string, which corresponds to the basename of the filter class, relative to the <span class="classname">Zend_Filter</span> namespace. The <span class="methodname">staticFilter()</span> method automatically loads the class, creates an instance, and applies the <span class="methodname">filter()</span> method to the data input.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> Zend_Filter::<span style="color: #006600;">filterStatic</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'&amp;'</span>, <span style="color: #ff0000;">'HtmlEntities'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        You can also pass an array of constructor arguments, if they are needed for the filter class.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> Zend_Filter::<span style="color: #006600;">filterStatic</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'"'</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">'HtmlEntities'</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'quotestyle'</span> =&gt; ENT_QUOTES<span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        The static usage can be convenient for invoking a filter ad hoc, but if you have the need to run a filter for multiple inputs, it's more efficient to follow the first example above, creating an instance of the filter object and calling its <span class="methodname">filter()</span> method.
+                    </p>
+                    <p class="para">
+                        Also, the <span class="classname">Zend_Filter_Input</span> class allows you to instantiate and run multiple filter and validator classes on demand to process sets of input data. See <a href="zend.filter.input.html" class="link">Zend_Filter_Input</a>.
+                    </p>
+                    <div class="section" id="zend.filter.introduction.static.namespaces">
+                        <div class="info">
+                            <h2>
+                                Namespaces
+                            </h2>
+                        </div>
+                        <p class="para">
+                            When working with self defined filters you can give a fourth parameter to <span class="methodname">Zend_Filter::filterStatic()</span> which is the namespace where your filter can be found.
+                        </p>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> Zend_Filter::<span style="color: #006600;">filterStatic</span><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'"'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'MyFilter'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$parameters</span><span style="color: #66cc66;">)</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'FirstNamespace'</span>, <span style="color: #ff0000;">'SecondNamespace'</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            <span class="classname">Zend_Filter</span> allows also to set namespaces as default. This means that you can set them once in your bootstrap and have not to give them again for each call of <span class="methodname">Zend_Filter::filterStatic()</span>. The following code snippet is identical to the above one.
+                        </p>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                Zend_Filter::<span style="color: #006600;">setDefaultNamespaces</span><span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'FirstNamespace'</span>, <span style="color: #ff0000;">'SecondNamespace'</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> Zend_Filter::<span style="color: #006600;">filterStatic</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'"'</span>, <span style="color: #ff0000;">'MyFilter'</span>, <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$parameters</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> Zend_Filter::<span style="color: #006600;">filterStatic</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'"'</span>, <span style="color: #ff0000;">'OtherFilter'</span>, <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$parameters</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            For your convenience there are following methods which allow the handling of namespaces:
+                        </p>
+                        <ul class="itemizedlist">
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis"><span class="methodname">Zend_Filter::getDefaultNamespaces()</span></em>: Returns all set default namespaces as array.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis"><span class="methodname">Zend_Filter::setDefaultNamespaces()</span></em>: Sets new default namespaces and overrides any previous set. It accepts either a string for a single namespace of an array for multiple namespaces.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis"><span class="methodname">Zend_Filter::addDefaultNamespaces()</span></em>: Adds additional namespaces to already set ones. It accepts either a string for a single namespace of an array for multiple namespaces.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <em class="emphasis"><span class="methodname">Zend_Filter::hasDefaultNamespaces()</span></em>: Returns <b><tt>TRUE</tt></b> when one or more default namespaces are set, and <b><tt>FALSE</tt></b> when no default namespaces are set.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="section" id="zend.filter.introduction.caveats">
+                    <div class="info">
+                        <h2>
+                            Double filtering
+                        </h2>
+                    </div>
+                    <p class="para">
+                        When using two filters after each other you have to keep in mind that it is often not possible to get the original output by using the opposite filter. Take the following example:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$original</span> = <span style="color: #ff0000;">"my_original_content"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Attach a filter</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$filter</span>&nbsp; &nbsp;= <span style="color: #000000; font-weight: bold;">new</span> Zend_Filter_Word_UnderscoreToCamelCase<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$filtered</span> = <span style="color: #0000ff;">$filter</span>-&gt;<span style="color: #006600;">filter</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$original</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Use it's opposite</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$filter2</span>&nbsp; = <span style="color: #000000; font-weight: bold;">new</span> Zend_Filter_Word_CamelCaseToUnderscore<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$filtered</span> = <span style="color: #0000ff;">$filter2</span>-&gt;<span style="color: #006600;">filter</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$filtered</span><span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        The above code example could lead to the impression that you will get the original output after the second filter has been applied. But thinking logically this is not the case. After applying the first filter <em class="emphasis">my_original_content</em> will be changed to <em class="emphasis">MyOriginalContent</em>. But after applying the second filter the result is <em class="emphasis">My_Original_Content</em>.
+                    </p>
+                    <p class="para">
+                        As you can see it is not always possible to get the original output by using a filter which seems to be the opposite. It depends on the filter and also on the given input.
+                    </p>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.filter.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.filter.set.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.filter.html">Zend_Filter</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.filter.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.filter.set.html">Standard Filter Classes</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.filter.filter_chains.html">Filter Chains</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.filter.writing_filters.html">Writing Filters</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.filter.input.html">Zend_Filter_Input</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.filter.inflector.html">Zend_Filter_Inflector</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

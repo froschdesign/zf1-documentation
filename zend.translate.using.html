@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Using Translation Adapters - Zend_Translate &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.translate.using" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Using Translation Adapters
+                    </h1>
+                </div>
+                <p class="para">
+                    The next step is to use the adapter within your code.
+                </p>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #1 Example of single-language PHP code</b>
+                        </p>
+                    </div>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #ff0000;">"Example<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #ff0000;">"=======<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #ff0000;">"Here is line one<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #ff0000;">"Today is the "</span> . <a href="http://www.php.net/date"><span style="color: #000066;">date</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"d.m.Y"</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #ff0000;">"Here is line two<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    The example above shows some output with no support for translation. You probably write your code in your native language. Generally you need to translate not only the output, but also error and log messages.
+                </p>
+                <p class="para">
+                    The next step is to integrate <span class="classname">Zend_Translate</span> into your existing code. Of course it is much easier if you had already written your code with translation in mind, than changing your code afterwards.
+                </p>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #2 Example of multi-lingual PHP code</b>
+                        </p>
+                    </div>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$translate</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Translate<span style="color: #66cc66;">(</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'adapter'</span> =&gt; <span style="color: #ff0000;">'gettext'</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'content'</span> =&gt; <span style="color: #ff0000;">'/my/path/source-de.mo'</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'locale'</span>&nbsp; =&gt; <span style="color: #ff0000;">'de'</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$translate</span>-&gt;<span style="color: #006600;">addTranslation</span><span style="color: #66cc66;">(</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'content'</span> =&gt; <span style="color: #ff0000;">'/path/to/translation/fr-source.mo'</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'locale'</span>&nbsp; =&gt; <span style="color: #ff0000;">'fr'</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #0000ff;">$translate</span>-&gt;_<span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Example"</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #ff0000;">"=======<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #0000ff;">$translate</span>-&gt;_<span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Here is line one"</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$translate</span>-&gt;_<span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Today is the %1<span style="color: #000099; font-weight: bold;">\$</span>s"</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>, <a href="http://www.php.net/date"><span style="color: #000066;">date</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'d.m.Y'</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$translate</span>-&gt;<span style="color: #006600;">setLocale</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'fr'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #0000ff;">$translate</span>-&gt;_<span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Here is line two"</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    Now let's take a deeper look into what has been done and how to integrate <span class="classname">Zend_Translate</span> into your own code.
+                </p>
+                <p class="para">
+                    Create a new <span class="classname">Zend_Translate</span> object and define the base adapter:
+                </p>
+                <div class="programlisting php">
+                    <div class="phpcode">
+                        <div class="php" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$translate</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Translate
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'adapter'</span> =&gt; <span style="color: #ff0000;">'gettext'</span>,
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'content'</span> =&gt; <span style="color: #ff0000;">'/path/to/translation/source-de.mo'</span>,
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'locale'</span>&nbsp; =&gt; <span style="color: #ff0000;">'de'</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp; &nbsp; <span style="color: #66cc66;">)</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    In this example we chose the <em class="emphasis">Gettext Adapter</em>. We place our file <em class="emphasis">source-de.mo</em> into the directory <em class="emphasis">/path/to/translation</em>. The gettext file will have German translation included, and we also added another language source for French.
+                </p>
+                <p class="para">
+                    The next step is to wrap all strings which are to be translated. The simplest approach is to have only simple strings or sentences like this:
+                </p>
+                <div class="programlisting php">
+                    <div class="phpcode">
+                        <div class="php" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #0000ff;">$translate</span>-&gt;_<span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Example"</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #ff0000;">"=======<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #0000ff;">$translate</span>-&gt;_<span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Here is line one"</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    Some strings do not needed to be translated. The separating line is always a separating line, even in other languages.
+                </p>
+                <p class="para">
+                    Having data values integrated into a translation string is also supported through the use of embedded parameters.
+                </p>
+                <div class="programlisting php">
+                    <div class="phpcode">
+                        <div class="php" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$translate</span>-&gt;_<span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Today is the %1<span style="color: #000099; font-weight: bold;">\$</span>s"</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>, <a href="http://www.php.net/date"><span style="color: #000066;">date</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"d.m.Y"</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    Instead of <span class="methodname">print()</span>, use the <span class="methodname">printf()</span> function and replace all parameters with <em class="emphasis">%1\$s</em> parts. The first is <em class="emphasis">%1\$s</em>, the second is <em class="emphasis">%2\$s</em>, and so on. This way a translation can be done without knowing the exact value. In our example, the date is always the actual day, but the string can be translated without the knowledge of the actual day.
+                </p>
+                <p class="para">
+                    Each string is identified in the translation storage by a message ID. You can use message IDs instead of strings in your code, like this:
+                </p>
+                <div class="programlisting php">
+                    <div class="phpcode">
+                        <div class="php" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #0000ff;">$translate</span>-&gt;_<span style="color: #66cc66;">(</span><span style="color: #cc66cc;">1</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #ff0000;">"=======<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <a href="http://www.php.net/print"><span style="color: #000066;">print</span></a> <span style="color: #0000ff;">$translate</span>-&gt;_<span style="color: #66cc66;">(</span><span style="color: #cc66cc;">2</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    But doing this has several disadvantages:
+                </p>
+                <p class="para">
+                    You can not see what your code should output just by viewing your code.
+                </p>
+                <p class="para">
+                    Also you will have problems if some strings are not translated. You must always keep in mind how translation works. First <span class="classname">Zend_Translate</span> checks whether the specified language has a translation for the given message ID or string. If no translation string has been found it refers to the next lower level language as defined within <span class="classname">Zend_Locale</span>. So "<em class="emphasis">de_AT</em>" becomes "<em class="emphasis">de</em>" only. If there is no translation found for "<em class="emphasis">de</em>" either, then the original message is returned. This way you always have an output, even in case the message translation does not exist in your message storage. <span class="classname">Zend_Translate</span> never throws an error or exception when translating strings.
+                </p>
+                <div class="section" id="zend.translate.using.structure">
+                    <div class="info">
+                        <h2>
+                            Translation Source Structures
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Your next step is to create the translation sources for the languages you want to translate. Every adapter is created its own way as described here, but there are common features applicable for all adapters.
+                    </p>
+                    <p class="para">
+                        You have to decide where to store your translation source files. Using <span class="classname">Zend_Translate</span> you are not restricted in any way. The following structures are preferable:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                Single structured source
+                            </p>
+                            <div class="programlisting txt">
+                                <div class="txtcode">
+                                    <div style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/lang.en
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/lang.de
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /library/
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="para">
+                                Positive: all source files for every languages are stored in one directory. No splitting of related files.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Language structured source
+                            </p>
+                            <div class="programlisting txt">
+                                <div class="txtcode">
+                                    <div style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/en/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/en/first.en
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/en/second.en
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/de/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/de/first.de
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/de/second.de
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /library
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="para">
+                                Positive: Every language is stored in their own directories. Easy translation, as every language team has to translate only one directory. Also the usage of multiple files is transparent.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Application structured source
+                            </p>
+                            <div class="programlisting txt">
+                                <div class="txtcode">
+                                    <div style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/languages/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/languages/first.en
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/languages/first.de
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/languages/second.en
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/languages/second.de
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /library/
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="para">
+                                Positive: all source files for every language are stored in one directory. No splitting of related files.
+                            </p>
+                            <p class="para">
+                                Negative: having multiple files for the same language can be problematic.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Gettext structured source
+                            </p>
+                            <div class="programlisting txt">
+                                <div class="txtcode">
+                                    <div style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/de/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/de/LC_MESSAGES/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/de/LC_MESSAGES/first.mo
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/de/LC_MESSAGES/second.mo
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/en/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/en/LC_MESSAGES/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/en/LC_MESSAGES/first.mo
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /languages/en/LC_MESSAGES/second.mo
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /library/
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="para">
+                                Positive: existing gettext sources can be used without changing structure.
+                            </p>
+                            <p class="para">
+                                Negative: having sub-sub directories may be confusing for people who have not used gettext before.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                File structured source
+                            </p>
+                            <div class="programlisting txt">
+                                <div class="txtcode">
+                                    <div style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/models/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/models/MyModel.php
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/models/MyModel.de
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/models/MyModel.en
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/controllers/
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/controllers/MyController.php
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/controllers/MyController.de
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /application/controllers/MyController.en
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    /library/
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="para">
+                                Positive: translation files are localted near their source.
+                            </p>
+                            <p class="para">
+                                Negative: too many and also small translation files result in being tedious to translate. Also every file has to be added as translation source.
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        Single structured and language structured source files are most usable for <span class="classname">Zend_Translate</span>.
+                    </p>
+                    <p class="para">
+                        So now, that we know which structure we want to have, we should create our translation source files.
+                    </p>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.translate.adapter.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.translate.sourcecreation.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.translate.html">Zend_Translate</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.adapter.html">Adapters for Zend_Translate</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.translate.using.html">Using Translation Adapters</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.sourcecreation.html">Creating source files</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.additional.html">Additional features for translation</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.translate.plurals.html">Plural notations for Translation</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

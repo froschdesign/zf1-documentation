@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Using Zend_Layout - Getting Started with Zend_Layout &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="learning.layout.usage" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Using Zend_Layout
+                    </h1>
+                </div>
+                <p class="para">
+                    Basic usage of <span class="classname">Zend_Layout</span> is fairly trivial. Assuming you're using <span class="classname">Zend_Application</span> already, you can simply provide some configuration options and create a layout view script.
+                </p>
+                <div class="section" id="learning.layout.usage.configuration">
+                    <div class="info">
+                        <h2>
+                            Layout Configuration
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The recommended location of layouts is in a "<var class="filename">layouts/scripts/</var>" subdirectory of your application:
+                    </p>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            application
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            |-- Bootstrap.php
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            |-- configs
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            |&nbsp; &nbsp;`-- application.ini
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            |-- controllers
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            |-- layouts
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            |&nbsp; &nbsp;`-- scripts
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            |&nbsp; &nbsp; &nbsp; &nbsp;|-- layout.phtml
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        To initialize <span class="classname">Zend_Layout</span>, add the following to your configuration file ("<var class="filename">application/configs/application.ini</var>"):
+                    </p>
+                    <div class="programlisting dosini">
+                        <div class="dosinicode">
+                            <div style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts"
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            resources.layout.layout = "layout"
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        The first line indicates where to look for layout scripts; the second line gives the name of the layout to use, minus the view script extension (which is assumed to be "<var class="filename">.phtml</var>" by default).
+                    </p>
+                </div>
+                <div class="section" id="learning.layout.usage.layout-script">
+                    <div class="info">
+                        <h2>
+                            Create a Layout Script
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Now that you have your configuration in place, you need to create your layout script. First, make sure that you've created the "<var class="filename">application/layouts/scripts</var>" directory; then, open an editor, and create the markup for your layout. Layout scripts are simply view scripts, with some slight differences.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &lt;html&gt;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &lt;head&gt;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; &lt;title&gt;My Site&lt;/title&gt;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &lt;/head&gt;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &lt;body&gt;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">&lt;?php</span> <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">layout</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>-&gt;<span style="color: #006600;">content</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &lt;/body&gt;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &lt;/html&gt;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        In the example above, you'll note the call to a <span class="methodname">layout()</span> view helper. When you register the <span class="classname">Zend_Layout</span> resource, you also gain access to both an action and view helper that allow you access to the <span class="classname">Zend_Layout</span> instance; you can then call operations on the layout object. In this case, we're retrieving a named variable, <var class="varname">$content</var>, and echoing it. By default, the <var class="varname">$content</var> variable is populated for you from the application view script rendered. Otherwise, anything you'd normally do in a view script is perfectly valid -- call any helpers or view methods you desire.
+                    </p>
+                    <p class="para">
+                        At this point, you have a working layout script, and your application is informed of its location and knows to render it.
+                    </p>
+                </div>
+                <div class="section" id="learning.layout.usage.access">
+                    <div class="info">
+                        <h2>
+                            Accessing the Layout Object
+                        </h2>
+                    </div>
+                    <p class="para">
+                        On occasion, you may need direct access to the layout object. There are three ways you can do this:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">Within view scripts:</em> use the <span class="methodname">layout()</span> view helper, which returns the <span class="classname">Zend_Layout</span> instance registered with the front controller plugin.
+                            </p>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #0000ff;">$layout</span> = <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">layout</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>; <span style="color: #000000; font-weight: bold;">?&gt;</span>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="para">
+                                Since it returns the layout instance, you can also simply call methods on it, rather than assigning it to a variable.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">Within action controllers:</em> use the <span class="methodname">layout()</span> action helper, which acts just like the view helper.
+                            </p>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// Calling helper as a method of the helper broker:</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$layout</span> = <span style="color: #0000ff;">$this</span>-&gt;_helper-&gt;<span style="color: #006600;">layout</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// Or, more verbosely:</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$helper</span> = <span style="color: #0000ff;">$this</span>-&gt;_helper-&gt;<span style="color: #006600;">getHelper</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Layout'</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$layout</span> = <span style="color: #0000ff;">$helper</span>-&gt;<span style="color: #006600;">getLayoutInstance</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="para">
+                                As with the view helper, since the action helper returns the layout instance, you can also simply call methods on it, rather than assigning it to a variable.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">Elsewhere:</em> use the static method <span class="methodname">getMvcInstance()</span>. This will return the layout instance registered by the bootstrap resource.
+                            </p>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$layout</span> = Zend_Layout::<span style="color: #006600;">getMvcInstance</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">Via the bootstrap:</em> retrieve the layout resource, which will be the <span class="classname">Zend_Layout</span> instance.
+                            </p>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$layout</span> = <span style="color: #0000ff;">$bootstrap</span>-&gt;<span style="color: #006600;">getResource</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Layout'</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="para">
+                                Anywhere you have access to the bootstrap object, this method is preferred over using the static <span class="methodname">getMvcInstance()</span> method.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="learning.layout.usage.other-operations">
+                    <div class="info">
+                        <h2>
+                            Other Operations
+                        </h2>
+                    </div>
+                    <p class="para">
+                        In most cases, the above configuration and layout script (with modifications) will get you what you need. However, some other functionality exists you will likely use sooner or later. In all of the following examples, you may use one of the <a href="learning.layout.usage.html#learning.layout.usage.access" class="link">methods listed above</a> for retrieving the layout object.
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">Setting layout variables</em>. <span class="classname">Zend_Layout</span> keeps its own registry of layout-specific view variables that you can access; the <var class="varname">$content</var> key noted in the initial layout script sample is one such example. You can assign and retrieve these using normal property access, or via the <span class="methodname">assign()</span> method.
+                            </p>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// Setting content:</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$layout</span>-&gt;<span style="color: #006600;">somekey</span> = <span style="color: #ff0000;">"foo"</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// Echoing that same content:</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$layout</span>-&gt;<span style="color: #006600;">somekey</span>; <span style="color: #808080; font-style: italic;">// 'foo'</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// Using the assign() method:</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$layout</span>-&gt;<span style="color: #006600;">assign</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'someotherkey'</span>, <span style="color: #ff0000;">'bar'</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// Access to assign()'d variables remains the same:</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$layout</span>-&gt;<span style="color: #006600;">someotherkey</span>; <span style="color: #808080; font-style: italic;">// 'bar'</span>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">disableLayout()</span>. Occasionally, you may want to disable layouts; for example, when answering an Ajax request, or providing a RESTful representation of a resource. In these cases, you can call the <span class="methodname">disableLayout()</span> method on your layout object.
+                            </p>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$layout</span>-&gt;<span style="color: #006600;">disableLayout</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="para">
+                                The opposite of this method is, of course, <span class="methodname">enableLayout()</span>, which can be called at any time to re-enable layouts for the requested action.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">Selecting an alternate layout</em>: If you have multiple layouts for your site or application, you can select the layout to use at any time by simply calling the <span class="methodname">setLayout()</span> method. Call it by specifying the name of the layout script without the file suffix.
+                            </p>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// Use the layout script "alternate.phtml":</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$layout</span>-&gt;<span style="color: #006600;">setLayout</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'alternate'</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="para">
+                                The layout script should reside in the <var class="varname">$layoutPath</var> directory specified in your configuration. <span class="classname">Zend_Layout</span> will then use this new layout when rendering.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="learning.layout.intro.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="learning.layout.conclusions.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="learning.layout.html">Getting Started with Zend_Layout</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.layout.intro.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="learning.layout.usage.html">Using Zend_Layout</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.layout.conclusions.html">Zend_Layout: Conclusions</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

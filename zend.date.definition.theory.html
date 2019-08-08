@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Theory of Operation - Zend_Date &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.date.definition.theory" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Theory of Operation
+                    </h1>
+                </div>
+                <p class="para">
+                    Why is there only one class <span class="classname">Zend_Date</span> for handling dates and times in Zend Framework?
+                </p>
+                <p class="para">
+                    Many languages split the handling of times and calendar dates into two classes. However, Zend Framework strives for extreme simplicity, and forcing the developer to manage different objects with different methods for times and dates becomes a burden in many situations. Since <span class="classname">Zend_Date</span> methods support working with ambiguous dates that might not include all parts (era, year, month, day, hour, minute, second, timezone), developers enjoy the flexibility and ease of using the same class and the same methods to perform the same manipulations (e.g. addition, subtraction, comparison, merging of date parts, etc.). Splitting the handling of these date fragments into multiple classes would create complications when smooth interoperation is desired
+                    with a small learning curve. A single class reduces code duplication for similar operations, without the need for a complex inheritance hierarchy.
+                </p>
+                <div class="section" id="zend.date.theory.internals">
+                    <div class="info">
+                        <h2>
+                            Internals
+                        </h2>
+                    </div>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <acronym class="acronym">UNIX</acronym> Timestamp
+                            </p>
+                            <p class="para">
+                                All dates and times, even ambiguous ones (e.g. no year), are represented internally as absolute moments in time, represented as a <acronym class="acronym">UNIX</acronym> timestamp expressing the difference between the desired time and January 1st, 1970 00:00:00 <acronym class="acronym">GMT</acronym>. This was only possible, because <span class="classname">Zend_Date</span> is not limited to <acronym class="acronym">UNIX</acronym> timestamps nor integer values. The BCMath extension is required to support extremely large dates outside of the range Fri, 13 Dec 1901 20:45:54 <acronym class="acronym">GMT</acronym> to Tue, 19 Jan 2038 03:14:07 <acronym class="acronym">GMT</acronym>. Additional, tiny math errors may arise due to the inherent limitations of float
+                                data types and rounding, unless using the BCMath extension.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Date parts as timestamp offsets
+                            </p>
+                            <p class="para">
+                                Thus, an instance object representing three hours would be expressed as three hours after January 1st, 1970 00:00:00 <acronym class="acronym">GMT</acronym> -i.e. 0 + 3 * 60 * 60 = 10800.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <acronym class="acronym">PHP</acronym> functions
+                            </p>
+                            <p class="para">
+                                Where possible, <span class="classname">Zend_Date</span> usually uses <acronym class="acronym">PHP</acronym> functions to improve performance.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.date.introduction.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.date.basic.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.date.html">Zend_Date</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.date.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.date.definition.theory.html">Theory of Operation</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.date.basic.html">Basic Methods</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.date.overview.html">Zend_Date API Overview</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.date.creation.html">Creation of Dates</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.date.constants.html">Constants for General Date Functions</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.date.additional.html">Working Examples</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

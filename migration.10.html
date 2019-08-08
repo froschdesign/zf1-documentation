@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend Framework 1.0 - Zend Framework Migration Notes &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="migration.10" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend Framework 1.0
+                    </h1>
+                </div>
+                <p class="para">
+                    When upgrading from a previous release to Zend Framework 1.0 or higher you should note the following migration notes.
+                </p>
+                <div class="section" id="migration.10.zend.controller">
+                    <div class="info">
+                        <h2>
+                            Zend_Controller
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The principal changes introduced in 1.0.0RC1 are the introduction of and default enabling of the <a href="zend.controller.plugins.html#zend.controller.plugins.standard.errorhandler" class="link">ErrorHandler</a> plugin and the <a href="zend.controller.actionhelpers.html#zend.controller.actionhelpers.viewrenderer" class="link">ViewRenderer</a> action helper. Please read the documentation to each thoroughly to see how they work and what effect they may have on your applications.
+                    </p>
+                    <p class="para">
+                        The <span class="classname">ErrorHandler</span> plugin runs during <span class="methodname">postDispatch()</span> checking for exceptions, and forwarding to a specified error handler controller. You should include such a controller in your application. You may disable it by setting the front controller parameter <span class="property">noErrorHandler</span>:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">setParam</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'noErrorHandler'</span>, <span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        The <span class="classname">ViewRenderer</span> action helper automates view injection into action controllers as well as autorendering of view scripts based on the current action. The primary issue you may encounter is if you have actions that do not render view scripts and neither forward or redirect, as the <span class="classname">ViewRenderer</span> will attempt to render a view script based on the action name.
+                    </p>
+                    <p class="para">
+                        There are several strategies you can take to update your code. In the short term, you can globally disable the <span class="classname">ViewRenderer</span> in your front controller bootstrap prior to dispatching:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// Assuming $front is an instance of Zend_Controller_Front</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">setParam</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'noViewRenderer'</span>, <span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        However, this is not a good long term strategy, as it means most likely you'll be writing more code.
+                    </p>
+                    <p class="para">
+                        When you're ready to start using the <span class="classname">ViewRenderer</span> functionality, there are several things to look for in your controller code. First, look at your action methods (the methods ending in 'Action'), and determine what each is doing. If none of the following is happening, you'll need to make changes:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                Calls to <strong class="command">$this-&gt;render();</strong>
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Calls to <strong class="command">$this-&gt;_forward();</strong>
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Calls to <strong class="command">$this-&gt;_redirect();</strong>
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Calls to the <span class="classname">Redirector</span> action helper
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        The easiest change is to disable auto-rendering for that method:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$this</span>-&gt;_helper-&gt;<span style="color: #006600;">viewRenderer</span>-&gt;<span style="color: #006600;">setNoRender</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        If you find that none of your action methods are rendering, forwarding, or redirecting, you will likely want to put the above line in your <span class="methodname">preDispatch()</span> or <span class="methodname">init()</span> methods:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> preDispatch<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// disable view script autorendering</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #0000ff;">$this</span>-&gt;_helper-&gt;<span style="color: #006600;">viewRenderer</span>-&gt;<span style="color: #006600;">setNoRender</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// .. do other things...</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        If you are calling <span class="methodname">render()</span>, and you're using <a href="zend.controller.modular.html" class="link">the Conventional Modular directory structure</a>, you'll want to change your code to make use of autorendering:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                If you're rendering multiple view scripts in a single action, you don't need to change a thing.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                If you're simply calling <span class="methodname">render()</span> with no arguments, you can remove such lines.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                If you're calling <span class="methodname">render()</span> with arguments, and not doing any processing afterwards or rendering multiple view scripts, you can change these calls to read <strong class="command">$this-&gt;_helper-&gt;viewRenderer();</strong>.
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        If you're not using the conventional modular directory structure, there are a variety of methods for setting the view base path and script path specifications so that you can make use of the <span class="classname">ViewRenderer</span>. Please read the <a href="zend.controller.actionhelpers.html#zend.controller.actionhelpers.viewrenderer" class="link">ViewRenderer documentation</a> for information on these methods.
+                    </p>
+                    <p class="para">
+                        If you're using a view object from the registry, or customizing your view object, or using a different view implementation, you'll want to inject the <span class="classname">ViewRenderer</span> with this object. This can be done easily at any time.
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                Prior to dispatching a front controller instance:
+                            </p>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #808080; font-style: italic;">// Assuming $view has already been defined</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$viewRenderer</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Controller_Action_Helper_ViewRenderer<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$view</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    Zend_Controller_Action_HelperBroker::<span style="color: #006600;">addHelper</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$viewRenderer</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Any time during the bootstrap process:
+                            </p>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$viewRenderer</span> =
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; Zend_Controller_Action_HelperBroker::<span style="color: #006600;">getStaticHelper</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'viewRenderer'</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$viewRenderer</span>-&gt;<span style="color: #006600;">setView</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$view</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        There are many ways to modify the <span class="classname">ViewRenderer</span>, including setting a different view script to render, specifying replacements for all replaceable elements of a view script path (including the suffix), choosing a response named segment to utilize, and more. If you aren't using the conventional modular directory structure, you can even associate different path specifications with the <span class="classname">ViewRenderer</span>.
+                    </p>
+                    <p class="para">
+                        We encourage you to adapt your code to use the <span class="classname">ErrorHandler</span> and <span class="classname">ViewRenderer</span> as they are now core functionality.
+                    </p>
+                </div>
+                <div class="section" id="migration.10.zend.currency">
+                    <div class="info">
+                        <h2>
+                            Zend_Currency
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Creating an object of <span class="classname">Zend_Currency</span> has become simpler. You no longer have to give a script or set it to <b><tt>NULL</tt></b>. The optional script parameter is now an option which can be set through the <span class="methodname">setFormat()</span> method.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$currency</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Currency<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$currency</span>, <span style="color: #0000ff;">$locale</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        The <span class="methodname">setFormat()</span> method takes now an array of options. These options are set permanently and override all previously set values. Also a new option 'precision' has been added. The following options have been refactored:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">position</em>: Replacement for the old 'rules' parameter.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">script</em>: Replacement for the old 'script' parameter.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">format</em>: Replacement for the old 'locale' parameter which does not set new currencies but only the number format.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">display</em>: Replacement for the old 'rules' parameter.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">precision</em>: New parameter.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">name</em>: Replacement for the ole 'rules' parameter. Sets the full currencies name.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">currency</em>: New parameter.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">symbol</em>: New parameter.
+                            </p>
+                        </li>
+                    </ul>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$currency</span>-&gt;<span style="color: #006600;">setFormat</span><span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a> <span style="color: #0000ff;">$options</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        The <span class="methodname">toCurrency()</span> method no longer supports the optional 'script' and 'locale' parameters. Instead it takes an options array which can contain the same keys as for the <span class="methodname">setFormat()</span> method.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$currency</span>-&gt;<span style="color: #006600;">toCurrency</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$value</span>, <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a> <span style="color: #0000ff;">$options</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        The methods <span class="methodname">getSymbol()</span>, <span class="methodname">getShortName()</span>, <span class="methodname">getName()</span>, <span class="methodname">getRegionList()</span> and <span class="methodname">getCurrencyList()</span> are no longer static and can be called from within the object. They return the set values of the object if no parameter has been set.
+                    </p>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="migration.15.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="migration.09.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="migration.html">Zend Framework Migration Notes</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.112.html">Zend Framework 1.12</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.110.html">Zend Framework 1.10</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.19.html">Zend Framework 1.9</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.18.html">Zend Framework 1.8</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.17.html">Zend Framework 1.7</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.16.html">Zend Framework 1.6</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.15.html">Zend Framework 1.5</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="migration.10.html">Zend Framework 1.0</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.09.html">Zend Framework 0.9</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.08.html">Zend Framework 0.8</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.06.html">Zend Framework 0.6</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

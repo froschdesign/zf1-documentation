@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Working with Pages - Zend_Pdf &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.pdf.pages" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Working with Pages
+                    </h1>
+                </div>
+                <div class="section" id="zend.pdf.pages.creation">
+                    <div class="info">
+                        <h2>
+                            Page Creation
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The pages in a <acronym class="acronym">PDF</acronym> document are represented as <span class="classname">Zend_Pdf_Page</span> instances in <span class="classname">Zend_Pdf</span>.
+                    </p>
+                    <p class="para">
+                        <acronym class="acronym">PDF</acronym> pages either are loaded from an existing <acronym class="acronym">PDF</acronym> or created using the <span class="classname">Zend_Pdf</span> <acronym class="acronym">API</acronym>.
+                    </p>
+                    <p class="para">
+                        New pages can be created by instantiating new <span class="classname">Zend_Pdf_Page</span> objects directly or by calling the <span class="methodname">Zend_Pdf::newPage()</span> method, which returns a <span class="classname">Zend_Pdf_Page</span> object. <span class="methodname">Zend_Pdf::newPage()</span> creates a page that is already attached to a document. Attached pages can't be used with another <acronym class="acronym">PDF</acronym> documents until it's not cloned. See <a href="zend.pdf.pages.html#zend.pdf.pages.cloning" class="link">Page cloning</a> section for the details.
+                    </p>
+                    <p class="para">
+                        The <span class="methodname">Zend_Pdf::newPage()</span> method and the <span class="classname">Zend_Pdf_Page</span> constructor take the same parameters specifying page size. They can take either the size of page ($x, $y) in points (1/72 inch) or a predefined constant representing a page type:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                Zend_Pdf_Page::SIZE_A4
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Zend_Pdf_Page::SIZE_A4_LANDSCAPE
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Zend_Pdf_Page::SIZE_LETTER
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Zend_Pdf_Page::SIZE_LETTER_LANDSCAPE
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        Document pages are stored in the <var class="varname">$pages</var> public attribute of the <span class="classname">Zend_Pdf</span> class. The attribute holds an array of <span class="classname">Zend_Pdf_Page</span> objects and completely defines the instances and order of pages. This array can be manipulated like any other <acronym class="acronym">PHP</acronym> array:
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #1 PDF document pages management</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                ...
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Reverse page order</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span> = <a href="http://www.php.net/array_reverse"><span style="color: #000066;">array_reverse</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                ...
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Add new page</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #66cc66;">]</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Pdf_Page<span style="color: #66cc66;">(</span>Zend_Pdf_Page::<span style="color: #006600;">SIZE_A4</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Add new page</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #66cc66;">]</span> = <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">newPage</span><span style="color: #66cc66;">(</span>Zend_Pdf_Page::<span style="color: #006600;">SIZE_A4</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Remove specified page.</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/unset"><span style="color: #000066;">unset</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #0000ff;">$id</span><span style="color: #66cc66;">]</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                ...
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.pdf.pages.cloning">
+                    <div class="info">
+                        <h2>
+                            Page cloning
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Existing <acronym class="acronym">PDF</acronym> page can be duplicated by creating new <span class="classname">Zend_Pdf_Page</span> object with existing page as a parameter:
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #2 Duplicating existing page</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                ...
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Store template page in a separate variable</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$template</span> = <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #0000ff;">$templatePageIndex</span><span style="color: #66cc66;">]</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                ...
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Add new page</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$page1</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Pdf_Page<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$template</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$page1</span>-&gt;<span style="color: #006600;">drawText</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Some text...'</span>, <span style="color: #0000ff;">$x</span>, <span style="color: #0000ff;">$y</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #66cc66;">]</span> = <span style="color: #0000ff;">$page1</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                ...
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Add another page</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$page2</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Pdf_Page<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$template</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$page2</span>-&gt;<span style="color: #006600;">drawText</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Another text...'</span>, <span style="color: #0000ff;">$x</span>, <span style="color: #0000ff;">$y</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #66cc66;">]</span> = <span style="color: #0000ff;">$page2</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                ...
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Remove source template page from the documents.</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/unset"><span style="color: #000066;">unset</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #0000ff;">$templatePageIndex</span><span style="color: #66cc66;">]</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                ...
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        It's useful if you need several pages to be created using one template.
+                    </p>
+                    <div class="caution">
+                        <b class="caution">Caution</b>
+                        <p class="para">
+                            Important! Duplicated page shares some <acronym class="acronym">PDF</acronym> resources with a template page, so it can be used only within the same document as a template page. Modified document can be saved as new one.
+                        </p>
+                    </div>
+                    <p class="para">
+                        <code class="code">clone</code> operator may be used to create page which is not attached to any document. It takes more time than duplicating page since it needs to copy all dependent objects (used fonts, images and other resources), but it allows to use pages from different source documents to create new one:
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #3 Cloning existing page</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$page1</span> = clone <span style="color: #0000ff;">$pdf1</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #0000ff;">$templatePageIndex1</span><span style="color: #66cc66;">]</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$page2</span> = clone <span style="color: #0000ff;">$pdf2</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #0000ff;">$templatePageIndex2</span><span style="color: #66cc66;">]</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$page1</span>-&gt;<span style="color: #006600;">drawText</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Some text...'</span>, <span style="color: #0000ff;">$x</span>, <span style="color: #0000ff;">$y</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$page2</span>-&gt;<span style="color: #006600;">drawText</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Another text...'</span>, <span style="color: #0000ff;">$x</span>, <span style="color: #0000ff;">$y</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                ...
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$pdf</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Pdf<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #66cc66;">]</span> = <span style="color: #0000ff;">$page1</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #66cc66;">]</span> = <span style="color: #0000ff;">$page2</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        If several template pages are planned to be used as templates then it could be more efficient to utilize <span class="classname">Zend_Pdf_Resource_Extractor</span> class which gives an ability to share resources between cloned pages - fonts, images, etc. (otherwise new resource copy will be created for each cloned page):
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #4 Cloning existing page using Zend_Pdf_Resource_Extractor class</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$extractor</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Pdf_Resource_Extractor<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                ....
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$page1</span> = <span style="color: #0000ff;">$extractor</span>-&gt;<span style="color: #006600;">clonePage</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #0000ff;">$templatePageIndex1</span><span style="color: #66cc66;">]</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$page2</span> = <span style="color: #0000ff;">$extractor</span>-&gt;<span style="color: #006600;">clonePage</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #0000ff;">$templatePageIndex2</span><span style="color: #66cc66;">]</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$page1</span>-&gt;<span style="color: #006600;">drawText</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Some text...'</span>, <span style="color: #0000ff;">$x</span>, <span style="color: #0000ff;">$y</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$page2</span>-&gt;<span style="color: #006600;">drawText</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Another text...'</span>, <span style="color: #0000ff;">$x</span>, <span style="color: #0000ff;">$y</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                ...
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$pdf</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Pdf<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #66cc66;">]</span> = <span style="color: #0000ff;">$page1</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$pdf</span>-&gt;<span style="color: #006600;">pages</span><span style="color: #66cc66;">[</span><span style="color: #66cc66;">]</span> = <span style="color: #0000ff;">$page2</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.pdf.save.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.pdf.drawing.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.pdf.html">Zend_Pdf</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.pdf.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.pdf.create.html">Creating and Loading PDF Documents</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.pdf.save.html">Save Changes to PDF Documents</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.pdf.pages.html">Working with Pages</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.pdf.drawing.html">Drawing</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.pdf.interactive-features.html">Interactive Features</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.pdf.info.html">Document Info and Metadata</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.pdf.usage.html">Zend_Pdf module usage example</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

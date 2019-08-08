@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Using the CLI Tool - Zend_Tool_Framework &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.tool.framework.clitool" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Using the CLI Tool
+                    </h1>
+                </div>
+                <p class="para">
+                    The <acronym class="acronym">CLI</acronym>, or command line tool (internally known as the console tool), is currently the primary interface for dispatching <span class="classname">Zend_Tool</span> requests. With the <acronym class="acronym">CLI</acronym> tool, developers can issue tooling requests inside the "command line windows", also commonly known as a "terminal" window. This environment is predominant in the *nix environment, but also has a common implementation in windows with the <var class="filename">cmd.exe</var>, console2 and also with the Cygwin project.
+                </p>
+                <div class="section" id="zend.tool.framework.clitool.setup-general">
+                    <div class="info">
+                        <h2>
+                            Setting up the CLI tool
+                        </h2>
+                    </div>
+                    <p class="para">
+                        To issue tooling requests via the command line client, you first need to set up the client so that your system can handle the "zf" command. The command line client, for all intents and purposes, is the <var class="filename">.sh</var> or <var class="filename">.bat</var> file that is provided with your Zend Framework distribution. In trunk, it can be found here: <a href="http://framework.zend.com/svn/framework/standard/trunk/bin/" class="link external">&raquo; http://framework.zend.com/svn/framework/standard/trunk/bin/</a>.
+                    </p>
+                    <p class="para">
+                        As you can see, there are 3 files in the <var class="filename">/bin/</var> directory: a <var class="filename">zf.php</var>, <var class="filename">zf.sh</var>, and <var class="filename">zf.bat</var>. The <var class="filename">zf.sh</var> and the <var class="filename">zf.bat</var> are the operating system specific client wrappers: <var class="filename">zf.sh</var> for the *nix environment, and <var class="filename">zf.bat</var> for the Win32 environment. These client wrappers are responsible for finding the proper <var class="filename">php.exe</var>, finding the <var class="filename">zf.php</var>, and passing on the client request. The <var class="filename">zf.php</var> is the responsible for handling understanding your environment, constructing the proper
+                        include_path, and passing what is provided on the command line to the proper library component for dispatching.
+                    </p>
+                    <p class="para">
+                        Ultimately, you want to ensure two things to make everything work regardless of the operating system you are on:
+                    </p>
+                    <ol type="1">
+                        <li class="listitem">
+                            <p class="para">
+                                <var class="filename">zf.sh/zf.bat</var> is reachable from your system path. This is the ability to call <strong class="command">zf</strong> from anywhere on your command line, regardless of what your current working directory is.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <var class="filename">ZendFramework/library</var> is in your <span class="property">include_path</span>.
+                            </p>
+                        </li>
+                    </ol>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: Note: while the above are the most ideal requirements, you can simply download Zend Framework and expect it to work as <var class="filename">./path/to/zf.php</var> some command.<br>
+                        </p>
+                    </blockquote>
+                </div>
+                <div class="section" id="zend.tool.framework.clitool.setup-starnix">
+                    <div class="info">
+                        <h2>
+                            Setting up the CLI tool on Unix-like Systems
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The most common setup in the *nix environment, is to copy the <var class="filename">zf.sh</var> and <var class="filename">zf.php</var> into the same directory as your <acronym class="acronym">PHP</acronym> binary. This can generally be found in one of the following places:
+                    </p>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            /usr/bin
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            /usr/local/bin
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            /usr/local/ZendServer/bin/
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            /Applications/ZendServer/bin/
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        To find out the location of your <acronym class="acronym">PHP</acronym> binary, you can execute 'which php' on the command line. This will return the location of the <acronym class="acronym">PHP</acronym> binary you will be using to run <acronym class="acronym">PHP</acronym> scripts in this environment.
+                    </p>
+                    <p class="para">
+                        The next order of business is to ensure that Zend Framework library is set up correctly inside of the system <acronym class="acronym">PHP</acronym> <span class="property">include_path</span>. To find out where your <span class="property">include_path</span> is located, you can execute <strong class="command">php -i</strong> and look for the <span class="property">include_path</span> variable, or more succinctly, execute <strong class="command">php -i | grep include_path</strong>. Once you have found where your <span class="property">include_path</span> is located (this will generally be something like <var class="filename">/usr/lib/php</var>, <var class="filename">/usr/share/php</var>, <var class="filename">/usr/local/lib/php</var>, or similar), ensure that the
+                        contents of the <var class="filename">/library/</var> directory are put inside your <span class="property">include_path</span> specified directory.
+                    </p>
+                    <p class="para">
+                        Once you have done those two things, you should be able to issue a command and get back the proper response like this:
+                    </p>
+                    <p class="para"></p>
+                    <div class="inlinemediaobject">
+                        <div class="imageobject">
+                            <a href="images/d481d625821a97b9a5eb2cec99dca50e-zend.tool.framework.cliversionunix.png"><img src="images/d481d625821a97b9a5eb2cec99dca50e-zend.tool.framework.cliversionunix.png" alt="zend.tool.framework.cliversionunix.png" width="450" height="247"></a>
+                        </div>
+                    </div>
+                    <p class="para">
+                        If you do not see this type of output, go back and check your setup to ensure you have all of the necessary pieces in the proper place.
+                    </p>
+                    <p class="para">
+                        There are a couple of alternative setups you might want to employ depending on your servers configuration, your level of access, or for other reasons.
+                    </p>
+                    <p class="para">
+                        <em class="emphasis">Alternative Setup</em> involves keeping the Zend Framework download together as is, and creating a link from a <b><tt>PATH</tt></b> location to the <var class="filename">zf.sh</var>. What this means is you can place the contents of the ZendFramework download into a location such as <var class="filename">/usr/local/share/ZendFramework</var>, or more locally like <var class="filename">/home/username/lib/ZendFramework</var>, and creating a symbolic link to the <var class="filename">zf.sh</var>.
+                    </p>
+                    <p class="para">
+                        Assuming you want to put the link inside <var class="filename">/usr/local/bin</var> (this could also work for placing the link inside <var class="filename">/home/username/bin/</var> for example) you would issue a command similar to this:
+                    </p>
+                    <div class="programlisting sh">
+                        <div class="shcode">
+                            <div style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            ln -s /usr/local/share/ZendFramework/bin/zf.sh /usr/local/bin/zf
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            # OR (for example)
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            ln -s /home/username/lib/ZendFramework/bin/zf.sh /home/username/bin/zf
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        This will create a link which you should be able to access globally on the command line.
+                    </p>
+                </div>
+                <div class="section" id="zend.tool.framework.clitool.setup-windows">
+                    <div class="info">
+                        <h2>
+                            Setting up the CLI tool on Windows
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The most common setup in the Windows Win32 environment, is to copy the <var class="filename">zf.bat</var> and <var class="filename">zf.php</var> into the same directory as your <acronym class="acronym">PHP</acronym> binary. This can generally be found in one of the following places:
+                    </p>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            C:\PHP
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            C:\Program Files\ZendServer\bin\
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            C:\WAMP\PHP\bin
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        You should be able to run <var class="filename">php.exe</var> on the command line. If you are not able to, first check the documentation that came with your <acronym class="acronym">PHP</acronym> distribution, or ensure that the path to <var class="filename">php.exe</var> is in your Windows <b><tt>PATH</tt></b> environment variable.
+                    </p>
+                    <p class="para">
+                        The next order of business is to ensure that Zend Framework library is set up correctly inside of the system <acronym class="acronym">PHP</acronym> <span class="property">include_path</span>. To find out where your <span class="property">include_path</span> is located, you can type <strong class="command">php -i</strong> and look for the <span class="property">include_path</span> variable, or more succinctly execute <strong class="command">php -i | grep include_path</strong> if you have Cygwin setup with grep available. Once you have found where your <span class="property">include_path</span> is located (this will generally be something like <var class="filename">C:\PHP\pear</var>, <var class="filename">C:\PHP\share</var>, <var class="filename">C:\Program%20Files\ZendServer\share</var> or similar), ensure that the contents of the library/ directory are put inside your <span class="property">include_path</span> specified directory.
+                    </p>
+                    <p class="para">
+                        Once you have done those two things, you should be able to issue a command and get back the proper response like this:
+                    </p>
+                    <p class="para"></p>
+                    <div class="inlinemediaobject">
+                        <div class="imageobject">
+                            <a href="images/d481d625821a97b9a5eb2cec99dca50e-zend.tool.framework.cliversionwin32.png"><img src="images/d481d625821a97b9a5eb2cec99dca50e-zend.tool.framework.cliversionwin32.png" alt="zend.tool.framework.cliversionwin32.png" width="450" height="306"></a>
+                        </div>
+                    </div>
+                    <p class="para">
+                        If you do not see this type of output, go back and check your setup to ensure you have all of the necessary pieces in the proper place.
+                    </p>
+                    <p class="para">
+                        There are a couple of alternative setups you might want to employ depending on your server's configuration, your level of access, or for other reasons.
+                    </p>
+                    <p class="para">
+                        <em class="emphasis">Alternative Setup</em> involves keeping the Zend Framework download together as is, and altering both your system <b><tt>PATH</tt></b> as well as the <var class="filename">php.ini</var> file. In your user's environment, make sure to add <var class="filename">C:\Path\To\ZendFramework\bin</var>, so that your <var class="filename">zf.bat</var> file is executable. Also, alter the <var class="filename">php.ini</var> file to ensure that <var class="filename">C:\Path\To\ZendFramework\library</var> is in your <span class="property">include_path</span>.
+                    </p>
+                </div>
+                <div class="section" id="zend.tool.framework.clitool.setup-othernotes">
+                    <div class="info">
+                        <h2>
+                            Other Setup Considerations
+                        </h2>
+                    </div>
+                    <p class="para">
+                        If for some reason you do not want Zend Framework library inside your <span class="property">include_path</span>, there is another option. There are two special environment variables that <var class="filename">zf.php</var> will utilize to determine the location of your Zend Framework installation.
+                    </p>
+                    <p class="para">
+                        The first is <b><tt>ZEND_TOOL_INCLUDE_PATH_PREPEND</tt></b>, which will prepend the value of this environment variable to the system (<var class="filename">php.ini</var>) <span class="property">include_path</span> before loading the client.
+                    </p>
+                    <p class="para">
+                        Alternatively, you might want to use <b><tt>ZEND_TOOL_INCLUDE_PATH</tt></b> to completely <em class="emphasis">replace</em> the system <span class="property">include_path</span> for one that makes sense specifically for the <strong class="command">zf</strong> command line tool.
+                    </p>
+                </div>
+                <div class="section" id="zend.tool.framework.clitool.continuing">
+                    <div class="info">
+                        <h2>
+                            Where To Go Next?
+                        </h2>
+                    </div>
+                    <p class="para">
+                        At this point, you should be set up to start initiating some more "interesting" commands. To get going, you can issue the <strong class="command">zf --help</strong> command to see what is available to you.
+                    </p>
+                    <p class="para"></p>
+                    <div class="inlinemediaobject">
+                        <div class="imageobject">
+                            <a href="images/d481d625821a97b9a5eb2cec99dca50e-zend.tool.framework.clihelp.png"><img src="images/d481d625821a97b9a5eb2cec99dca50e-zend.tool.framework.clihelp.png" alt="zend.tool.framework.clihelp.png" width="450" height="288"></a>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Continue on to the <span class="classname">Zend_Tool_Project</span> "Create Project" section to understand how to use the <strong class="command">zf</strong> script for project creation.
+                    </p>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.tool.framework.introduction.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.tool.framework.architecture.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.tool.framework.html">Zend_Tool_Framework</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.tool.framework.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.tool.framework.clitool.html">Using the CLI Tool</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.tool.framework.architecture.html">Architecture</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.tool.framework.writing-providers.html">Creating Providers to use with Zend_Tool_Framework</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.tool.framework.system-providers.html">Shipped System Providers</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.tool.framework.extending.html">Extending and Configuring Zend_Tool_Framework</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

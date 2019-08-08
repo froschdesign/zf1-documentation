@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Layout Advanced Usage - Zend_Layout &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.layout.advanced" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Layout Advanced Usage
+                    </h1>
+                </div>
+                <p class="para">
+                    <span class="classname">Zend_Layout</span> has a number of use cases for the advanced developer who wishes to adapt it for different view implementations, file system layouts, and more.
+                </p>
+                <p class="para">
+                    The major points of extension are:
+                </p>
+                <ul class="itemizedlist">
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Custom view objects.</em> <span class="classname">Zend_Layout</span> allows you to utilize any class that implements <span class="classname">Zend_View_Interface</span>.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Custom front controller plugins.</em> <span class="classname">Zend_Layout</span> ships with a standard front controller plugin that automates rendering of layouts prior to returning the response. You can substitute your own plugin.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Custom action helpers.</em> <span class="classname">Zend_Layout</span> ships with a standard action helper that should be suitable for most needs as it is a dumb proxy to the layout object itself.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            <em class="emphasis">Custom layout script path resolution</em>. <span class="classname">Zend_Layout</span> allows you to use your own <a href="zend.filter.inflector.html" class="link">inflector</a> for layout script path resolution, or simply to modify the attached inflector to specify your own inflection rules.
+                        </p>
+                    </li>
+                </ul>
+                <div class="section" id="zend.layout.advanced.view">
+                    <div class="info">
+                        <h2>
+                            Custom View Objects
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Layout</span> allows you to use any class implementing <span class="classname">Zend_View_Interface</span> or extending <span class="classname">Zend_View_Abstract</span> for rendering your layout script. Simply pass in your custom view object as a parameter to the constructor/ <span class="methodname">startMvc()</span>, or set it using the <span class="methodname">setView()</span> accessor:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$view</span> = <span style="color: #000000; font-weight: bold;">new</span> My_Custom_View<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$layout</span>-&gt;<span style="color: #006600;">setView</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$view</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: <span class="info"><b>Not all Zend_View implementations are equal</b><br></span> While <span class="classname">Zend_Layout</span> allows you to use any class implementing <span class="classname">Zend_View_Interface</span>, you may run into issues if they can not utilize the various <span class="classname">Zend_View</span> helpers, particularly the layout and <a href="zend.view.helpers.html#zend.view.helpers.initial.placeholder" class="link">placeholder</a> helpers. This is because <span class="classname">Zend_Layout</span> makes variables set in the object available via itself and <a href="zend.view.helpers.html#zend.view.helpers.initial.placeholder" class="link">placeholders</a>.<br>
+                            If you need to use a custom <span class="classname">Zend_View</span> implementation that does not support these helpers, you will need to find a way to get the layout variables to the view. This can be done by either extending the <span class="classname">Zend_Layout</span> object and altering the <span class="methodname">render()</span> method to pass variables to the view, or creating your own plugin class that passes them prior to rendering the layout.<br>
+                            Alternately, if your view implementation supports any sort of plugin capability, you can access the variables via the 'Zend_Layout' placeholder, using the <a href="zend.view.helpers.html#zend.view.helpers.initial.placeholder" class="link">placeholder helper</a>:<br>
+                        </p>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$placeholders</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_View_Helper_Placeholder<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$layoutVars</span>&nbsp; &nbsp;= <span style="color: #0000ff;">$placeholders</span>-&gt;<span style="color: #006600;">placeholder</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Zend_Layout'</span><span style="color: #66cc66;">)</span>-&gt;<span style="color: #006600;">getArrayCopy</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </blockquote>
+                </div>
+                <div class="section" id="zend.layout.advanced.plugin">
+                    <div class="info">
+                        <h2>
+                            Custom Front Controller Plugins
+                        </h2>
+                    </div>
+                    <p class="para">
+                        When used with the <acronym class="acronym">MVC</acronym> components, <span class="classname">Zend_Layout</span> registers a front controller plugin that renders the layout as the last action prior to exiting the dispatch loop. In most cases, the default plugin will be suitable, but should you desire to write your own, you can specify the name of the plugin class to load by passing the <span class="property">pluginClass</span> option to the <span class="methodname">startMvc()</span> method.
+                    </p>
+                    <p class="para">
+                        Any plugin class you write for this purpose will need to extend <span class="classname">Zend_Controller_Plugin_Abstract</span>, and should accept a layout object instance as an argument to the constructor. Otherwise, the details of your implementation are up to you.
+                    </p>
+                    <p class="para">
+                        The default plugin class used is <span class="classname">Zend_Layout_Controller_Plugin_Layout</span>.
+                    </p>
+                </div>
+                <div class="section" id="zend.layout.advanced.helper">
+                    <div class="info">
+                        <h2>
+                            Custom Action Helpers
+                        </h2>
+                    </div>
+                    <p class="para">
+                        When used with the <acronym class="acronym">MVC</acronym> components, <span class="classname">Zend_Layout</span> registers an action controller helper with the helper broker. The default helper, <span class="classname">Zend_Layout_Controller_Action_Helper_Layout</span>, acts as a dumb proxy to the layout object instance itself, and should be suitable for most use cases.
+                    </p>
+                    <p class="para">
+                        Should you feel the need to write custom functionality, simply write an action helper class extending <span class="classname">Zend_Controller_Action_Helper_Abstract</span> and pass the class name as the <span class="property">helperClass</span> option to the <span class="methodname">startMvc()</span> method. Details of the implementation are up to you.
+                    </p>
+                </div>
+                <div class="section" id="zend.layout.advanced.inflector">
+                    <div class="info">
+                        <h2>
+                            Custom Layout Script Path Resolution: Using the Inflector
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Layout</span> uses <span class="classname">Zend_Filter_Inflector</span> to establish a filter chain for translating a layout name to a layout script path. By default, it uses the rules 'Word_CamelCaseToDash' followed by 'StringToLower', and the suffix 'phtml' to transform the name to a path. As some examples:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                'foo' will be transformed to 'foo.phtml'.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                'FooBarBaz' will be transformed to 'foo-bar-baz.phtml'.
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        You have three options for modifying inflection: modify the inflection target and/or view suffix via <span class="classname">Zend_Layout</span> accessors, modify the inflector rules and target of the inflector associated with the <span class="classname">Zend_Layout</span> instance, or create your own inflector instance and pass it to <span class="methodname">Zend_Layout::setInflector()</span>.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #1 Using Zend_Layout accessors to modify the inflector</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                The default <span class="classname">Zend_Layout</span> inflector uses static references for the target and view script suffix, and has accessors for setting these values.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Set the inflector target:</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$layout</span>-&gt;<span style="color: #006600;">setInflectorTarget</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'layouts/:script.:suffix'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// Set the layout view script suffix:</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$layout</span>-&gt;<span style="color: #006600;">setViewSuffix</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'php'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #2 Direct modification of Zend_Layout inflector</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Inflectors have a target and one or more rules. The default target used with <span class="classname">Zend_Layout</span> is ':script.:suffix'; ':script' is passed the registered layout name, while ':suffix' is a static rule of the inflector.
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Let's say you want the layout script to end in the suffix 'html', and that you want to separate MixedCase and camelCased words with underscores instead of dashes, and not lowercase the name. Additionally, you want it to look in a 'layouts' subdirectory for the script.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$layout</span>-&gt;<span style="color: #006600;">getInflector</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>-&gt;<span style="color: #006600;">setTarget</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'layouts/:script.:suffix'</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-&gt;<span style="color: #006600;">setStaticRule</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'suffix'</span>, <span style="color: #ff0000;">'html'</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-&gt;<span style="color: #006600;">setFilterRule</span><span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Word_CamelCaseToUnderscore'</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #3 Custom inflectors</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                In most cases, modifying the existing inflector will be enough. However, you may have an inflector you wish to use in several places, with different objects of different types. <span class="classname">Zend_Layout</span> supports this.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$inflector</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Filter_Inflector<span style="color: #66cc66;">(</span><span style="color: #ff0000;">'layouts/:script.:suffix'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$inflector</span>-&gt;<span style="color: #006600;">addRules</span><span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">':script'</span> =&gt; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Word_CamelCaseToUnderscore'</span><span style="color: #66cc66;">)</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'suffix'</span>&nbsp; =&gt; <span style="color: #ff0000;">'html'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$layout</span>-&gt;<span style="color: #006600;">setInflector</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$inflector</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: <span class="info"><b>Inflection can be disabled</b><br></span> Inflection can be disabled and enabled using accessors on the <span class="classname">Zend_Layout</span> object. This can be useful if you want to specify an absolute path for a layout view script, or know that the mechanism you will be using for specifying the layout script does not need inflection. Simply use the <span class="methodname">enableInflector()</span> and <span class="methodname">disableInflector()</span> methods.<br>
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.layout.options.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.ldap.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.layout.html">Zend_Layout</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.layout.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.layout.quickstart.html">Zend_Layout Quick Start</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.layout.options.html">Zend_Layout Configuration Options</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.layout.advanced.html">Zend_Layout Advanced Usage</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Test_PHPUnit_Db - Zend_Test &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.test.phpunit.db" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Test_PHPUnit_Db
+                    </h1>
+                </div>
+                <p class="para">
+                    Coupling of data-access and the domain model often requires the use of a database for testing purposes. But the database is persistent across different tests which leads to test results that can affect each other. Furthermore setting up the database to be able to run a test is quite some work. PHPUnit's Database extension simplifies testing with a database by offering a very simple mechanism to set up and teardown the database between different tests. This component extends the PHPUnit Database extension with Zend Framework specific code, such that writing database tests against a Zend Framework application is simplified.
+                </p>
+                <p class="para">
+                    Database Testing can be explained with two conceptual entities, DataSets and DataTables. Internally the PHPUnit Database extension can build up an object structure of a database, its tables and containing rows from configuration files or the real database content. This abstract object graph can then be compared using assertions. A common use-case in database testing is setting up some tables with seed data, then performing some operations, and finally asserting that the operated on database-state is equal to some predefined expected state. <span class="classname">Zend_Test_PHPUnit_Db</span> simplifies this task by allowing to generate DataSets and DataTables from existing <span class="classname">Zend_Db_Table_Abstract</span> or <span class="classname">Zend_Db_Table_Rowset_Abstract</span> instances.
+                </p>
+                <p class="para">
+                    Furthermore this component allows to integrate any <span class="classname">Zend_Db_Adapter_Abstract</span> for testing whereas the original extension only works with <acronym class="acronym">PDO</acronym>. A Test Adapter implementation for <span class="classname">Zend_Db_Adapter_Abstract</span> is also included in this component. It allows to instantiate a Db Adapter that requires no database at all and acts as an <acronym class="acronym">SQL</acronym> and result stack which is used by the <acronym class="acronym">API</acronym> methods.
+                </p>
+                <div class="section" id="zend.test.phpunit.db.quickstart">
+                    <div class="info">
+                        <h2>
+                            Quickstart
+                        </h2>
+                    </div>
+                    <div class="section" id="zend.test.phpunit.db.quickstart.testcase">
+                        <div class="info">
+                            <h2>
+                                Setup a Database TestCase
+                            </h2>
+                        </div>
+                        <p class="para">
+                            We are now writting some database tests for the Bug Database example in the <span class="classname">Zend_Db_Table</span> documentation. First we begin to test that inserting a new bug is actually saved in the database correctly. First we have to setup a test-class that extends <span class="classname">Zend_Test_PHPUnit_DatabaseTestCase</span>. This class extends the PHPUnit Database Extension, which in turn extends the basic <span class="classname">PHPUnit_Framework_TestCase</span>. A database testcase contains two abstract methods that have to be implemented, one for the database connection and one for the initial dataset that should be used as seed or fixture.
+                        </p>
+                        <blockquote>
+                            <p>
+                                <b class="note">Note</b>: You should be familiar with the PHPUnit Database extension to follow this quickstart easily. Although all the concepts are explained in this documentation it may be helpful to read the PHPUnit documentation first.<br>
+                            </p>
+                        </blockquote>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #000000; font-weight: bold;">class</span> BugsTest <span style="color: #000000; font-weight: bold;">extends</span> Zend_Test_PHPUnit_DatabaseTestCase
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">private</span> <span style="color: #0000ff;">$_connectionMock</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/**</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* Returns the test database connection.</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* @return PHPUnit_Extensions_Database_DB_IDatabaseConnection</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*/</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; protected <span style="color: #000000; font-weight: bold;">function</span> getConnection<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">if</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$this</span>-&gt;_connectionMock == <span style="color: #000000; font-weight: bold;">null</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$connection</span> = Zend_Db::<span style="color: #006600;">factory</span><span style="color: #66cc66;">(</span>...<span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$this</span>-&gt;_connectionMock = <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">createZendDbConnection</span><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$connection</span>, <span style="color: #ff0000;">'zfunittests'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Zend_Db_Table_Abstract::<span style="color: #006600;">setDefaultAdapter</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$connection</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">return</span> <span style="color: #0000ff;">$this</span>-&gt;_connectionMock;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">/**</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;* @return PHPUnit_Extensions_Database_DataSet_IDataSet</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">&nbsp; &nbsp; &nbsp;*/</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; protected <span style="color: #000000; font-weight: bold;">function</span> getDataSet<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">return</span> <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">createFlatXmlDataSet</span><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.php.net/dirname"><span style="color: #000066;">dirname</span></a><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">__FILE__</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">'/_files/bugsSeed.xml'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            Here we create the database connection and seed some data into the database. Some important details should be noted on this code:
+                        </p>
+                        <ul class="itemizedlist">
+                            <li class="listitem">
+                                <p class="para">
+                                    You cannot directly return a <span class="classname">Zend_Db_Adapter_Abstract</span> from the <span class="methodname">getConnection()</span> method, but a PHPUnit specific wrapper which is generated with the <span class="methodname">createZendDbConnection()</span> method.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    The database schema (tables and database) is not re-created on every testrun. The database and tables have to be created manually before running the tests.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    Database tests by default truncate the data during <span class="methodname">setUp()</span> and then insert the seed data which is returned from the <span class="methodname">getDataSet()</span> method.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    DataSets have to implement the interface <span class="classname">PHPUnit_Extensions_Database_DataSet_IDataSet</span>. There is a wide range of <acronym class="acronym">XML</acronym> and YAML configuration file types included in PHPUnit which allows to specifiy how the tables and datasets should look like and you should look into the PHPUnit documentation to get the latest information on these dataset specifications.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="section" id="zend.test.phpunit.db.quickstart.dataset">
+                        <div class="info">
+                            <h2>
+                                Specify a seed dataset
+                            </h2>
+                        </div>
+                        <p class="para">
+                            In the previous setup for the database testcase we have specified a seed file for the database fixture. We now create this file specified in the Flat <acronym class="acronym">XML</acronym> format:
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;?xml</span> <span style="color: #000066;">version</span>=<span style="color: #ff0000;">"1.0"</span> <span style="color: #000066;">encoding</span>=<span style="color: #ff0000;">"UTF-8"</span> <span style="font-weight: bold; color: black;">?&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;dataset<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;zfbugs</span> bug_<span style="color: #000066;">id</span>=<span style="color: #ff0000;">"1"</span> bug_<span style="color: #000066;">description</span>=<span style="color: #ff0000;">"system needs electricity to run"</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; bug_<span style="color: #000066;">status</span>=<span style="color: #ff0000;">"NEW"</span> created_<span style="color: #000066;">on</span>=<span style="color: #ff0000;">"2007-04-01 00:00:00"</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; updated_<span style="color: #000066;">on</span>=<span style="color: #ff0000;">"2007-04-01 00:00:00"</span> reported_<span style="color: #000066;">by</span>=<span style="color: #ff0000;">"goofy"</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; assigned_<span style="color: #000066;">to</span>=<span style="color: #ff0000;">"mmouse"</span> verified_<span style="color: #000066;">by</span>=<span style="color: #ff0000;">"dduck"</span> <span style="font-weight: bold; color: black;">/&gt;</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;zfbugs</span> bug_<span style="color: #000066;">id</span>=<span style="color: #ff0000;">"2"</span> bug_<span style="color: #000066;">description</span>=<span style="color: #ff0000;">"Implement Do What I Mean function"</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; bug_<span style="color: #000066;">status</span>=<span style="color: #ff0000;">"VERIFIED"</span> created_<span style="color: #000066;">on</span>=<span style="color: #ff0000;">"2007-04-02 00:00:00"</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; updated_<span style="color: #000066;">on</span>=<span style="color: #ff0000;">"2007-04-02 00:00:00"</span> reported_<span style="color: #000066;">by</span>=<span style="color: #ff0000;">"goofy"</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; assigned_<span style="color: #000066;">to</span>=<span style="color: #ff0000;">"mmouse"</span> verified_<span style="color: #000066;">by</span>=<span style="color: #ff0000;">"dduck"</span> <span style="font-weight: bold; color: black;">/&gt;</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;zfbugs</span> bug_<span style="color: #000066;">id</span>=<span style="color: #ff0000;">"3"</span> bug_<span style="color: #000066;">description</span>=<span style="color: #ff0000;">"Where are my keys?"</span> bug_<span style="color: #000066;">status</span>=<span style="color: #ff0000;">"FIXED"</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; created_<span style="color: #000066;">on</span>=<span style="color: #ff0000;">"2007-04-03 00:00:00"</span> updated_<span style="color: #000066;">on</span>=<span style="color: #ff0000;">"2007-04-03 00:00:00"</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; reported_<span style="color: #000066;">by</span>=<span style="color: #ff0000;">"dduck"</span> assigned_<span style="color: #000066;">to</span>=<span style="color: #ff0000;">"mmouse"</span> verified_<span style="color: #000066;">by</span>=<span style="color: #ff0000;">"dduck"</span> <span style="font-weight: bold; color: black;">/&gt;</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;zfbugs</span> bug_<span style="color: #000066;">id</span>=<span style="color: #ff0000;">"4"</span> bug_<span style="color: #000066;">description</span>=<span style="color: #ff0000;">"Bug no product"</span> bug_<span style="color: #000066;">status</span>=<span style="color: #ff0000;">"INCOMPLETE"</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; created_<span style="color: #000066;">on</span>=<span style="color: #ff0000;">"2007-04-04 00:00:00"</span> updated_<span style="color: #000066;">on</span>=<span style="color: #ff0000;">"2007-04-04 00:00:00"</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; reported_<span style="color: #000066;">by</span>=<span style="color: #ff0000;">"mmouse"</span> assigned_<span style="color: #000066;">to</span>=<span style="color: #ff0000;">"goofy"</span> verified_<span style="color: #000066;">by</span>=<span style="color: #ff0000;">"dduck"</span> <span style="font-weight: bold; color: black;">/&gt;</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/dataset<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            We will work with this four entries in the database table "zfbugs" in the next examples. The required MySQL schema for this example is:
+                        </p>
+                        <div class="programlisting sql">
+                            <div class="sqlcode">
+                                <div class="sql" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #993333; font-weight: bold;">CREATE</span> <span style="color: #993333; font-weight: bold;">TABLE</span> <span style="color: #993333; font-weight: bold;">IF</span> <span style="color: #993333; font-weight: bold;">NOT</span> <span style="color: #993333; font-weight: bold;">EXISTS</span> <span style="color: #ff0000;">`zfbugs`</span> <span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">`bug_id`</span> int<span style="color: #66cc66;">(</span><span style="color: #cc66cc;">11</span><span style="color: #66cc66;">)</span> <span style="color: #993333; font-weight: bold;">NOT</span> <span style="color: #993333; font-weight: bold;">NULL</span> <span style="color: #993333; font-weight: bold;">AUTO_INCREMENT</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">`bug_description`</span> varchar<span style="color: #66cc66;">(</span><span style="color: #cc66cc;">100</span><span style="color: #66cc66;">)</span> <span style="color: #993333; font-weight: bold;">DEFAULT</span> <span style="color: #993333; font-weight: bold;">NULL</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">`bug_status`</span> varchar<span style="color: #66cc66;">(</span><span style="color: #cc66cc;">20</span><span style="color: #66cc66;">)</span> <span style="color: #993333; font-weight: bold;">DEFAULT</span> <span style="color: #993333; font-weight: bold;">NULL</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">`created_on`</span> datetime <span style="color: #993333; font-weight: bold;">DEFAULT</span> <span style="color: #993333; font-weight: bold;">NULL</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">`updated_on`</span> datetime <span style="color: #993333; font-weight: bold;">DEFAULT</span> <span style="color: #993333; font-weight: bold;">NULL</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">`reported_by`</span> varchar<span style="color: #66cc66;">(</span><span style="color: #cc66cc;">100</span><span style="color: #66cc66;">)</span> <span style="color: #993333; font-weight: bold;">DEFAULT</span> <span style="color: #993333; font-weight: bold;">NULL</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">`assigned_to`</span> varchar<span style="color: #66cc66;">(</span><span style="color: #cc66cc;">100</span><span style="color: #66cc66;">)</span> <span style="color: #993333; font-weight: bold;">DEFAULT</span> <span style="color: #993333; font-weight: bold;">NULL</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">`verified_by`</span> varchar<span style="color: #66cc66;">(</span><span style="color: #cc66cc;">100</span><span style="color: #66cc66;">)</span> <span style="color: #993333; font-weight: bold;">DEFAULT</span> <span style="color: #993333; font-weight: bold;">NULL</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #993333; font-weight: bold;">PRIMARY</span> <span style="color: #993333; font-weight: bold;">KEY</span>&nbsp; <span style="color: #66cc66;">(</span><span style="color: #ff0000;">`bug_id`</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span> ENGINE=InnoDB <span style="color: #993333; font-weight: bold;">AUTO_INCREMENT</span>=<span style="color: #cc66cc;">1</span> ;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section" id="zend.test.phpunit.db.quickstart.initial-tests">
+                        <div class="info">
+                            <h2>
+                                A few initial database tests
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Now that we have implemented the two required abstract methods of the <span class="classname">Zend_Test_PHPUnit_DatabaseTestCase</span> and specified the seed database content, which will be re-created for each new test, we can go about to make our first assertion. This will be a test to insert a new bug.
+                        </p>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #000000; font-weight: bold;">class</span> BugsTest <span style="color: #000000; font-weight: bold;">extends</span> Zend_Test_PHPUnit_DatabaseTestCase
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> testBugInsertedIntoDatabase<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$bugsTable</span> = <span style="color: #000000; font-weight: bold;">new</span> Bugs<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$data</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'created_on'</span>&nbsp; &nbsp; &nbsp; =&gt; <span style="color: #ff0000;">'2007-03-22 00:00:00'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'updated_on'</span>&nbsp; &nbsp; &nbsp; =&gt; <span style="color: #ff0000;">'2007-03-22 00:00:00'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'bug_description'</span> =&gt; <span style="color: #ff0000;">'Something wrong'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'bug_status'</span>&nbsp; &nbsp; &nbsp; =&gt; <span style="color: #ff0000;">'NEW'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'reported_by'</span>&nbsp; &nbsp; &nbsp;=&gt; <span style="color: #ff0000;">'garfield'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'verified_by'</span>&nbsp; &nbsp; &nbsp;=&gt; <span style="color: #ff0000;">'garfield'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'assigned_to'</span>&nbsp; &nbsp; &nbsp;=&gt; <span style="color: #ff0000;">'mmouse'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$bugsTable</span>-&gt;<span style="color: #006600;">insert</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$data</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$ds</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Test_PHPUnit_Db_DataSet_QueryDataSet<span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">getConnection</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$ds</span>-&gt;<span style="color: #006600;">addTable</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'zfbugs'</span>, <span style="color: #ff0000;">'SELECT * FROM zfbugs'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">assertDataSetsEqual</span><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">createFlatXmlDataSet</span><span style="color: #66cc66;">(</span><a href="http://www.php.net/dirname"><span style="color: #000066;">dirname</span></a><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">__FILE__</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; . <span style="color: #ff0000;">"/_files/bugsInsertIntoAssertion.xml"</span><span style="color: #66cc66;">)</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$ds</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            Now up to the <span class="methodname">$bugsTable-&gt;insert($data);</span> everything looks familiar. The lines after that contain the assertion methodname. We want to verify that after inserting the new bug the database has been updated correctly with the given data. For this we create a <span class="classname">Zend_Test_PHPUnit_Db_DataSet_QueryDataSet</span> instance and give it a database connection. We will then tell this dataset that it contains a table "zfbugs" which is given by an <acronym class="acronym">SQL</acronym> statement. This current/actual state of the database is compared to the expected database state which is contained in another <acronym class="acronym">XML</acronym> file "bugsInsertIntoAssertions.xml". This
+                            <acronym class="acronym">XML</acronym> file is a slight deviation from the one given above and contains another row with the expected data:
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;?xml</span> <span style="color: #000066;">version</span>=<span style="color: #ff0000;">"1.0"</span> <span style="color: #000066;">encoding</span>=<span style="color: #ff0000;">"UTF-8"</span> <span style="font-weight: bold; color: black;">?&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;dataset<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- previous 4 rows --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;zfbugs</span> bug_<span style="color: #000066;">id</span>=<span style="color: #ff0000;">"5"</span> bug_<span style="color: #000066;">description</span>=<span style="color: #ff0000;">"Something wrong"</span> bug_<span style="color: #000066;">status</span>=<span style="color: #ff0000;">"NEW"</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; created_<span style="color: #000066;">on</span>=<span style="color: #ff0000;">"2007-03-22 00:00:00"</span> updated_<span style="color: #000066;">on</span>=<span style="color: #ff0000;">"2007-03-22 00:00:00"</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; reported_<span style="color: #000066;">by</span>=<span style="color: #ff0000;">"garfield"</span> assigned_<span style="color: #000066;">to</span>=<span style="color: #ff0000;">"mmouse"</span> verified_<span style="color: #000066;">by</span>=<span style="color: #ff0000;">"garfield"</span> <span style="font-weight: bold; color: black;">/&gt;</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/dataset<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            There are other ways to assert that the current database state equals an expected state. The "Bugs" table in the example already knows a lot about its inner state, so why not use this to our advantage? The next example will assert that deleting from the database is possible:
+                        </p>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #000000; font-weight: bold;">class</span> BugsTest <span style="color: #000000; font-weight: bold;">extends</span> Zend_Test_PHPUnit_DatabaseTestCase
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> testBugDelete<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$bugsTable</span> = <span style="color: #000000; font-weight: bold;">new</span> Bugs<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$bugsTable</span>-&gt;<span style="color: #006600;">delete</span><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$bugsTable</span>-&gt;<span style="color: #006600;">getAdapter</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>-&gt;<span style="color: #006600;">quoteInto</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"bug_id = ?"</span>, <span style="color: #cc66cc;">4</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$ds</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$ds</span>-&gt;<span style="color: #006600;">addTable</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$bugsTable</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">assertDataSetsEqual</span><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">createFlatXmlDataSet</span><span style="color: #66cc66;">(</span><a href="http://www.php.net/dirname"><span style="color: #000066;">dirname</span></a><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">__FILE__</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; . <span style="color: #ff0000;">"/_files/bugsDeleteAssertion.xml"</span><span style="color: #66cc66;">)</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$ds</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            We have created a <span class="classname">Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet</span> dataset here, which takes any <span class="classname">Zend_Db_Table_Abstract</span> instance and adds it to the dataset with its table name, in this example "zfbugs". You could add several tables more if you wanted using the method <span class="methodname">addTable()</span> if you want to check for expected database state in more than one table.
+                        </p>
+                        <p class="para">
+                            Here we only have one table and check against an expected database state in "bugsDeleteAssertion.xml" which is the original seed dataset without the row with id 4.
+                        </p>
+                        <p class="para">
+                            Since we have only checked that two specific tables (not datasets) are equal in the previous examples we should also look at how to assert that two tables are equal. Therefore we will add another test to our TestCase which verifies updating behaviour of a dataset.
+                        </p>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #000000; font-weight: bold;">class</span> BugsTest <span style="color: #000000; font-weight: bold;">extends</span> Zend_Test_PHPUnit_DatabaseTestCase
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> testBugUpdate<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$bugsTable</span> = <span style="color: #000000; font-weight: bold;">new</span> Bugs<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$data</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'updated_on'</span>&nbsp; &nbsp; &nbsp; =&gt; <span style="color: #ff0000;">'2007-05-23'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'bug_status'</span>&nbsp; &nbsp; &nbsp; =&gt; <span style="color: #ff0000;">'FIXED'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$where</span> = <span style="color: #0000ff;">$bugsTable</span>-&gt;<span style="color: #006600;">getAdapter</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>-&gt;<span style="color: #006600;">quoteInto</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'bug_id = ?'</span>, <span style="color: #cc66cc;">1</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$bugsTable</span>-&gt;<span style="color: #006600;">update</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$data</span>, <span style="color: #0000ff;">$where</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$rowset</span> = <span style="color: #0000ff;">$bugsTable</span>-&gt;<span style="color: #006600;">fetchAll</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$ds</span>&nbsp; &nbsp; &nbsp; &nbsp; = <span style="color: #000000; font-weight: bold;">new</span> Zend_Test_PHPUnit_Db_DataSet_DbRowset<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$rowset</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$assertion</span> = <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">createFlatXmlDataSet</span><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.php.net/dirname"><span style="color: #000066;">dirname</span></a><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">__FILE__</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">'/_files/bugsUpdateAssertion.xml'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$expectedRowsets</span> = <span style="color: #0000ff;">$assertion</span>-&gt;<span style="color: #006600;">getTable</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'zfbugs'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">assertTablesEqual</span><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$expectedRowsets</span>, <span style="color: #0000ff;">$ds</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            Here we create the current database state from a <span class="classname">Zend_Db_Table_Rowset_Abstract</span> instance in conjunction with the <span class="methodname">Zend_Test_PHPUnit_Db_DataSet_DbRowset($rowset)</span> instance which creates an internal data-representation of the rowset. This can again be compared against another data-table by using the <span class="methodname">$this-&gt;assertTablesEqual()</span> assertion.
+                        </p>
+                    </div>
+                </div>
+                <div class="section" id="zend.test.phpunit.db.testing">
+                    <div class="info">
+                        <h2>
+                            Usage, API and Extensions Points
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The Quickstart already gave a good introduction on how database testing can be done using PHPUnit and the Zend Framework. This section gives an overview over the <acronym class="acronym">API</acronym> that the <span class="classname">Zend_Test_PHPUnit_Db</span> component comes with and how it works internally.
+                    </p>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: <span class="info"><b>Some Remarks on Database Testing</b><br></span> Just as the Controller TestCase is testing an application at an integration level, the Database TestCase is an integration testing method. Its using several different application layers for testing purposes and therefore should be consumed with caution.<br>
+                            It should be noted that testing domain and business logic with integration tests such as Zend Framework's Controller and Database TestCases is a bad practice. The purpose of an Integration test is to check that several parts of an application work smoothly when wired together. These integration tests do not replace the need for a set of unit tests that test the domain and business logic at a much smaller level, the isolated class.<br>
+                        </p>
+                    </blockquote>
+                    <div class="section" id="zend.test.phpunit.db.testing.testcase">
+                        <div class="info">
+                            <h2>
+                                The Zend_Test_PHPUnit_DatabaseTestCase class
+                            </h2>
+                        </div>
+                        <p class="para">
+                            The <span class="classname">Zend_Test_PHPUnit_DatabaseTestCase</span> class derives from the <span class="classname">PHPUnit_Extensions_Database_TestCase</span> which allows to setup tests with a fresh database fixture on each run easily. The Zend implementation offers some additional convenience features over the PHPUnit Database extension when it comes to using <span class="classname">Zend_Db</span> resources inside your tests. The workflow of a database test-case can be described as follows.
+                        </p>
+                        <ol type="1">
+                            <li class="listitem">
+                                <p class="para">
+                                    For each test PHPUnit creates a new instance of the TestCase and calls the <span class="methodname">setUp()</span> method.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    The Database TestCase creates an instance of a Database Tester which handles the setting up and tearing down of the database.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    The database tester collects the information on the database connection and initial dataset from <span class="methodname">getConnection()</span> and <span class="methodname">getDataSet()</span> which are both abstract methods and have to be implemented by any Database Testcase.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    By default the database tester truncates the tables specified in the given dataset, and then inserts the data given as initial fixture.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    When the database tester has finished setting up the database, PHPUnit runs the test.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    After running the test, <span class="methodname">tearDown()</span> is called. Because the database is wiped in <span class="methodname">setUp()</span> before inserting the required initial fixture, no actions are executed by the database tester at this stage.
+                                </p>
+                            </li>
+                        </ol>
+                        <blockquote>
+                            <p>
+                                <b class="note">Note</b>: The Database TestCase expects the database schema and tables to be setup correctly to run the tests. There is no mechanism to create and tear down database tables.<br>
+                            </p>
+                        </blockquote>
+                        <p class="para">
+                            The <span class="classname">Zend_Test_PHPUnit_DatabaseTestCase</span> class has some convenience functions that can help writing tests that interact with the database and the database testing extension.
+                        </p>
+                        <p class="para">
+                            The next table lists only the new methods compared to the <span class="classname">PHPUnit_Extensions_Database_TestCase</span>, whose <a href="http://www.phpunit.de/manual/current/en/database.html" class="link external">&raquo; API is documented in the PHPUnit Documentation</a>.
+                        </p>
+                        <div class="info"></div>
+                        <table class="doctable table">
+                            <caption>
+                                <b>Zend_Test_PHPUnit_DatabaseTestCase API Methods</b>
+                            </caption>
+                            <thead valign="middle">
+                                <tr valign="middle">
+                                    <th>
+                                        Method
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody valign="middle" class="tbody">
+                                <tr valign="middle">
+                                    <td align="left">
+                                        <span class="methodname">createZendDbConnection(Zend_Db_Adapter_Abstract $connection, $schema)</span>
+                                    </td>
+                                    <td align="left">
+                                        Create a PHPUnit Database Extension compatible Connection instance from a <span class="classname">Zend_Db_Adapter_Abstract</span> instance. This method should be used in for testcase setup when implementing the abstract <span class="methodname">getConnection()</span> method of the database testcase.
+                                    </td>
+                                </tr>
+                                <tr valign="middle">
+                                    <td align="left">
+                                        <span class="methodname">getAdapter()</span>
+                                    </td>
+                                    <td align="left">
+                                        Convenience method to access the underlying <span class="classname">Zend_Db_Adapter_Abstract</span> instance which is nested inside the PHPUnit database connection created with <span class="methodname">getConnection()</span>.
+                                    </td>
+                                </tr>
+                                <tr valign="middle">
+                                    <td align="left">
+                                        <span class="methodname">createDbRowset(Zend_Db_Table_Rowset_Abstract $rowset, $tableName = null)</span>
+                                    </td>
+                                    <td align="left">
+                                        Create a DataTable Object that is filled with the data from a given <span class="classname">Zend_Db_Table_Rowset_Abstract</span> instance. The table the rowset is connected to is chosen when <var class="varname">$tableName</var> is <b><tt>NULL</tt></b>.
+                                    </td>
+                                </tr>
+                                <tr valign="middle">
+                                    <td align="left">
+                                        <span class="methodname">createDbTable(Zend_Db_Table_Abstract $table, $where = null, $order = null, $count = null, $offset = null)</span>
+                                    </td>
+                                    <td align="left">
+                                        Create a DataTable object that represents the data contained in a <span class="classname">Zend_Db_Table_Abstract</span> instance. For retrieving the data <span class="methodname">fetchAll()</span> is used, where the optional parameters can be used to restrict the data table to a certain subset.
+                                    </td>
+                                </tr>
+                                <tr valign="middle">
+                                    <td align="left">
+                                        <span class="methodname">createDbTableDataSet(array $tables=array())</span>
+                                    </td>
+                                    <td align="left">
+                                        Create a DataSet containing the given <var class="varname">$tables</var>, an array of <span class="classname">Zend_Db_Table_Abstract</span> instances.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="section" id="zend.test.phpunit.db.testing.controllerintegration">
+                        <div class="info">
+                            <h2>
+                                Integrating Database Testing with the ControllerTestCase
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Because <acronym class="acronym">PHP</acronym> does not support multiple inheritance it is not possible to use the Controller and Database testcases in conjunction. However you can use the <span class="classname">Zend_Test_PHPUnit_Db_SimpleTester</span> database tester in your controller test-case to setup a database enviroment fixture for each new controller test. The Database TestCase in general is only a set of convenience functions which can also be accessed and used without the test case.
+                        </p>
+                        <div class="example">
+                            <div class="info">
+                                <p>
+                                    <b>Example #1 Database integration example</b>
+                                </p>
+                            </div>
+                            <div class="example-contents">
+                                <p>
+                                    This example extends the User Controller Test from the <span class="classname">Zend_Test_PHPUnit_ControllerTestCase</span> documentation to include a database setup.
+                                </p>
+                            </div>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #000000; font-weight: bold;">class</span> UserControllerTest <span style="color: #000000; font-weight: bold;">extends</span> Zend_Test_PHPUnit_ControllerTestCase
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #66cc66;">{</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> setUp<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">setupDatabase</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$this</span>-&gt;<span style="color: #006600;">bootstrap</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$this</span>, <span style="color: #ff0000;">'appBootstrap'</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; parent::<span style="color: #006600;">setUp</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> setupDatabase<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$db</span> = Zend_Db::<span style="color: #006600;">factory</span><span style="color: #66cc66;">(</span>...<span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$connection</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Test_PHPUnit_Db_Connection<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$db</span>,
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'database_schema_name'</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$databaseTester</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Test_PHPUnit_Db_SimpleTester<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$connection</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$databaseFixture</span> =
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">new</span> PHPUnit_Extensions_Database_DataSet_FlatXmlDataSet<span style="color: #66cc66;">(</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.php.net/dirname"><span style="color: #000066;">dirname</span></a><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">__FILE__</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">'/_files/initialUserFixture.xml'</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0000ff;">$databaseTester</span>-&gt;<span style="color: #006600;">setupDatabase</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$databaseFixture</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #66cc66;">}</span>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="example-contents">
+                                <p>
+                                    Now the Flat <acronym class="acronym">XML</acronym> dataset "initialUserFixture.xml" is used to set the database into an initial state before each test, exactly as the DatabaseTestCase works internally.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.test.phpunit.db.adapter">
+                    <div class="info">
+                        <h2>
+                            Using the Database Testing Adapter
+                        </h2>
+                    </div>
+                    <p class="para">
+                        There are times when you don't want to test parts of your application with a real database, but are forced to because of coupling. The <span class="classname">Zend_Test_DbAdapter</span> offers a convenient way to use a implementation of <span class="classname">Zend_Db_Adapter_Abstract</span> without having to open a database connection. Furthermore this Adapter is very easy to mock from within your PHPUnit testsuite, since it requires no constructor arguments.
+                    </p>
+                    <p class="para">
+                        The Test Adapter acts as a stack for various database results. Its order of results have to be userland implemented, which might be a tedious task for tests that call many different database queries, but its just the right helper for tests where only a handful of queries are executed and you know the exact order of the results that have to be returned to your userland code.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$adapter</span>&nbsp; &nbsp;= <span style="color: #000000; font-weight: bold;">new</span> Zend_Test_DbAdapter<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$stmt1Rows</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo'</span> =&gt; <span style="color: #ff0000;">'bar'</span><span style="color: #66cc66;">)</span>, <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo'</span> =&gt; <span style="color: #ff0000;">'baz'</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$stmt1</span>&nbsp; &nbsp; &nbsp;= Zend_Test_DbStatement::<span style="color: #006600;">createSelectStatement</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$stmt1Rows</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$adapter</span>-&gt;<span style="color: #006600;">appendStatementToStack</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$stmt1</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$stmt2Rows</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo'</span> =&gt; <span style="color: #ff0000;">'bar'</span><span style="color: #66cc66;">)</span>, <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'foo'</span> =&gt; <span style="color: #ff0000;">'baz'</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$stmt2</span>&nbsp; &nbsp; &nbsp;= Zend_Test_DbStatement::<span style="color: #006600;">createSelectStatement</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$stmt2Rows</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$adapter</span>-&gt;<span style="color: #006600;">appendStatementToStack</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$stmt2</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$rs</span> = <span style="color: #0000ff;">$adapter</span>-&gt;<span style="color: #006600;">query</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'SELECT ...'</span><span style="color: #66cc66;">)</span>; <span style="color: #808080; font-style: italic;">// Returns Statement 2</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">while</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$row</span> = <span style="color: #0000ff;">$rs</span>-&gt;<span style="color: #006600;">fetch</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$rs</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'foo'</span><span style="color: #66cc66;">]</span>; <span style="color: #808080; font-style: italic;">// Prints "Bar", "Baz"</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$rs</span> = <span style="color: #0000ff;">$adapter</span>-&gt;<span style="color: #006600;">query</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'SELECT ...'</span><span style="color: #66cc66;">)</span>; <span style="color: #808080; font-style: italic;">// Returns Statement 1</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Behaviour of any real database adapter is simulated as much as possible such that methods like <span class="methodname">fetchAll()</span>, <span class="methodname">fetchObject()</span>, <span class="methodname">fetchColumn</span> and more are working for the test adapter.
+                    </p>
+                    <p class="para">
+                        You can also put INSERT, UPDATE and DELETE statement onto the result stack, these however only return a statement which allows to specifiy the result of <span class="methodname">$stmt-&gt;rowCount()</span>.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$adapter</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Test_DbAdapter<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$adapter</span>-&gt;<span style="color: #006600;">appendStatementToStack</span><span style="color: #66cc66;">(</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; Zend_Test_DbStatement::<span style="color: #006600;">createInsertStatement</span><span style="color: #66cc66;">(</span><span style="color: #cc66cc;">1</span><span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$adapter</span>-&gt;<span style="color: #006600;">appendStatementToStack</span><span style="color: #66cc66;">(</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; Zend_Test_DbStatement::<span style="color: #006600;">createUpdateStatement</span><span style="color: #66cc66;">(</span><span style="color: #cc66cc;">2</span><span style="color: #66cc66;">)</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$adapter</span>-&gt;<span style="color: #006600;">appendStatementToStack</span><span style="color: #66cc66;">(</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; Zend_Test_DbStatement::<span style="color: #006600;">createDeleteStatement</span><span style="color: #66cc66;">(</span><span style="color: #cc66cc;">10</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        By default the query profiler is enabled, so that you can retrieve the executed SQL statements and their bound parameters to check for the correctness of the execution.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$adapter</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Test_DbAdapter<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$stmt</span> = <span style="color: #0000ff;">$adapter</span>-&gt;<span style="color: #006600;">query</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"SELECT * FROM bugs"</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$qp</span> = <span style="color: #0000ff;">$adapter</span>-&gt;<span style="color: #006600;">getProfiler</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>-&gt;<span style="color: #006600;">getLastQueryProfile</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$qp</span>-&gt;<span style="color: #006600;">getQuerY</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>; <span style="color: #808080; font-style: italic;">// SELECT * FROM bugs</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        The test adapter never checks if the query specified is really of the type SELECT, DELETE, INSERT or UPDATE which is returned next from the stack. The correct order of returning the data has to be implemented by the user of the test adapter.
+                    </p>
+                    <p class="para">
+                        The Test adapter also specifies methods to simulate the use of the methods <span class="methodname">listTables()</span>, <span class="methodname">describeTables()</span> and <span class="methodname">lastInsertId()</span>. Additionally using the <span class="methodname">setQuoteIdentifierSymbol()</span> you can specify which symbol should be used for quoting, by default none is used.
+                    </p>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.test.phpunit.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.text.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.test.html">Zend_Test</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.test.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.test.phpunit.html">Zend_Test_PHPUnit</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.test.phpunit.db.html">Zend_Test_PHPUnit_Db</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

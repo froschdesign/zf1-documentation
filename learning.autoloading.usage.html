@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Basic Autoloader Usage - Autoloading in Zend Framework &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="learning.autoloading.usage" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Basic Autoloader Usage
+                    </h1>
+                </div>
+                <p class="para">
+                    Now that we have an understanding of what autoloading is and the goals and design of Zend Framework's autoloading solution, let's look at how to use <span class="classname">Zend_Loader_Autoloader</span>.
+                </p>
+                <p class="para">
+                    In the simplest case, you would simply require the class, and then instantiate it. Since <span class="classname">Zend_Loader_Autoloader</span> is a singleton (due to the fact that the <acronym class="acronym">SPL</acronym> autoloader is a single resource), we use <span class="methodname">getInstance()</span> to retrieve an instance.
+                </p>
+                <div class="programlisting php">
+                    <div class="phpcode">
+                        <div class="php" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #b1b100;">require_once</span> <span style="color: #ff0000;">'Zend/Loader/Autoloader.php'</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        Zend_Loader_Autoloader::<span style="color: #006600;">getInstance</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    By default, this will allow loading any classes with the class namespace prefixes of "Zend_" or "ZendX_", as long as they are on your <span class="property">include_path</span>.
+                </p>
+                <p class="para">
+                    What happens if you have other namespace prefixes you wish to use? The best, and simplest, way is to call the <span class="methodname">registerNamespace()</span> method on the instance. You can pass a single namespace prefix, or an array of them:
+                </p>
+                <div class="programlisting php">
+                    <div class="phpcode">
+                        <div class="php" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #b1b100;">require_once</span> <span style="color: #ff0000;">'Zend/Loader/Autoloader.php'</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$loader</span> = Zend_Loader_Autoloader::<span style="color: #006600;">getInstance</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$loader</span>-&gt;<span style="color: #006600;">registerNamespace</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Foo_'</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$loader</span>-&gt;<span style="color: #006600;">registerNamespace</span><span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Foo_'</span>, <span style="color: #ff0000;">'Bar_'</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <p class="para">
+                    Alternately, you can tell <span class="classname">Zend_Loader_Autoloader</span> to act as a "fallback" autoloader. This means that it will try to resolve any class regardless of namespace prefix.
+                </p>
+                <div class="programlisting php">
+                    <div class="phpcode">
+                        <div class="php" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$loader</span>-&gt;<span style="color: #006600;">setFallbackAutoloader</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="warning">
+                    <b class="warning">Warning</b>
+                    <div class="info">
+                        <h2>
+                            Do not use as a fallback autoloader
+                        </h2>
+                    </div>
+                    <p class="para">
+                        While it's tempting to use <span class="classname">Zend_Loader_Autoloader</span> as a fallback autoloader, we do not recommend the practice.
+                    </p>
+                    <p class="para">
+                        Internally, <span class="classname">Zend_Loader_Autoloader</span> uses <span class="methodname">Zend_Loader::loadClass()</span> to load classes. That method uses <span class="methodname">include()</span> to attempt to load the given class file. <span class="methodname">include()</span> will return a boolean <b><tt>FALSE</tt></b> if not successful -- but also issues a <acronym class="acronym">PHP</acronym> warning. This latter fact can lead to some issues:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                If <span class="property">display_errors</span> is enabled, the warning will be included in output.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Depending on the <span class="property">error_reporting</span> level you have chosen, it could also clutter your logs.
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        You can suppress the error messages (the <span class="classname">Zend_Loader_Autoloader</span> documentation details this), but note that the suppression is only relevant when <span class="property">display_errors</span> is enabled; the error log will always display the messages. For these reasons, we recommend always configuring the namespace prefixes the autoloader should be aware of
+                    </p>
+                </div>
+                <blockquote>
+                    <p>
+                        <b class="note">Note</b>: <span class="info"><b>Namespace Prefixes vs PHP Namespaces</b><br></span> At the time this is written, <acronym class="acronym">PHP</acronym> 5.3 has been released. With that version, <acronym class="acronym">PHP</acronym> now has official namespace support.<br>
+                        However, Zend Framework predates <acronym class="acronym">PHP</acronym> 5.3, and thus namespaces. Within Zend Framework, when we refer to "namespaces", we are referring to a practice whereby classes are prefixed with a vender "namespace". As an example, all Zend Framework class names are prefixed with "Zend_" -- that is our vendor "namespace".<br>
+                        Zend Framework plans to offer native <acronym class="acronym">PHP</acronym> namespace support to the autoloader in future revisions, and its own library will utilize namespaces starting with version 2.0.0.<br>
+                    </p>
+                </blockquote>
+                <p class="para">
+                    If you have a custom autoloader you wish to use with Zend Framework -- perhaps an autoloader from a third-party library you are also using -- you can manage it with <span class="classname">Zend_Loader_Autoloader</span>'s <span class="methodname">pushAutoloader()</span> and <span class="methodname">unshiftAutoloader()</span> methods. These methods will append or prepend, respectively, autoloaders to a chain that is called prior to executing Zend Framework's internal autoloading mechanism. This approach offers the following benefits:
+                </p>
+                <ul class="itemizedlist">
+                    <li class="listitem">
+                        <p class="para">
+                            Each method takes an optional second argument, a class namespace prefix. This can be used to indicate that the given autoloader should only be used when looking up classes with that given class prefix. If the class being resolved does not have that prefix, the autoloader will be skipped -- which can lead to performance improvements.
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p class="para">
+                            If you need to manipulate <span class="methodname">spl_autoload()</span>'s registry, any autoloaders that are callbacks pointing to instance methods can pose issues, as <span class="methodname">spl_autoload_functions()</span> does not return the exact same callbacks. <span class="classname">Zend_Loader_Autoloader</span> has no such limitation.
+                        </p>
+                    </li>
+                </ul>
+                <p class="para">
+                    Autoloaders managed this way may be any valid <acronym class="acronym">PHP</acronym> callback.
+                </p>
+                <div class="programlisting php">
+                    <div class="phpcode">
+                        <div class="php" style="font-family: monospace;">
+                            <ol>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #808080; font-style: italic;">// Append function 'my_autoloader' to the stack,</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #808080; font-style: italic;">// to manage classes with the prefix 'My_':</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$loader</span>-&gt;<span style="color: #006600;">pushAutoloader</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'my_autoloader'</span>, <span style="color: #ff0000;">'My_'</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        &nbsp;
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #808080; font-style: italic;">// Prepend static method Foo_Loader::autoload() to the stack,</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #808080; font-style: italic;">// to manage classes with the prefix 'Foo_':</span>
+                                    </div>
+                                </li>
+                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                        <span style="color: #0000ff;">$loader</span>-&gt;<span style="color: #006600;">unshiftAutoloader</span><span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Foo_Loader'</span>, <span style="color: #ff0000;">'autoload'</span><span style="color: #66cc66;">)</span>, <span style="color: #ff0000;">'Foo_'</span><span style="color: #66cc66;">)</span>;
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="learning.autoloading.design.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="learning.autoloading.resources.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="learning.autoloading.html">Autoloading in Zend Framework</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.autoloading.intro.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.autoloading.design.html">Goals and Design</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="learning.autoloading.usage.html">Basic Autoloader Usage</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.autoloading.resources.html">Resource Autoloading</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.autoloading.conclusion.html">Conclusion</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

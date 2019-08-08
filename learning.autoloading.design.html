@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Goals and Design - Autoloading in Zend Framework &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="learning.autoloading.design" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Goals and Design
+                    </h1>
+                </div>
+                <div class="section" id="learning.autoloading.design.naming">
+                    <div class="info">
+                        <h2>
+                            Class Naming Conventions
+                        </h2>
+                    </div>
+                    <p class="para">
+                        To understand autoloading in Zend Framework, first you need to understand the relationship between class names and class files.
+                    </p>
+                    <p class="para">
+                        Zend Framework has borrowed an idea from <a href="http://pear.php.net/" class="link external">&raquo; PEAR</a>, whereby class names have a 1:1 relationship with the filesystem. Simply put, the underscore character ("_") is replaced by a directory separator in order to resolve the path to the file, and then the suffix "<var class="filename">.php</var>" is added. For example, the class "<span class="classname">Foo_Bar_Baz</span>" would correspond to "<var class="filename">Foo/Bar/Baz.php</var>" on the filesystem. The assumption is also that the classes may be resolved via <acronym class="acronym">PHP</acronym>'s <span class="property">include_path</span> setting, which allows both <span class="methodname">include()</span>
+                        and <span class="methodname">require()</span> to find the filename via a relative path lookup on the <span class="property">include_path</span>.
+                    </p>
+                    <p class="para">
+                        Additionally, per <acronym class="acronym">PEAR</acronym> as well as the <a href="http://php.net/userlandnaming.tips" class="link external">&raquo; PHP project</a>, we use and recommend using a vendor or project prefix for your code. What this means is that all classes you write will share a common class prefix; for example, all code in Zend Framework has the prefix "Zend_". This naming convention helps prevent naming collisions. Within Zend Framework, we often refer to this as the "namespace" prefix; be careful not to confuse it with <acronym class="acronym">PHP</acronym>'s native namespace implementation.
+                    </p>
+                    <p class="para">
+                        Zend Framework follows these simple rules internally, and our coding standards encourage that you do so as well for all library code.
+                    </p>
+                </div>
+                <div class="section" id="learning.autoloading.design.autoloader">
+                    <div class="info">
+                        <h2>
+                            Autoloader Conventions and Design
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Zend Framework's autoloading support, provided primarily via <span class="classname">Zend_Loader_Autoloader</span>, has the following goals and design elements:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">Provide namespace matching</em>. If the class namespace prefix is not in a list of registered namespaces, return <b><tt>FALSE</tt></b> immediately. This allows for more optimistic matching, as well as fallback to other autoloaders.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">Allow the autoloader to act as a fallback autoloader</em>. In the case where a team may be widely distributed, or using an undetermined set of namespace prefixes, the autoloader should still be configurable such that it will attempt to match any namespace prefix. It will be noted, however, that this practice is not recommended, as it can lead to unnecessary lookups.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">Allow toggling error suppression</em>. We feel -- and the greater <acronym class="acronym">PHP</acronym> community does as well -- that error suppression is a bad idea. It's expensive, and it masks very real application problems. So, by default, it should be off. However, if a developer <em class="emphasis">insists</em> that it be on, we allow toggling it on.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">Allow specifying custom callbacks for autoloading</em>. Some developers don't want to use <span class="methodname">Zend_Loader::loadClass()</span> for autoloading, but still want to make use of Zend Framework's mechanisms. <span class="classname">Zend_Loader_Autoloader</span> allows specyfing an alternate callback for autoloading.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">Allow manipulation of the <acronym class="acronym">SPL</acronym> autoload callback chain</em>. The purpose of this is to allow specifying additional autoloaders -- for instance, resource loaders for classes that don't have a 1:1 mapping to the filesystem -- to be registered before or after the primary Zend Framework autoloader.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="learning.autoloading.intro.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="learning.autoloading.usage.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="learning.autoloading.html">Autoloading in Zend Framework</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.autoloading.intro.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="learning.autoloading.design.html">Goals and Design</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.autoloading.usage.html">Basic Autoloader Usage</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.autoloading.resources.html">Resource Autoloading</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.autoloading.conclusion.html">Conclusion</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

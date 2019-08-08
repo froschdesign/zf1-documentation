@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Service_Rackspace_Servers - Zend_Service &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.service.rackspace.servers" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Service_Rackspace_Servers
+                    </h1>
+                </div>
+                <div class="section" id="zend.service.rackspace.servers.intro">
+                    <div class="info">
+                        <h2>
+                            Overview
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The <span class="classname">Zend_Service_Rackspace_Servers</span> is a class that provides a simple <acronym class="acronym">API</acronym> to manage the <a href="http://www.rackspace.com/cloud/cloud_hosting_products/servers/" class="link external">&raquo; Rackspace Cloud Servers</a>. Using this class you can:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                Create new servers
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                List and get information on each server
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Delete a server
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Manage the public/private IP addresses of a server
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Resize the server capacity
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Reboot a server
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Create new images for a server
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Manage the backup of a server
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Create a group of server to share the IP addresses for High Availability architecture
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.service.rackspace.servers.terminology">
+                    <div class="info">
+                        <h2>
+                            Terminology
+                        </h2>
+                    </div>
+                    <p class="para">
+                        A <em class="emphasis">server</em> is a virtual machine instance in the Cloud Servers system. Flavor and image are requisite elements when creating a server.
+                    </p>
+                    <p class="para">
+                        A <em class="emphasis">server</em> is managed using the the class <span class="classname">Zend_Service_Rackspace_Servers_Server</span>.
+                    </p>
+                    <p class="para">
+                        A <em class="emphasis">flavor</em> is an available hardware configuration for a server. Each flavor has a unique combination of disk space, memory capacity and priority for CPU time.
+                    </p>
+                    <p class="para">
+                        An <em class="emphasis">image</em> is a collection of files used to create or rebuild a server. Rackspace provides a number of pre-built OS images by default. You may also create custom images from cloud servers you have launched. These custom images are useful for backup purposes or for producing &acirc;&#128;&#156;gold&acirc;&#128;&#157; server images if you plan to deploy a particular server configuration frequently.
+                    </p>
+                    <p class="para">
+                        An <em class="emphasis">image</em> is managed using the the class <span class="classname">Zend_Service_Rackspace_Servers_Image</span>.
+                    </p>
+                    <p class="para">
+                        A <em class="emphasis">backup schedule</em> can be defined to create server images at regular intervals (daily and weekly). Backup schedules are configurable per server.
+                    </p>
+                    <p class="para">
+                        <em class="emphasis">Public IP addresses</em> can be shared across multiple servers for use in various high availability scenarios. When an IP address is shared to another server, the cloud network restrictions are modified to allow each server to listen to and respond on that IP address (you may optionally specify that the target server network configuration be modified). Shared IP addresses can be used with many standard heartbeat facilities (e.g. keepalived) that monitor for failure and manage IP failover.
+                    </p>
+                    <p class="para">
+                        A <em class="emphasis">shared IP group</em> is a collection of servers that can share IPs with other members of the group. Any server in a group can share one or more public IPs with any other server in the group. With the exception of the first server in a shared IP group, servers must be launched into shared IP groups. A server may only be a member of one shared IP group.
+                    </p>
+                    <p class="para">
+                        A <em class="emphasis">shared IP group</em> is managed using the the class <span class="classname">Zend_Service_Rackspace_Servers_SharedIpGroup</span>.
+                    </p>
+                </div>
+                <div class="section" id="zend.service.rackspace.servers.quick-start">
+                    <div class="info">
+                        <h2>
+                            Quick Start
+                        </h2>
+                    </div>
+                    <p class="para">
+                        To use this class you have to pass the username and the API's key of Rackspace in the construction of the class.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$user</span> = <span style="color: #ff0000;">'username'</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$key</span>&nbsp; = <span style="color: #ff0000;">'secret key'</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$rackspace</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Rackspace_Servers<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$user</span>,<span style="color: #0000ff;">$key</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        To create a new server you can use the <em class="emphasis">createServer</em> method.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$data</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a> <span style="color: #66cc66;">(</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #ff0000;">'name'</span>&nbsp; &nbsp; &nbsp;=&gt; <span style="color: #ff0000;">'test'</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #ff0000;">'imageId'</span>&nbsp; =&gt; <span style="color: #ff0000;">'49'</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #ff0000;">'flavorId'</span> =&gt; <span style="color: #ff0000;">'1'</span>,
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$server</span>= <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">createServer</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$data</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/die"><span style="color: #000066;">die</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'ERROR: '</span>.<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Server name&nbsp; &nbsp; : %s<span style="color: #000099; font-weight: bold;">\n</span>"</span>,<span style="color: #0000ff;">$server</span>-&gt;<span style="color: #006600;">getName</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Server Id&nbsp; &nbsp; &nbsp; : %s<span style="color: #000099; font-weight: bold;">\n</span>"</span>,<span style="color: #0000ff;">$server</span>-&gt;<span style="color: #006600;">getId</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Admin password : %s<span style="color: #000099; font-weight: bold;">\n</span>"</span>,<span style="color: #0000ff;">$server</span>-&gt;<span style="color: #006600;">getAdminPass</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        This example create a server with name <em class="emphasis">test</em>, imageId 49, and flavorId 1. The attributes <em class="emphasis">name</em>, <em class="emphasis">imageId</em> and <em class="emphasis">flavorId</em> are required to create a new server. The result of <em class="emphasis">createServer</em> is an instance of <span class="classname">Zend_Service_Rackspace_Servers_Server</span>.
+                    </p>
+                    <p class="para">
+                        To get the public and private IP addresses of a server you can use the <em class="emphasis">getServerIp</em> method.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$id</span>&nbsp; = <span style="color: #ff0000;">'20054631'</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$ips</span> = <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getServerIp</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$id</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/die"><span style="color: #000066;">die</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'ERROR: '</span>.<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"Private IPs:<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/print_r"><span style="color: #000066;">print_r</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$ips</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'private'</span><span style="color: #66cc66;">]</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"Public IPs:<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/print_r"><span style="color: #000066;">print_r</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$ips</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'public'</span><span style="color: #66cc66;">]</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        This example get the IP addresses of the server with Id <em class="emphasis">20054631</em>. The result of <em class="emphasis">getServerIp</em> is an associative arrays with keys 'private' and 'public' contains all the private IP addresses and the public IP addresses of the server.
+                    </p>
+                    <p class="para">
+                        To get the list of all the available servers you can use the <em class="emphasis">listServers</em> method.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$servers</span>= <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">listServer</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/die"><span style="color: #000066;">die</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'ERROR: '</span>.<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">foreach</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$servers</span> <span style="color: #b1b100;">as</span> <span style="color: #0000ff;">$srv</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Name&nbsp; &nbsp; &nbsp; : %s<span style="color: #000099; font-weight: bold;">\n</span>"</span>,<span style="color: #0000ff;">$srv</span>-&gt;<span style="color: #006600;">getName</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Server Id : %s<span style="color: #000099; font-weight: bold;">\n</span>"</span>,<span style="color: #0000ff;">$srv</span>-&gt;<span style="color: #006600;">getId</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Image&nbsp; Id : %s<span style="color: #000099; font-weight: bold;">\n</span>"</span>,<span style="color: #0000ff;">$srv</span>-&gt;<span style="color: #006600;">getImageId</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Flavor Id : %s<span style="color: #000099; font-weight: bold;">\n</span>"</span>,<span style="color: #0000ff;">$srv</span>-&gt;<span style="color: #006600;">getFlavorId</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Status&nbsp; &nbsp; : %s (%d<span style="color: #000099; font-weight: bold;">\%</span>)<span style="color: #000099; font-weight: bold;">\n</span>"</span>,<span style="color: #0000ff;">$srv</span>-&gt;<span style="color: #006600;">getStatus</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>,<span style="color: #0000ff;">$srv</span>-&gt;<span style="color: #006600;">getProgress</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.service.rackspace.servers.methods">
+                    <div class="info">
+                        <h2>
+                            Available Methods
+                        </h2>
+                    </div>
+                    <dl>
+                        <dt id="zend.service.rackspace.servers.methods.change-backup-schedule"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">changeBackupSchedule</span> <span class="methodparam">( string $id, string $weekly, string $daily )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                This operation creates a new backup schedule or updates an existing backup schedule for the specified server. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is the ID of the server
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$weekly</em>, the day of the week for the backup (for instance "THURSDAY")
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$daily</em>, specify the hours for the backup (for instance "H_0400_0600")
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.change-server-name"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">changeServerName</span> <span class="methodparam">( string $id, string $name )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Change the name of a server. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is the ID of the server
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$name</em> is an optional parameter that specify the new name of the server
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.change-server-password"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">changeServerPassword</span> <span class="methodparam">( string $id, string $password )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Change the admin password of a server. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is the ID of the server
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$password</em> is an optional parameter that specify the new admin password of the server
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.confirm-resize-server"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">confirmResizeServer</span> <span class="methodparam">( string $id )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Confirm the resize of a server. During a resize operation, the original server is saved for a period of time to allow roll back if there is a problem. Once the newly resized server is tested and has been confirmed to be functioning properly, use this operation to confirm the resize. After confirmation, the original server is removed and cannot be rolled back to. All resizes are automatically confirmed after 24 hours if they are not explicitly confirmed or reverted. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is Id of the server.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.create-image"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">createImage</span> <span class="methodparam">( string $serverId,string $name )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Create an image from a server. Return a new instance of <span class="classname">Zend_Service_Rackspace_Servers_Image</span>. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$serverId</em> is the Id of the server to use to create the image.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$name</em>, is the name of image to create
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.create-shared-ip-group"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">createSharedIpGroup</span> <span class="methodparam">( string $name, string $serverId )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                This operation creates a new shared IP group. Please note, on a create request, the shared IP group can be created empty or can be initially populated with a single server. Return the shared IP group as instance of <span class="classname">Zend_Service_Rackspace_Servers_SharedIpGroup</span> In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$name</em> is the name of the shared IP group to create.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$serverId</em> is the Id of the server.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.create-server"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">createServer</span> <span class="methodparam">( array $data, $metadata=array(),$files=array() )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Create a server with the attributes specified in <em class="emphasis">$data</em>. You can specify also optional parameters: <em class="emphasis">metadata</em> and <em class="emphasis">files</em>. Metadata is an array contains key/value of metadata related to the server and files is an array contains the paths of some files to upload into the server. The syntax used for the uploading of the files is 'serverPath' =&gt; 'localPath'. Return a new instance of <span class="classname">Zend_Service_Rackspace_Servers_Server</span>. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$data</em> contains the parameters for the server. The required attributes to create a new server are:
+                            </p>
+                            <ul class="itemizedlist">
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">name</em>, contains the name of the server
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">flavorId</em>, contains the flavor's Id to use
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">imageId</em>, contains the image's Id to use
+                                    </p>
+                                </li>
+                            </ul>
+                            <p class="para">
+                                <em class="emphasis">$metadata</em>, contains the array of metadata information
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$files</em>, contains the path of the files to upload in the server using the syntax 'serverPath' =&gt; 'localPath'.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.disable-backup-schedule"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">disableBackupSchedule</span> <span class="methodparam">( string $id )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Disable the backup of a server. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is the Id of the server.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.delete-image"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">deleteImage</span> <span class="methodparam">( string $id )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Delete a image. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is the Id of the image.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.delete-shared-ip-group"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">deleteSharedIpGroup</span> <span class="methodparam">( string $id )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Delete a shared IP group. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is the Id of the shared IP group.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.delete-server"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">deleteServer</span> <span class="methodparam">( string $id )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Delete a server. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is the Id of the server.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.get-backup-schedule"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getBackupSchedule</span> <span class="methodparam">( string $id )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return the backup schedule of a server. The return is an associative array with the following values: enabled, weekly, daily. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is the Id of the server.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.get-flavor"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getFlavor</span> <span class="methodparam">( string $flavorId )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return the information about a flavor. The return is an associative array with the following values: id, ram, disk, name. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$flavorId</em> is the Id of the flavor.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.get-image"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getImage</span> <span class="methodparam">( string $id )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return an image as instance of <span class="classname">Zend_Service_Rackspace_Servers_Image</span>. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is the Id of the image.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.get-shared-ip-group"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getSharedIpGroup</span> <span class="methodparam">( string $id )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return the shared IP group as instance of <span class="classname">Zend_Service_Rackspace_Servers_SharedIpGroup</span> In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is the Id of the shared IP group.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.get-server"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getServer</span> <span class="methodparam">( string $id )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return the server specified by the Id as instance of <span class="classname">Zend_Service_Rackspace_Servers_Server</span>. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is Id of the server.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.get-server-ip"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getServerIp</span> <span class="methodparam">( string $id )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return the public and private IP addresses of a server. Return an associative array contains the key <em class="emphasis">'public'</em> and <em class="emphasis">'private'</em> for the IP addresses. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is Id of the server.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.get-server-private-ip"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getServerPrivateIp</span> <span class="methodparam">( string $id )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return the private IP addresses of the server. Return an associative array contains the IP addresses. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is Id of the server.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.get-server-public-ip"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getServerPublicIp</span> <span class="methodparam">( string $id )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return the public IP addresses of the server. Return an associative array contains the IP addresses. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is Id of the server.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.list-flavors"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">listFlavors</span> <span class="methodparam">( boolean $details=false )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return all the available flavors as associative array. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                If <em class="emphasis">$details</em> is <em class="emphasis">true</em> return a detailed list, if is <em class="emphasis">false</em> return only the <em class="emphasis">name</em> and the <em class="emphasis">Id</em> of the flavor.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.list-images"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">listImages</span> <span class="methodparam">( boolean $details=false )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return all the available images as instance of <span class="classname">Zend_Service_Rackspace_Servers_ImageList</span> In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                If <em class="emphasis">$details</em> is <em class="emphasis">true</em> return a detailed list, if is <em class="emphasis">false</em> return only the <em class="emphasis">name</em> and the <em class="emphasis">Id</em> of the Image.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.list-server"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">listServer</span> <span class="methodparam">( boolean $details=false )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return all the available servers with a new instance of <span class="classname">Zend_Service_Rackspace_Servers_ServerList</span>. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                If <em class="emphasis">$details</em> is <em class="emphasis">true</em> return a detailed list, if is <em class="emphasis">false</em> return only the <em class="emphasis">name</em> and the <em class="emphasis">Id</em> of the server.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.list-shared-ip-groups"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">listSharedIpGroups</span> <span class="methodparam">( boolean $details=false )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return all the shared IP groups as instance of <span class="classname">Zend_Service_Rackspace_Servers_SharedIpGroupList</span> In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                If <em class="emphasis">$details</em> is <em class="emphasis">true</em> return a detailed list, if is <em class="emphasis">false</em> return only the <em class="emphasis">name</em> and the <em class="emphasis">Id</em> of the shared IP group.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.reboot-server"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">rebootServer</span> <span class="methodparam">( string $id, boolean $hard=false )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Reboot a server. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is Id of the server.
+                            </p>
+                            <p class="para">
+                                If <em class="emphasis">$hard</em> is <em class="emphasis">false</em> (default) the server is rebooted in soft mode. That means the operating system is signaled to restart, which allows for a graceful shutdown of all processes. If <em class="emphasis">$hard</em> is <em class="emphasis">true</em> the server is rebooted in hard mode. A hard reboot is the equivalent of power cycling the server.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.rebuild-server"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">rebuildServer</span> <span class="methodparam">( string $id, string $imageId )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Rebuild a server. The rebuild function removes all data on the server and replaces it with the specified image, server's Id and IP addresses will remain the same. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is Id of the server.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$imageId</em> is the new Image Id of the server.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.resize-server"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">resizeServer</span> <span class="methodparam">( string $id, string $flavorId )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Resize a server. The resize function converts an existing server to a different flavor, in essence, scaling the server up or down. The original server is saved for a period of time to allow rollback if there is a problem. All resizes should be tested and explicitly confirmed, at which time the original server is removed. All resizes are automatically confirmed after 24 hours if they are not explicitly confirmed or reverted. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is Id of the server.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$flavorId</em> is the new flavor Id of the server.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.revert-resize-server"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">revertResizeServer</span> <span class="methodparam">( string $id )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Revert the resize of a server. During a resize operation, the original server is saved for a period of time to allow for roll back if there is a problem. If you determine there is a problem with a newly resized server, use this operation to revert the resize and roll back to the original server. All resizes are automatically confirmed after 24 hours if they have not already been confirmed explicitly or reverted. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is Id of the server.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.share-ip-address"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">shareIpAddress</span> <span class="methodparam">( string $id, string $ip, string $groupId, boolean $configure=true )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Share an IP address for a server. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is Id of the server.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$ip</em> is the IP address to share.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$groupId</em> is the group Id to use.
+                            </p>
+                            <p class="para">
+                                If <em class="emphasis">$configure</em> attribute is set to true, the server is configured with the new address, though the address is not enabled. Note that configuring the server does require a reboot.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.unshare-ip-address"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">unshareIpAddress</span> <span class="methodparam">( string $id, string $ip )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Unshare an IP address for a server. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is Id of the server.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$ip</em> is the IP address to share.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.servers.methods.update-server"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">updateServer</span> <span class="methodparam">( string $id,string $name=null,string $password=null )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Change the name or/and the admin password of a server. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$id</em> is the ID of the server
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$name</em> is an optional parameter that specify the new name of the server
+                            </p>
+                            <p class="para">
+                                <em class="emphasis">$password</em> is an optional parameter that specify the new admin password of the server
+                            </p>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="section" id="zend.service.rackspace.servers.examples">
+                    <div class="info">
+                        <h2>
+                            Examples
+                        </h2>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #1 Authenticate</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Check if the username and the key are valid for the Rackspace authentication.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$user</span> = <span style="color: #ff0000;">'username'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$key</span>&nbsp; = <span style="color: #ff0000;">'secret key'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$rackspace</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Rackspace_Servers<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$user</span>,<span style="color: #0000ff;">$key</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">authenticate</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Authenticated with token: %s"</span>,<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getToken</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span> <span style="color: #b1b100;">else</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"ERROR: %s"</span>,<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #2 Create a server with metadata information and upload of a file</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Create a server with some metadata information and upload the file <em class="emphasis">build.sh</em> from the local path <em class="emphasis">/home/user</em> to the remote path <em class="emphasis">/root</em>.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$data</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a> <span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'name'</span>&nbsp; &nbsp; &nbsp;=&gt; <span style="color: #ff0000;">'test'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'imageId'</span>&nbsp; =&gt; <span style="color: #ff0000;">'49'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'flavorId'</span> =&gt; <span style="color: #ff0000;">'1'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$metadata</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a> <span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'foo'</span> =&gt; <span style="color: #ff0000;">'bar'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$files</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a> <span style="color: #66cc66;">(</span>&nbsp; &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'/root/build.sh'</span> =&gt; <span style="color: #ff0000;">'/home/user/build.sh'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$server</span>= <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">createServer</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$data</span>,<span style="color: #0000ff;">$metadata</span>,<span style="color: #0000ff;">$files</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/die"><span style="color: #000066;">die</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'ERROR: '</span>.<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$publicIp</span>= <span style="color: #0000ff;">$server</span>-&gt;<span style="color: #006600;">getPublicIp</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Server name&nbsp; &nbsp; : %s<span style="color: #000099; font-weight: bold;">\n</span>"</span>,<span style="color: #0000ff;">$server</span>-&gt;<span style="color: #006600;">getName</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Server Id&nbsp; &nbsp; &nbsp; : %s<span style="color: #000099; font-weight: bold;">\n</span>"</span>,<span style="color: #0000ff;">$server</span>-&gt;<span style="color: #006600;">getId</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Public IP&nbsp; &nbsp; &nbsp; : %s<span style="color: #000099; font-weight: bold;">\n</span>"</span>,<span style="color: #0000ff;">$publicIp</span><span style="color: #66cc66;">[</span><span style="color: #cc66cc;">0</span><span style="color: #66cc66;">]</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Admin password : %s<span style="color: #000099; font-weight: bold;">\n</span>"</span>,<span style="color: #0000ff;">$server</span>-&gt;<span style="color: #006600;">getAdminPass</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #3 Reboot a server</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Reboot a server in hard mode (is the equivalent of power cycling the server).
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$flavors</span>= <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">rebootServer</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'server id'</span>,<span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/die"><span style="color: #000066;">die</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'ERROR: '</span>.<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"The server has been rebooted successfully"</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #4 List all the available flavors</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                List all the available flavors with all the detailed information.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$flavors</span>= <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">listFlavors</span><span style="color: #66cc66;">(</span><span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/die"><span style="color: #000066;">die</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'ERROR: '</span>.<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/print_r"><span style="color: #000066;">print_r</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$flavors</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.service.rackspace.files.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.service.recaptcha.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.service.html">Zend_Service</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.akismet.html">Zend_Service_Akismet</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.html">Zend_Service_Amazon</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.html">Zend_Service_Amazon_Ec2</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.instance.html">Zend_Service_Amazon_Ec2: Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.windows.instance.html">Zend_Service_Amazon_Ec2: Windows Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.reserved.instance.html">Zend_Service_Amazon_Ec2: Reserved Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.cloudwatch.html">Zend_Service_Amazon_Ec2: CloudWatch Monitoring</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.images.html">Zend_Service_Amazon_Ec2: Amazon Machine Images (AMI)</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.ebs.html">Zend_Service_Amazon_Ec2: Elastic Block Storage (EBS)</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.elasticip.html">Zend_Service_Amazon_Ec2: Elastic IP Addresses</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.keypairs.html">Zend_Service_Amazon_Ec2: Keypairs</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.zones.html">Zend_Service_Amazon_Ec2: Regions and Availability Zones</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.securitygroups.html">Zend_Service_Amazon_Ec2: Security Groups</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.s3.html">Zend_Service_Amazon_S3</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.sqs.html">Zend_Service_Amazon_Sqs</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.audioscrobbler.html">Zend_Service_Audioscrobbler</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.delicious.html">Zend_Service_Delicious</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.ebay.html">Zend_Service_Ebay</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.ebay.finding.html">Zend_Service_Ebay_Finding</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.flickr.html">Zend_Service_Flickr</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.livedocx.html">Zend_Service_LiveDocx</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.rackspace.html">Zend_Service_Rackspace</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.rackspace.files.html">Zend_Service_Rackspace_Files</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.service.rackspace.servers.html">Zend_Service_Rackspace_Servers</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.recaptcha.html">Zend_Service_ReCaptcha</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.short-url.html">Zend_Service_ShortUrl</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.slideshare.html">Zend_Service_SlideShare</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.html">Zend_Service_StrikeIron</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.bundled-services.html">Zend_Service_StrikeIron: Bundled Services</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.advanced-uses.html">Zend_Service_StrikeIron: Advanced Uses</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.twitter.html">Zend_Service_Twitter</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.html">Zend_Service_WindowsAzure</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.blob.html">Zend_Service_WindowsAzure_Storage_Blob</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.diagnostics.manager.html">Zend_Service_WindowsAzure_Diagnostics_Manager</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.queue.html">Zend_Service_WindowsAzure_Storage_Queue</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.table.html">Zend_Service_WindowsAzure_Storage_Table</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.yahoo.html">Zend_Service_Yahoo</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

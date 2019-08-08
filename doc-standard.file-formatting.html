@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Documentation File Formatting - Zend Framework Documentation Standard &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="doc-standard.file-formatting" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Documentation File Formatting
+                    </h1>
+                </div>
+                <div class="section" id="doc-standard.file-formatting.xml-tags">
+                    <div class="info">
+                        <h2>
+                            XML Tags
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Each manual file must include the following <acronym class="acronym">XML</acronym> declarations at the top of the file:
+                    </p>
+                    <div class="programlisting xml">
+                        <div class="xmlcode">
+                            <div class="xml" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;?xml</span> <span style="color: #000066;">version</span>=<span style="color: #ff0000;">"1.0"</span> <span style="color: #000066;">encoding</span>=<span style="color: #ff0000;">"UTF-8"</span><span style="font-weight: bold; color: black;">?&gt;</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- Reviewed: no --&gt;</span></span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        <acronym class="acronym">XML</acronym> files from translated languages must also include a revision tag containing the revision of the corresponding English-language file the translation was based on.
+                    </p>
+                    <div class="programlisting xml">
+                        <div class="xmlcode">
+                            <div class="xml" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;?xml</span> <span style="color: #000066;">version</span>=<span style="color: #ff0000;">"1.0"</span> <span style="color: #000066;">encoding</span>=<span style="color: #ff0000;">"UTF-8"</span><span style="font-weight: bold; color: black;">?&gt;</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- EN-Revision: 14978 --&gt;</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- Reviewed: no --&gt;</span></span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="doc-standard.file-formatting.max-line-length">
+                    <div class="info">
+                        <h2>
+                            Maximum Line Length
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The maximum line length, including tags, attributes, and indentation, is not to exceed 100 characters. There is only one exception to this rule: attribute and value pairs are allowed to exceed the 100 chars as they are not allowed to be separated.
+                    </p>
+                </div>
+                <div class="section" id="doc-standard.file-formatting.indentation">
+                    <div class="info">
+                        <h2>
+                            Indentation
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Indentation should consist of 4 spaces. Tabs are not allowed.
+                    </p>
+                    <p class="para">
+                        Tags which are at the same level must have the same indentation.
+                    </p>
+                    <div class="programlisting xml">
+                        <div class="xmlcode">
+                            <div class="xml" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Tags which are one level under the previous tag must be indented with 4 additional spaces.
+                    </p>
+                    <div class="programlisting xml">
+                        <div class="xmlcode">
+                            <div class="xml" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Multiple block tags within the same line are not allowed; multiple inline tags are allowed, however.
+                    </p>
+                    <div class="programlisting xml">
+                        <div class="xmlcode">
+                            <div class="xml" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- NOT ALLOWED: --&gt;</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span><span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span><span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- ALLOWED --&gt;</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;classname<span style="font-weight: bold; color: black;">&gt;</span></span></span>Zend_Magic<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/classname<span style="font-weight: bold; color: black;">&gt;</span></span></span> does not exist. <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;classname<span style="font-weight: bold; color: black;">&gt;</span></span></span>Zend_Acl<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/classname<span style="font-weight: bold; color: black;">&gt;</span></span></span> does.
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="doc-standard.file-formatting.line-termination">
+                    <div class="info">
+                        <h2>
+                            Line Termination
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Line termination follows the Unix text file convention. Lines must end with a single linefeed (LF) character. Linefeed characters are represented as ordinal 10, or hexadecimal 0x0A.
+                    </p>
+                    <p class="para">
+                        Note: Do not use carriage returns (<acronym class="acronym">CR</acronym>) as is the convention in Apple OS's (0x0D) or the carriage return - linefeed combination (<acronym class="acronym">CRLF</acronym>) as is standard for the Windows OS (0x0D, 0x0A).
+                    </p>
+                </div>
+                <div class="section" id="doc-standard.file-formatting.empty-tags">
+                    <div class="info">
+                        <h2>
+                            Empty tags
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Empty tags are not allowed; all tags must contain text or child tags.
+                    </p>
+                    <div class="programlisting xml">
+                        <div class="xmlcode">
+                            <div class="xml" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- NOT ALLOWED --&gt;</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; Some text. <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;link<span style="font-weight: bold; color: black;">&gt;</span></span></span><span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/link<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="doc-standard.file-formatting.whitespace">
+                    <div class="info">
+                        <h2>
+                            Usage of whitespace within documents
+                        </h2>
+                    </div>
+                    <div class="section" id="doc-standard.file-formatting.whitespace.trailing">
+                        <div class="info">
+                            <h2>
+                                Whitespace within tags
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Opening block tags should have no whitespace immediately following them other than line breaks (and indentation on the following line).
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- NOT ALLOWED --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>WHITESPACE
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            Opening inline tags should have no whitespace immediately following them.
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- NOT ALLOWED --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                This is the class <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;classname<span style="font-weight: bold; color: black;">&gt;</span></span></span> Zend_Class<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/classname<span style="font-weight: bold; color: black;">&gt;</span></span></span>.
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- OK --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                This is the class <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;classname<span style="font-weight: bold; color: black;">&gt;</span></span></span>Zend_Class<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/classname<span style="font-weight: bold; color: black;">&gt;</span></span></span>.
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            Closing block tags may be preceded by whitespace equivalent to the current indentation level, but no more than that amount.
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- NOT ALLOWED --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp;<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- OK --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            Closing inline tags must not be preceded by any whitespace.
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- NOT ALLOWED --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                This is the class <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;classname<span style="font-weight: bold; color: black;">&gt;</span></span></span>Zend_Class <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/classname<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- OK --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                This is the class <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;classname<span style="font-weight: bold; color: black;">&gt;</span></span></span>Zend_Class<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/classname<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section" id="doc-standard.file-formatting.whitespace.multiple-line-breaks">
+                        <div class="info">
+                            <h2>
+                                Multiple line breaks
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Multiple line breaks within or between tags are not allowed.
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- NOT ALLOWED --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; Some text...
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; ... and more text
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; Another paragraph.
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- OK --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; Some text...
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; ... and more text
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; Another paragraph.
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section" id="doc-standard.file-formatting.whitespace.tag-separation">
+                        <div class="info">
+                            <h2>
+                                Separation between tags
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Tags at the same level must be separated by an empty line to improve readability.
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- NOT ALLOWED --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; Some text...
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; More text...
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- OK --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; Some text...
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; More text...
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="para">
+                            The first child tag should open directly below its parent, with no empty line between them; the last child tag should close directly before the closing tag of its parent.
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- NOT ALLOWED --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- OK --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect2<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/sect1<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="doc-standard.file-formatting.program-listing">
+                    <div class="info">
+                        <h2>
+                            Program Listings
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The opening <em class="emphasis">&lt;programlisting&gt;</em> tag must indicate the appropriate "language" attribute and be indented at the same level as its sibling blocks.
+                    </p>
+                    <div class="programlisting xml">
+                        <div class="xmlcode">
+                            <div class="xml" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>Sibling paragraph.<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;programlisting</span> <span style="color: #000066;">language</span>=<span style="color: #ff0000;">"php"</span><span style="font-weight: bold; color: black;">&gt;</span></span><span style="color: #339933;">&lt;![CDATA[</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;"></div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        <acronym class="acronym">CDATA</acronym> should be used around all program listings.
+                    </p>
+                    <p class="para">
+                        <em class="emphasis">&lt;programlisting&gt;</em> sections must not add linebreaks or whitespace at the beginning or end of the section, as these are then represented in the final output.
+                    </p>
+                    <div class="programlisting xml">
+                        <div class="xmlcode">
+                            <div class="xml" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- NOT ALLOWED --&gt;</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;programlisting</span> <span style="color: #000066;">language</span>=<span style="color: #ff0000;">"php"</span><span style="font-weight: bold; color: black;">&gt;</span></span><span style="color: #339933;">&lt;![CDATA[</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #339933;">$render = "xxx";</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #339933;">]]&gt;</span><span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/programlisting<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- OK --&gt;</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;programlisting</span> <span style="color: #000066;">language</span>=<span style="color: #ff0000;">"php"</span><span style="font-weight: bold; color: black;">&gt;</span></span><span style="color: #339933;">&lt;![CDATA[</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #339933;">$render = "xxx";</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #339933;">]]&gt;</span><span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/programlisting<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Ending <acronym class="acronym">CDATA</acronym> and <em class="emphasis">&lt;programlisting&gt;</em> tags should be on the same line, without any indentation.
+                    </p>
+                    <div class="programlisting xml">
+                        <div class="xmlcode">
+                            <div class="xml" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- NOT ALLOWED --&gt;</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;programlisting</span> <span style="color: #000066;">language</span>=<span style="color: #ff0000;">"php"</span><span style="font-weight: bold; color: black;">&gt;</span></span><span style="color: #339933;">&lt;![CDATA[</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #339933;">$render = "xxx";</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #339933;">]]&gt;</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/programlisting<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- NOT ALLOWED --&gt;</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;programlisting</span> <span style="color: #000066;">language</span>=<span style="color: #ff0000;">"php"</span><span style="font-weight: bold; color: black;">&gt;</span></span><span style="color: #339933;">&lt;![CDATA[</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #339933;">$render = "xxx";</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #339933;">&nbsp; &nbsp; ]]&gt;</span><span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/programlisting<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- OK --&gt;</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;programlisting</span> <span style="color: #000066;">language</span>=<span style="color: #ff0000;">"php"</span><span style="font-weight: bold; color: black;">&gt;</span></span><span style="color: #339933;">&lt;![CDATA[</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #339933;">$render = "xxx";</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #339933;">]]&gt;</span><span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/programlisting<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        The <em class="emphasis">&lt;programlisting&gt;</em> tag should contain the "language" attribute with a value appropriate to the contents of the program listing. Typical values include "css", "html", "ini", "javascript", "php", "text", and "xml".
+                    </p>
+                    <div class="programlisting xml">
+                        <div class="xmlcode">
+                            <div class="xml" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- PHP --&gt;</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;programlisting</span> <span style="color: #000066;">language</span>=<span style="color: #ff0000;">"php"</span><span style="font-weight: bold; color: black;">&gt;</span></span><span style="color: #339933;">&lt;![CDATA[</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #339933;">&lt;!-- Javascript --&gt;</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #339933;">&lt;programlisting language="javascript"&gt;&lt;![CDATA[</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #339933;">&lt;!-- XML --&gt;</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #339933;">&lt;programlisting language="xml"&gt;&lt;![CDATA[</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;"></div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        For program listings containing only <acronym class="acronym">PHP</acronym> code, <acronym class="acronym">PHP</acronym> tags (e.g., "&lt;?php", "?&gt;") are not required, and should not be used. They simply clutter the narrative, and are implied by the use of the <em class="emphasis">&lt;programlisting&gt;</em> tag.
+                    </p>
+                    <div class="programlisting xml">
+                        <div class="xmlcode">
+                            <div class="xml" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- NOT ALLOWED --&gt;</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;programlisting</span> <span style="color: #000066;">language</span>=<span style="color: #ff0000;">"php"</span><span style="font-weight: bold; color: black;">&lt;</span>!<span style="color: #66cc66;">[</span>CDATA<span style="color: #66cc66;">[</span><span style="font-weight: bold; color: black;">&lt;?php</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; // ...
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="font-weight: bold; color: black;">?&gt;</span>]]&gt;<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/programlisting<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;programlisting</span> <span style="color: #000066;">language</span>=<span style="color: #ff0000;">"php"</span><span style="font-weight: bold; color: black;">&lt;</span>!<span style="color: #66cc66;">[</span>CDATA<span style="color: #66cc66;">[</span></span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="font-weight: bold; color: black;">&lt;?php</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; // ...
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="font-weight: bold; color: black;">?&gt;</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            ]]&gt;<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/programlisting<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Line lengths within program listings should follow the <a href="coding-standard.php-file-formatting.html#coding-standard.php-file-formatting.max-line-length" class="link">coding standards recommendations</a>.
+                    </p>
+                    <p class="para">
+                        Refrain from using <span class="methodname">require_once()</span>, <span class="methodname">require()</span>, <span class="methodname">include_once()</span>, and <span class="methodname">include()</span> calls within <acronym class="acronym">PHP</acronym> listings. They simply clutter the narrative, and are largely obviated when using an autoloader. Use them only when they are essential to the example.
+                    </p>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: <span class="info"><b>Never use short tags</b><br></span> Short tags (e.g., "&lt;?", "&lt;?=") should never be used within <em class="emphasis">programlisting</em> or the narrative of a document.<br>
+                        </p>
+                    </blockquote>
+                </div>
+                <div class="section" id="doc-standard.file-formatting.inline-tags">
+                    <div class="info">
+                        <h2>
+                            Notes on specific inline tags
+                        </h2>
+                    </div>
+                    <div class="section" id="doc-standard.file-formatting.inline-tags.classname">
+                        <div class="info">
+                            <h2>
+                                classname
+                            </h2>
+                        </div>
+                        <p class="para">
+                            The tag <em class="emphasis">&lt;classname&gt;</em> must be used each time a class name is represented by itself; it should not be used when combined with a method name, variable name, or constant, and no other content is allowed within the tag.
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; The class <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;classname<span style="font-weight: bold; color: black;">&gt;</span></span></span>Zend_Class<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/classname<span style="font-weight: bold; color: black;">&gt;</span></span></span>.
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section" id="doc-standard.file-formatting.inline-tags.varname">
+                        <div class="info">
+                            <h2>
+                                varname
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Variables must be wrapped in the <em class="emphasis">&lt;varname&gt;</em> tag. Variables must be written using the "$" sigil. No other content is allowed within this tag, unless a class name is used, which indicates a class variable.
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; The variable <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;varname<span style="font-weight: bold; color: black;">&gt;</span></span></span>$var<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/varname<span style="font-weight: bold; color: black;">&gt;</span></span></span> and the class variable
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;varname<span style="font-weight: bold; color: black;">&gt;</span></span></span>Zend_Class::$var<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/varname<span style="font-weight: bold; color: black;">&gt;</span></span></span>.
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section" id="doc-standard.file-formatting.inline-tags.methodname">
+                        <div class="info">
+                            <h2>
+                                methodname
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Methods must be wrapped in the <em class="emphasis">&lt;methodname&gt;</em> tag. Methods must either include the full method signature or at the least a pair of closing parentheses (e.g., "()"). No other content is allowed within this tag, unless a class name is used, which indicates a class method.
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; The method <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;methodname<span style="font-weight: bold; color: black;">&gt;</span></span></span>foo()<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/methodname<span style="font-weight: bold; color: black;">&gt;</span></span></span> and the class method
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;methodname<span style="font-weight: bold; color: black;">&gt;</span></span></span>Zend_Class::foo()<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/methodname<span style="font-weight: bold; color: black;">&gt;</span></span></span>. A method with a full signature:
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;methodname<span style="font-weight: bold; color: black;">&gt;</span></span></span>foo($bar, $baz)<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/methodname<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section" id="doc-standard.file-formatting.inline-tags.constant">
+                        <div class="info">
+                            <h2>
+                                constant
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Use the <em class="emphasis">&lt;constant&gt;</em> tag when denoting constants. Constants must be written in <acronym class="acronym">UPPERCASE</acronym>. No other content is allowed within this tag, unless a class name is used, which indicates a class constant.
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; The constant <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;constant<span style="font-weight: bold; color: black;">&gt;</span></span></span>FOO<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/constant<span style="font-weight: bold; color: black;">&gt;</span></span></span> and the class constant
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;constant<span style="font-weight: bold; color: black;">&gt;</span></span></span>Zend_Class::FOO<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/constant<span style="font-weight: bold; color: black;">&gt;</span></span></span>.
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section" id="doc-standard.file-formatting.inline-tags.filename">
+                        <div class="info">
+                            <h2>
+                                filename
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Filenames and paths must be wrapped in the <em class="emphasis">&lt;filename&gt;</em> tag. No other content is allowed in this tag.
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; The filename <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;filename<span style="font-weight: bold; color: black;">&gt;</span></span></span>application/Bootstrap.php<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/filename<span style="font-weight: bold; color: black;">&gt;</span></span></span>.
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section" id="doc-standard.file-formatting.inline-tags.command">
+                        <div class="info">
+                            <h2>
+                                command
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Commands, shell scripts, and program calls must be wrapped in the <em class="emphasis">&lt;command&gt;</em> tag. If the command includes arguments, these should also be included within the tag.
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; Execute <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;command<span style="font-weight: bold; color: black;">&gt;</span></span></span>zf.sh create project<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/command<span style="font-weight: bold; color: black;">&gt;</span></span></span>.
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/para<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section" id="doc-standard.file-formatting.inline-tags.code">
+                        <div class="info">
+                            <h2>
+                                code
+                            </h2>
+                        </div>
+                        <p class="para">
+                            Usage of the <em class="emphasis">&lt;code&gt;</em> tag is discouraged, in favor of the other inline tasks discussed previously.
+                        </p>
+                    </div>
+                </div>
+                <div class="section" id="doc-standard.file-formatting.block-tags">
+                    <div class="info">
+                        <h2>
+                            Notes on specific block tags
+                        </h2>
+                    </div>
+                    <div class="section" id="doc-standard.file-formatting.block-tags.title">
+                        <div class="info">
+                            <h2>
+                                title
+                            </h2>
+                        </div>
+                        <p class="para">
+                            The <em class="emphasis">&lt;title&gt;</em> tag is not allowed to hold other tags.
+                        </p>
+                        <div class="programlisting xml">
+                            <div class="xmlcode">
+                                <div class="xml" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- NOT ALLOWED --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;title<span style="font-weight: bold; color: black;">&gt;</span></span></span>Using <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;classname<span style="font-weight: bold; color: black;">&gt;</span></span></span>Zend_Class<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/classname<span style="font-weight: bold; color: black;">&gt;</span></span></span><span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/title<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="color: #808080; font-style: italic;">&lt;!-- OK --&gt;</span></span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;title<span style="font-weight: bold; color: black;">&gt;</span></span></span>Using Zend_Class<span style="color: #009900;"><span style="font-weight: bold; color: black;">&lt;/title<span style="font-weight: bold; color: black;">&gt;</span></span></span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="doc-standard.overview.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="doc-standard.recommendations.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="doc-standard.html">Zend Framework Documentation Standard</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="doc-standard.overview.html">Overview</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="doc-standard.file-formatting.html">Documentation File Formatting</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="doc-standard.recommendations.html">Recommendations</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Fetching Options and Arguments - Zend_Console_Getopt &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.console.getopt.fetching" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Fetching Options and Arguments
+                    </h1>
+                </div>
+                <p class="para">
+                    After you have declared the options that the <span class="classname">Zend_Console_Getopt</span> object should recognize, and supply arguments from the command-line or an array, you can query the object to find out which options were specified by a user in a given command-line invocation of your program. The class implements magic methods so you can query for options by name.
+                </p>
+                <p class="para">
+                    The parsing of the data is deferred until the first query you make against the <span class="classname">Zend_Console_Getopt</span> object to find out if an option was given, the object performs its parsing. This allows you to use several method calls to configure the options, arguments, help strings, and configuration options before parsing takes place.
+                </p>
+                <div class="section" id="zend.console.getopt.fetching.exceptions">
+                    <div class="info">
+                        <h2>
+                            Handling Getopt Exceptions
+                        </h2>
+                    </div>
+                    <p class="para">
+                        If the user gave any invalid options on the command-line, the parsing function throws a <span class="classname">Zend_Console_Getopt_Exception</span>. You should catch this exception in your application code. You can use the <span class="methodname">parse()</span> method to force the object to parse the arguments. This is useful because you can invoke <span class="methodname">parse()</span> in a <em class="emphasis">try</em> block. If it passes, you can be sure that the parsing won't throw an exception again. The exception thrown has a custom method <span class="methodname">getUsageMessage()</span>, which returns as a string the formatted set of usage messages for all declared options.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #1 Catching Getopt Exceptions</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                try <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #0000ff;">$opts</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Console_Getopt<span style="color: #66cc66;">(</span><span style="color: #ff0000;">'abp:'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #0000ff;">$opts</span>-&gt;<span style="color: #006600;">parse</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span> catch <span style="color: #66cc66;">(</span>Zend_Console_Getopt_Exception <span style="color: #0000ff;">$e</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$e</span>-&gt;<span style="color: #006600;">getUsageMessage</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/exit"><span style="color: #000066;">exit</span></a>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Cases where parsing throws an exception include:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                Option given is not recognized.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Option requires a parameter but none was given.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Option parameter is of the wrong type. E.g. a non-numeric string when an integer was required.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.console.getopt.fetching.byname">
+                    <div class="info">
+                        <h2>
+                            Fetching Options by Name
+                        </h2>
+                    </div>
+                    <p class="para">
+                        You can use the <span class="methodname">getOption()</span> method to query the value of an option. If the option had a parameter, this method returns the value of the parameter. If the option had no parameter but the user did specify it on the command-line, the method returns <b><tt>TRUE</tt></b>. Otherwise the method returns <b><tt>NULL</tt></b>.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #2 Using getOption()</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$opts</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Console_Getopt<span style="color: #66cc66;">(</span><span style="color: #ff0000;">'abp:'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$b</span> = <span style="color: #0000ff;">$opts</span>-&gt;<span style="color: #006600;">getOption</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'b'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$p_parameter</span> = <span style="color: #0000ff;">$opts</span>-&gt;<span style="color: #006600;">getOption</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'p'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Alternatively, you can use the magic <span class="methodname">__get()</span> function to retrieve the value of an option as if it were a class member variable. The <span class="methodname">__isset()</span> magic method is also implemented.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #3 Using __get() and __isset() Magic Methods</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$opts</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Console_Getopt<span style="color: #66cc66;">(</span><span style="color: #ff0000;">'abp:'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><a href="http://www.php.net/isset"><span style="color: #000066;">isset</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$opts</span>-&gt;<span style="color: #006600;">b</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"I got the b option.<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$p_parameter</span> = <span style="color: #0000ff;">$opts</span>-&gt;<span style="color: #006600;">p</span>; <span style="color: #808080; font-style: italic;">// null if not set</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        If your options are declared with aliases, you may use any of the aliases for an option in the methods above.
+                    </p>
+                </div>
+                <div class="section" id="zend.console.getopt.fetching.reporting">
+                    <div class="info">
+                        <h2>
+                            Reporting Options
+                        </h2>
+                    </div>
+                    <p class="para">
+                        There are several methods to report the full set of options given by the user on the current command-line.
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                As a string: use the <span class="methodname">toString()</span> method. The options are returned as a space-separated string of <strong class="command">flag=value</strong> pairs. The value of an option that does not have a parameter is the literal string "<b><tt>TRUE</tt></b>".
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                As an array: use the <span class="methodname">toArray()</span> method. The options are returned in a simple integer-indexed array of strings, the flag strings followed by parameter strings, if any.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                As a string containing <acronym class="acronym">JSON</acronym> data: use the <span class="methodname">toJson()</span> method.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                As a string containing <acronym class="acronym">XML</acronym> data: use the <span class="methodname">toXml()</span> method.
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        In all of the above dumping methods, the flag string is the first string in the corresponding list of aliases. For example, if the option aliases were declared like <strong class="command">verbose|v</strong>, then the first string, <strong class="command">verbose</strong>, is used as the canonical name of the option. The name of the option flag does not include any preceding dashes.
+                    </p>
+                </div>
+                <div class="section" id="zend.console.getopt.fetching.remainingargs">
+                    <div class="info">
+                        <h2>
+                            Fetching Non-option Arguments
+                        </h2>
+                    </div>
+                    <p class="para">
+                        After option arguments and their parameters have been parsed from the command-line, there may be additional arguments remaining. You can query these arguments using the <span class="methodname">getRemainingArgs()</span> method. This method returns an array of the strings that were not part of any options.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #4 Using getRemainingArgs()</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$opts</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Console_Getopt<span style="color: #66cc66;">(</span><span style="color: #ff0000;">'abp:'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$opts</span>-&gt;<span style="color: #006600;">setArguments</span><span style="color: #66cc66;">(</span><a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'-p'</span>, <span style="color: #ff0000;">'p_parameter'</span>, <span style="color: #ff0000;">'filename'</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$args</span> = <span style="color: #0000ff;">$opts</span>-&gt;<span style="color: #006600;">getRemainingArgs</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>; <span style="color: #808080; font-style: italic;">// returns array('filename')</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Console_Getopt</span> supports the <acronym class="acronym">GNU</acronym> convention that an argument consisting of a double-dash signifies the end of options. Any arguments following this signifier must be treated as non-option arguments. This is useful if you might have a non-option argument that begins with a dash. For example: "<strong class="command">rm -- -filename-with-dash</strong>".
+                    </p>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.console.getopt.rules.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.console.getopt.configuration.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.console.getopt.html">Zend_Console_Getopt</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.console.getopt.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.console.getopt.rules.html">Declaring Getopt Rules</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.console.getopt.fetching.html">Fetching Options and Arguments</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.console.getopt.configuration.html">Configuring Zend_Console_Getopt</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

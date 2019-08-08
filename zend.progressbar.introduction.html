@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_ProgressBar - Zend_ProgressBar &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.progressbar.introduction" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_ProgressBar
+                    </h1>
+                </div>
+                <div class="section" id="zend.progressbar.whatisit">
+                    <div class="info">
+                        <h2>
+                            Introduction
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_ProgressBar</span> is a component to create and update progressbars in different environments. It consists of a single backend, which outputs the progress through one of the multiple adapters. On every update, it takes an absolute value and optionally a status message, and then calls the adapter with some precalculated values like percentage and estimated time left.
+                    </p>
+                </div>
+                <div class="section" id="zend.progressbar.basic">
+                    <div class="info">
+                        <h2>
+                            Basic Usage of Zend_Progressbar
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_ProgressBar</span> is quite easy in its usage. You simply create a new instance of <span class="classname">Zend_Progressbar</span>, defining a min- and a max-value, and choose an adapter to output the data. If you want to process a file, you would do something like:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$progressBar</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_ProgressBar<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$adapter</span>, <span style="color: #cc66cc;">0</span>, <span style="color: #0000ff;">$fileSize</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">while</span> <span style="color: #66cc66;">(</span>!<a href="http://www.php.net/feof"><span style="color: #000066;">feof</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$fp</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// Do something</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #0000ff;">$progressBar</span>-&gt;<span style="color: #006600;">update</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$currentByteCount</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$progressBar</span>-&gt;<span style="color: #006600;">finish</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        In the first step, an instance of <span class="classname">Zend_ProgressBar</span> is created, with a specific adapter, a min-value of 0 and a max-value of the total filesize. Then a file is processed and in every loop the progressbar is updated with the current byte count. At the end of the loop, the progressbar status is set to finished.
+                    </p>
+                    <p class="para">
+                        You can also call the <span class="methodname">update()</span> method of <span class="classname">Zend_ProgressBar</span> without arguments, which just recalculates ETA and notifies the adapter. This is useful when there is no data update but you want the progressbar to be updated.
+                    </p>
+                </div>
+                <div class="section" id="zend.progressbar.persistent">
+                    <div class="info">
+                        <h2>
+                            Persistent progress
+                        </h2>
+                    </div>
+                    <p class="para">
+                        If you want the progressbar to be persistent over multiple requests, you can give the name of a session namespace as fourth argument to the constructor. In that case, the progressbar will not notify the adapter within the constructor, but only when you call <span class="methodname">update()</span> or <span class="methodname">finish()</span>. Also the current value, the status text and the start time for ETA calculation will be fetched in the next request run again.
+                    </p>
+                </div>
+                <div class="section" id="zend.progressbar.adapters">
+                    <div class="info">
+                        <h2>
+                            Standard adapters
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_ProgressBar</span> comes with the following three adapters:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <a href="zend.progressbar.introduction.html#zend.progressbar.adapter.console" class="link">Zend_ProgressBar_Adapter_Console</a>
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <a href="zend.progressbar.introduction.html#zend.progressbar.adapter.jspush" class="link">Zend_ProgressBar_Adapter_JsPush</a>
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <a href="zend.progressbar.introduction.html#zend.progressbar.adapter.jspull" class="link">Zend_ProgressBar_Adapter_JsPull</a>
+                            </p>
+                        </li>
+                    </ul>
+                    <div class="section" id="zend.progressbar.adapter.console">
+                        <div class="info">
+                            <h2>
+                                Zend_ProgressBar_Adapter_Console
+                            </h2>
+                        </div>
+                        <p class="para">
+                            <span class="classname">Zend_ProgressBar_Adapter_Console</span> is a text-based adapter for terminals. It can automatically detect terminal widths but supports custom widths as well. You can define which elements are displayed with the progressbar and as well customize the order of them. You can also define the style of the progressbar itself.
+                        </p>
+                        <blockquote>
+                            <p>
+                                <b class="note">Note</b>: <span class="info"><b>Automatic console width recognition</b><br></span> <code class="code">shell_exec</code> is required for this feature to work on *nix based systems. On windows, there is always a fixed terminal width of 80 character, so no recognition is required there.<br>
+                            </p>
+                        </blockquote>
+                        <p class="para">
+                            You can set the adapter options either via the <code class="code">set*</code> methods or give an array or a <span class="classname">Zend_Config</span> instance with options as first parameter to the constructor. The available options are:
+                        </p>
+                        <ul class="itemizedlist">
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">outputStream</code>: A different output-stream, if you don't want to stream to STDOUT. Can be any other stream like <code class="code">php://stderr</code> or a path to a file.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">width</code>: Either an integer or the <b><tt>AUTO</tt></b> constant of <span class="classname">Zend_Console_ProgressBar</span>.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">elements</code>: Either <b><tt>NULL</tt></b> for default or an array with at least one of the following constants of <span class="classname">Zend_Console_ProgressBar</span> as value:
+                                </p>
+                                <ul class="itemizedlist">
+                                    <li class="listitem">
+                                        <p class="para">
+                                            <b><tt>ELEMENT_PERCENT</tt></b>: The current value in percent.
+                                        </p>
+                                    </li>
+                                    <li class="listitem">
+                                        <p class="para">
+                                            <b><tt>ELEMENT_BAR</tt></b>: The visual bar which display the percentage.
+                                        </p>
+                                    </li>
+                                    <li class="listitem">
+                                        <p class="para">
+                                            <b><tt>ELEMENT_ETA</tt></b>: The automatic calculated ETA. This element is firstly displayed after five seconds, because in this time, it is not able to calculate accurate results.
+                                        </p>
+                                    </li>
+                                    <li class="listitem">
+                                        <p class="para">
+                                            <b><tt>ELEMENT_TEXT</tt></b>: An optional status message about the current process.
+                                        </p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">textWidth</code>: Width in characters of the <b><tt>ELEMENT_TEXT</tt></b> element. Default is 20.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">charset</code>: Charset of the <b><tt>ELEMENT_TEXT</tt></b> element. Default is utf-8.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">barLeftChar</code>: A string which is used left-hand of the indicator in the progressbar.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">barRightChar</code>: A string which is used right-hand of the indicator in the progressbar.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">barIndicatorChar</code>: A string which is used for the indicator in the progressbar. This one can be empty.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="section" id="zend.progressbar.adapter.jspush">
+                        <div class="info">
+                            <h2>
+                                Zend_ProgressBar_Adapter_JsPush
+                            </h2>
+                        </div>
+                        <p class="para">
+                            <span class="classname">Zend_ProgressBar_Adapter_JsPush</span> is an adapter which let's you update a progressbar in a browser via Javascript Push. This means that no second connection is required to gather the status about a running process, but that the process itself sends its status directly to the browser.
+                        </p>
+                        <p class="para">
+                            You can set the adapter options either via the <code class="code">set*</code> methods or give an array or a <span class="classname">Zend_Config</span> instance with options as first parameter to the constructor. The available options are:
+                        </p>
+                        <ul class="itemizedlist">
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">updateMethodName</code>: The javascript method which should be called on every update. Default value is <span class="classname">Zend_ProgressBar_Update</span>.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">finishMethodName</code>: The javascript method which should be called after finish status was set. Default value is <b><tt>NULL</tt></b>, which means nothing is done.
+                                </p>
+                            </li>
+                        </ul>
+                        <p class="para">
+                            The usage of this adapter is quite simple. First you create a progressbar in your browser, either with JavaScript or previously created with plain <acronym class="acronym">HTML</acronym>. Then you define the update method and optionally the finish method in JavaScript, both taking a json object as single argument. Then you call a webpage with the long-running process in a hidden <code class="code">iframe</code> or <code class="code">object</code> tag. While the process is running, the adapter will call the update method on every update with a json object, containing the following parameters:
+                        </p>
+                        <ul class="itemizedlist">
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">current</code>: The current absolute value
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">max</code>: The max absolute value
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">percent</code>: The calculated percentage
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">timeTaken</code>: The time how long the process ran yet
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">timeRemaining</code>: The expected time for the process to finish
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <code class="code">text</code>: The optional status message, if given
+                                </p>
+                            </li>
+                        </ul>
+                        <div class="example">
+                            <div class="info">
+                                <p>
+                                    <b>Example #1 Basic example for the client-side stuff</b>
+                                </p>
+                            </div>
+                            <div class="example-contents">
+                                <p>
+                                    This example illustrates a basic setup of <acronym class="acronym">HTML</acronym>, <acronym class="acronym">CSS</acronym> and JavaScript for the JsPush adapter
+                                </p>
+                            </div>
+                            <div class="programlisting html">
+                                <div class="htmlcode">
+                                    <div style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &lt;div id="zend-progressbar-container"&gt;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &lt;div id="zend-progressbar-done"&gt;&lt;/div&gt;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &lt;/div&gt;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &lt;iframe src="long-running-process.php" id="long-running-process"&gt;&lt;/iframe&gt;
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="programlisting css">
+                                <div class="csscode">
+                                    <div class="css" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #cc00cc;">#long-running-process</span> <span style="color: #66cc66;">{</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">position</span>: <span style="color: #993333;">absolute</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">left</span>: -<span style="color: #933;">100px</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">top</span>: -<span style="color: #933;">100px</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">width</span>: <span style="color: #933;">1px</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">height</span>: <span style="color: #933;">1px</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #66cc66;">}</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #cc00cc;">#zend-progressbar-container</span> <span style="color: #66cc66;">{</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">width</span>: <span style="color: #933;">100px</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">height</span>: <span style="color: #933;">30px</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">border</span>: <span style="color: #933;">1px</span> <span style="color: #993333;">solid</span> <span style="color: #cc00cc;">#<span style="color: #933;">000000</span></span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">background-color</span>: <span style="color: #cc00cc;">#ffffff</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #66cc66;">}</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #cc00cc;">#zend-progressbar-done</span> <span style="color: #66cc66;">{</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">width</span>: <span style="color: #933;">0</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">height</span>: <span style="color: #933;">30px</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">background-color</span>: <span style="color: #cc00cc;">#<span style="color: #933;">000000</span></span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #66cc66;">}</span>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="programlisting javascript">
+                                <div class="javascriptcode">
+                                    <div class="javascript" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #003366; font-weight: bold;">function</span> Zend_ProgressBar_Update<span style="color: #66cc66;">(</span>data<span style="color: #66cc66;">)</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #66cc66;">{</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; document.<span style="color: #006600;">getElementById</span><span style="color: #66cc66;">(</span><span style="color: #3366CC;">'zend-progressbar-done'</span><span style="color: #66cc66;">)</span>.<span style="color: #006600;">style</span>.<span style="color: #006600;">width</span> =
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;data.<span style="color: #006600;">percent</span> + <span style="color: #3366CC;">'%'</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #66cc66;">}</span>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="example-contents">
+                                <p>
+                                    This will create a simple container with a black border and a block which indicates the current process. You should not hide the <code class="code">iframe</code> or <code class="code">object</code> by <code class="code">display: none;</code>, as some browsers like Safari 2 will not load the actual content then.
+                                </p>
+                            </div>
+                            <div class="example-contents">
+                                <p>
+                                    Instead of creating your custom progressbar, you may want to use one of the available JavaScript libraries like Dojo, jQuery etc. For example, there are:
+                                </p>
+                            </div>
+                            <ul class="itemizedlist">
+                                <li class="listitem">
+                                    <p class="para">
+                                        Dojo: <tt class="uri">http://dojotoolkit.org/reference-guide/dijit/ProgressBar.html</tt>
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        jQuery: <tt class="uri">http://t.wits.sg/2008/06/20/jquery-progress-bar-11/</tt>
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        MooTools: <tt class="uri">http://davidwalsh.name/dw-content/progress-bar.php</tt>
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        Prototype: <tt class="uri">http://livepipe.net/control/progressbar</tt>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <blockquote>
+                            <p>
+                                <b class="note">Note</b>: <span class="info"><b>Interval of updates</b><br></span> You should take care of not sending too many updates, as every update has a min-size of 1kb. This is a requirement for the Safari browser to actually render and execute the function call. Internet Explorer has a similar limitation of 256 bytes.<br>
+                            </p>
+                        </blockquote>
+                    </div>
+                    <div class="section" id="zend.progressbar.adapter.jspull">
+                        <div class="info">
+                            <h2>
+                                Zend_ProgressBar_Adapter_JsPull
+                            </h2>
+                        </div>
+                        <p class="para">
+                            <span class="classname">Zend_ProgressBar_Adapter_JsPull</span> is the opposite of jsPush, as it requires to pull for new updates, instead of pushing updates out to the browsers. Generally you should use the adapter with the persistence option of the <span class="classname">Zend_ProgressBar</span>. On notify, the adapter sends a <acronym class="acronym">JSON</acronym> string to the browser, which looks exactly like the <acronym class="acronym">JSON</acronym> string which is send by the jsPush adapter. The only difference is, that it contains an additional parameter, <span class="property">finished</span>, which is either <b><tt>FALSE</tt></b> when <span class="methodname">update()</span> is called or <b><tt>TRUE</tt></b>, when <span class="methodname">finish()</span> is called.
+                        </p>
+                        <p class="para">
+                            You can set the adapter options either via the <span class="methodname">set*()</span> methods or give an array or a <span class="classname">Zend_Config</span> instance with options as first parameter to the constructor. The available options are:
+                        </p>
+                        <ul class="itemizedlist">
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="property">exitAfterSend</span>: Exits the current request after the data were send to the browser. Default is <b><tt>TRUE</tt></b>.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.progressbar.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.queue.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.progressbar.html">Zend_ProgressBar</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.progressbar.introduction.html">Zend_ProgressBar</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

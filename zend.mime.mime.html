@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Mime - Zend_Mime &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.mime.mime" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Mime
+                    </h1>
+                </div>
+                <div class="section" id="zend.mime.mime.introduction">
+                    <div class="info">
+                        <h2>
+                            Introduction
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Mime</span> is a support class for handling multipart <acronym class="acronym">MIME</acronym> messages. It is used by <a href="zend.mail.html" class="link"><span class="classname">Zend_Mail</span></a> and <a href="zend.mime.message.html" class="link"><span class="classname">Zend_Mime_Message</span></a> and may be used by applications requiring <acronym class="acronym">MIME</acronym> support.
+                    </p>
+                </div>
+                <div class="section" id="zend.mime.mime.static">
+                    <div class="info">
+                        <h2>
+                            Static Methods and Constants
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Mime</span> provides a simple set of static helper methods to work with <acronym class="acronym">MIME</acronym>:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Mime::isPrintable()</span>: Returns <b><tt>TRUE</tt></b> if the given string contains no unprintable characters, <b><tt>FALSE</tt></b> otherwise.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Mime::encode()</span>: Encodes a string with specified encoding.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Mime::encodeBase64()</span>: Encodes a string into base64 encoding.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Mime::encodeQuotedPrintable()</span>: Encodes a string with the quoted-printable mechanism.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Mime::encodeBase64Header()</span>: Encodes a string into base64 encoding for Mail Headers.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Mime::encodeQuotedPrintableHeader()</span>: Encodes a string with the quoted-printable mechanism for Mail Headers.
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        <span class="classname">Zend_Mime</span> defines a set of constants commonly used with <acronym class="acronym">MIME</acronym> Messages:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Mime::TYPE_OCTETSTREAM</tt></b>: 'application/octet-stream'
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Mime::TYPE_TEXT</tt></b>: 'text/plain'
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Mime::TYPE_HTML</tt></b>: 'text/html'
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Mime::ENCODING_7BIT</tt></b>: '7bit'
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Mime::ENCODING_8BIT</tt></b>: '8bit'
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Mime::ENCODING_QUOTEDPRINTABLE</tt></b>: 'quoted-printable'
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Mime::ENCODING_BASE64</tt></b>: 'base64'
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Mime::DISPOSITION_ATTACHMENT</tt></b>: 'attachment'
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Mime::DISPOSITION_INLINE</tt></b>: 'inline'
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Mime::MULTIPART_ALTERNATIVE</tt></b>: 'multipart/alternative'
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Mime::MULTIPART_MIXED</tt></b>: 'multipart/mixed'
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <b><tt>Zend_Mime::MULTIPART_RELATED</tt></b>: 'multipart/related'
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.mime.mime.instantiation">
+                    <div class="info">
+                        <h2>
+                            Instantiating Zend_Mime
+                        </h2>
+                    </div>
+                    <p class="para">
+                        When Instantiating a <span class="classname">Zend_Mime</span> Object, a <acronym class="acronym">MIME</acronym> boundary is stored that is used for all subsequent non-static method calls on that object. If the constructor is called with a string parameter, this value is used as a <acronym class="acronym">MIME</acronym> boundary. If not, a random <acronym class="acronym">MIME</acronym> boundary is generated during construction time.
+                    </p>
+                    <p class="para">
+                        A <span class="classname">Zend_Mime</span> object has the following Methods:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">boundary()</span>: Returns the <acronym class="acronym">MIME</acronym> boundary string.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">boundaryLine()</span>: Returns the complete <acronym class="acronym">MIME</acronym> boundary line.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">mimeEnd()</span>: Returns the complete <acronym class="acronym">MIME</acronym> end boundary line.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.mime.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.mime.message.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.mime.html">Zend_Mime</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.mime.mime.html">Zend_Mime</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.mime.message.html">Zend_Mime_Message</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.mime.part.html">Zend_Mime_Part</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

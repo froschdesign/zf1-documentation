@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend Framework 1.5 - Zend Framework Migration Notes &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="migration.15" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend Framework 1.5
+                    </h1>
+                </div>
+                <p class="para">
+                    When upgrading from a previous release to Zend Framework 1.5 or higher you should note the following migration notes.
+                </p>
+                <div class="section" id="migration.15.zend.controller">
+                    <div class="info">
+                        <h2>
+                            Zend_Controller
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Though most basic functionality remains the same, and all documented functionality remains the same, there is one particular <em class="emphasis">undocumented</em> "feature" that has changed.
+                    </p>
+                    <p class="para">
+                        When writing <acronym class="acronym">URL</acronym>s, the documented way to write camelCased action names is to use a word separator; these are '.' or '-' by default, but may be configured in the dispatcher. The dispatcher internally lowercases the action name, and uses these word separators to re-assemble the action method using camelCasing. However, because <acronym class="acronym">PHP</acronym> functions are not case sensitive, you <em class="emphasis">could</em> still write <acronym class="acronym">URL</acronym>s using camelCasing, and the dispatcher would resolve these to the same location. For example, 'camel-cased' would become 'camelCasedAction' by the dispatcher, whereas 'camelCased' would become
+                        'camelcasedAction'; however, due to the case insensitivity of <acronym class="acronym">PHP</acronym>, both will execute the same method.
+                    </p>
+                    <p class="para">
+                        This causes issues with the ViewRenderer when resolving view scripts. The canonical, documented way is that all word separators are converted to dashes, and the words lowercased. This creates a semantic tie between the actions and view scripts, and the normalization ensures that the scripts can be found. However, if the action 'camelCased' is called and actually resolves, the word separator is no longer present, and the ViewRenderer attempts to resolve to a different location -- <var class="filename">camelcased.phtml</var> instead of <var class="filename">camel-cased.phtml</var>.
+                    </p>
+                    <p class="para">
+                        Some developers relied on this "feature", which was never intended. Several changes in the 1.5.0 tree, however, made it so that the ViewRenderer no longer resolves these paths; the semantic tie is now enforced. First among these, the dispatcher now enforces case sensitivity in action names. What this means is that referring to your actions on the url using camelCasing will no longer resolve to the same method as using word separators (i.e., 'camel-casing'). This leads to the ViewRenderer now only honoring the word-separated actions when resolving view scripts.
+                    </p>
+                    <p class="para">
+                        If you find that you were relying on this "feature", you have several options:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                Best option: rename your view scripts. Pros: forward compatibility. Cons: if you have many view scripts that relied on the former, unintended behavior, you will have a lot of renaming to do.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Second best option: The ViewRenderer now delegates view script resolution to <span class="classname">Zend_Filter_Inflector</span>; you can modify the rules of the inflector to no longer separate the words of an action with a dash:
+                            </p>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$viewRenderer</span> =
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; Zend_Controller_Action_HelperBroker::<span style="color: #006600;">getStaticHelper</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'viewRenderer'</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$inflector</span> = <span style="color: #0000ff;">$viewRenderer</span>-&gt;<span style="color: #006600;">getInflector</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$inflector</span>-&gt;<span style="color: #006600;">setFilterRule</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">':action'</span>, <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">new</span> Zend_Filter_PregReplace<span style="color: #66cc66;">(</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'#[^a-z0-9'</span> . <a href="http://www.php.net/preg_quote"><span style="color: #000066;">preg_quote</span></a><span style="color: #66cc66;">(</span>DIRECTORY_SEPARATOR, <span style="color: #ff0000;">'#'</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">']+#i'</span>,
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">''</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #66cc66;">)</span>,
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    &nbsp; &nbsp; <span style="color: #ff0000;">'StringToLower'</span>
+                                                </div>
+                                            </li>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="para">
+                                The above code will modify the inflector to no longer separate the words with dash; you may also want to remove the 'StringToLower' filter if you <em class="emphasis">do</em> want the actual view script names camelCased as well.
+                            </p>
+                            <p class="para">
+                                If renaming your view scripts would be too tedious or time consuming, this is your best option until you can find the time to do so.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Least desirable option: You can force the dispatcher to dispatch camelCased action names with a new front controller flag, <span class="property">useCaseSensitiveActions</span>:
+                            </p>
+                            <div class="programlisting php">
+                                <div class="phpcode">
+                                    <div class="php" style="font-family: monospace;">
+                                        <ol>
+                                            <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                    <span style="color: #0000ff;">$front</span>-&gt;<span style="color: #006600;">setParam</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'useCaseSensitiveActions'</span>, <span style="color: #000000; font-weight: bold;">true</span><span style="color: #66cc66;">)</span>;
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="para">
+                                This will allow you to use camelCasing on the url and still have it resolve to the same action as when you use word separators. However, this will mean that the original issues will cascade on through; you will likely need to use the second option above in addition to this for things to work at all reliably.
+                            </p>
+                            <p class="para">
+                                Note, also, that usage of this flag will raise a notice that this usage is deprecated.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="migration.16.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="migration.10.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="migration.html">Zend Framework Migration Notes</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.112.html">Zend Framework 1.12</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.110.html">Zend Framework 1.10</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.19.html">Zend Framework 1.9</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.18.html">Zend Framework 1.8</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.17.html">Zend Framework 1.7</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.16.html">Zend Framework 1.6</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="migration.15.html">Zend Framework 1.5</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.10.html">Zend Framework 1.0</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.09.html">Zend Framework 0.9</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.08.html">Zend Framework 0.8</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="migration.06.html">Zend Framework 0.6</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

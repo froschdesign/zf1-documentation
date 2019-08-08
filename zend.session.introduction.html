@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Introduction - Zend_Session &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.session.introduction" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Introduction
+                    </h1>
+                </div>
+                <p class="para">
+                    The Zend Framework Auth team greatly appreciates your feedback and contributions on our email list: <a href="mailto:fw-auth@lists.zend.com" class="link external">&raquo; fw-auth@lists.zend.com</a>
+                </p>
+                <p class="para">
+                    With web applications written using <acronym class="acronym">PHP</acronym>, a <em class="emphasis">session</em> represents a logical, one-to-one connection between server-side, persistent state data and a particular user agent client (e.g., web browser). <span class="classname">Zend_Session</span> helps manage and preserve session data, a logical complement of cookie data, across multiple page requests by the same client. Unlike cookie data, session data are not stored on the client side and are only shared with the client when server-side source code voluntarily makes the data available in response to a client request. For the purposes of this component and documentation, the term "session data" refers to the server-side data stored in <a href="http://www.php.net/manual/en/reserved.variables.php#reserved.variables.session" class="link external">&raquo; <var class="varname">$_SESSION</var></a>, managed by <span class="classname">Zend_Session</span>, and individually manipulated by <span class="classname">Zend_Session_Namespace</span> accessor objects. <em class="emphasis">Session namespaces</em> provide access to session data using classic <a href="http://en.wikipedia.org/wiki/Namespace_%28computer_science%29" class="link external">&raquo; namespaces</a> implemented logically as named groups of associative arrays, keyed by strings (similar to normal <acronym class="acronym">PHP</acronym> arrays).
+                </p>
+                <p class="para">
+                    <span class="classname">Zend_Session_Namespace</span> instances are accessor objects for namespaced slices of <var class="varname">$_SESSION</var>. The <span class="classname">Zend_Session</span> component wraps the existing <acronym class="acronym">PHP</acronym> ext/session with an administration and management interface, as well as providing an <acronym class="acronym">API</acronym> for <span class="classname">Zend_Session_Namespace</span> to persist session namespaces. <span class="classname">Zend_Session_Namespace</span> provides a standardized, object-oriented interface for working with namespaces persisted inside <acronym class="acronym">PHP</acronym>'s standard session mechanism. Support exists for both anonymous and authenticated (e.g., "login")
+                    session namespaces. <span class="classname">Zend_Auth</span>, the authentication component of Zend Framework, uses <span class="classname">Zend_Session_Namespace</span> to store some information associated with authenticated users. Since <span class="classname">Zend_Session</span> uses the normal <acronym class="acronym">PHP</acronym> ext/session functions internally, all the familiar configuration options and settings apply (see <a href="http://www.php.net/session" class="link external">&raquo; http://www.php.net/session</a>), with such bonuses as the convenience of an object-oriented interface and default behavior that provides both best practices and smooth integration with Zend Framework. Thus, a standard <acronym class="acronym">PHP</acronym> session identifier,
+                    whether conveyed by cookie or within <acronym class="acronym">URL</acronym>s, maintains the association between a client and session state data.
+                </p>
+                <p class="para">
+                    The default <a href="http://www.php.net/manual/en/function.session-set-save-handler.php" class="link external">&raquo; ext/session save handler</a> does not maintain this association for server clusters under certain conditions because session data are stored to the filesystem of the server that responded to the request. If a request may be processed by a different server than the one where the session data are located, then the responding server has no access to the session data (if they are not available from a networked filesystem). A list of additional, appropriate save handlers will be provided, when available. Community members are encouraged to suggest and submit save handlers to the <a href="mailto:fw-auth@lists.zend.com" class="link external">&raquo;
+                    fw-auth@lists.zend.com</a> list. A <span class="classname">Zend_Db</span> compatible save handler has been posted to the list.
+                </p>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.session.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.session.basic_usage.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.session.html">Zend_Session</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.session.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.session.basic_usage.html">Basic Usage</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.session.advanced_usage.html">Advanced Usage</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.session.global_session_management.html">Global Session Management</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.session.savehandler.dbtable.html">Zend_Session_SaveHandler_DbTable</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

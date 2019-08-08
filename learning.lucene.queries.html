@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Supported queries - Getting Started with Zend_Search_Lucene &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="learning.lucene.queries" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Supported queries
+                    </h1>
+                </div>
+                <p class="para">
+                    <span class="classname">Zend_Search_Lucene</span> and Java Lucene support a powerful query language. It allows searching for individual terms, phrases, ranges of terms; using wildcards and fuzzy search; combining queries using boolean operators; and so on.
+                </p>
+                <p class="para">
+                    A detailed query language description can be found in the <a href="zend.search.lucene.query-language.html" class="link">Zend_Search_Lucene component documentation</a>.
+                </p>
+                <p class="para">
+                    What follows are examples of some common query types and strategies.
+                </p>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #1 Querying for a single word</b>
+                        </p>
+                    </div>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            hello
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Searches for the word "hello" through all document fields.
+                        </p>
+                    </div>
+                </div>
+                <blockquote>
+                    <p>
+                        <b class="note">Note</b>: <span class="info"><b>Default search field</b><br></span> Important note! Java Lucene searches only through the "contents" field by default, but <span class="classname">Zend_Search_Lucene</span> searches through <em class="emphasis">all</em> fields. This behavior can be modified using the <span class="methodname">Zend_Search_Lucene::setDefaultSearchField($fieldName)</span> method.<br>
+                    </p>
+                </blockquote>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #2 Querying for multiple words</b>
+                        </p>
+                    </div>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            hello dolly
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Searches for two words. Both words are optional; at least one of them must be present in the result.
+                        </p>
+                    </div>
+                </div>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #3 Requiring words in a query</b>
+                        </p>
+                    </div>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            +hello dolly
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Searches for two words; "hello" is required, "dolly" is optional.
+                        </p>
+                    </div>
+                </div>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #4 Prohibiting words in queried documents</b>
+                        </p>
+                    </div>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            +hello -dolly
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Searches for two words; "hello" is required, 'dolly' is prohibited. In other words, if the document matches "hello", but contains the word "dolly", it will not be returned in the set of matches.
+                        </p>
+                    </div>
+                </div>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #5 Querying for phrases</b>
+                        </p>
+                    </div>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            "hello dolly"
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Searches for the phrase "hello dolly"; a document only matches if that exact string is present.
+                        </p>
+                    </div>
+                </div>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #6 Querying against specific fields</b>
+                        </p>
+                    </div>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            title:"The Right Way" AND text:go
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Searches for the phrase "The Right Way" within the <span class="property">title</span> field and the word "go" within the <span class="property">text</span> field.
+                        </p>
+                    </div>
+                </div>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #7 Querying against specific fields as well as the entire document</b>
+                        </p>
+                    </div>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            title:"The Right Way" AND&nbsp; go
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Searches for the phrase "The Right Way" within the <span class="property">title</span> field and the word "go" word appearing in any field of the document.
+                        </p>
+                    </div>
+                </div>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #8 Querying against specific fields as well as the entire document (alternate)</b>
+                        </p>
+                    </div>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            title:Do it right
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Searches for the word "Do" within the <span class="property">title</span> field and the words "it" and "right" words through all fields; any single one matching will result in a document match.
+                        </p>
+                    </div>
+                </div>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #9 Querying with the wildcard "?"</b>
+                        </p>
+                    </div>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            te?t
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Search for words matching the pattern "te?t", where "?" is any single character.
+                        </p>
+                    </div>
+                </div>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #10 Querying with the wildcard "*"</b>
+                        </p>
+                    </div>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            test*
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Search for words matching the pattern "test*", where "*" is any sequence of zero or more characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #11 Querying for an inclusive range of terms</b>
+                        </p>
+                    </div>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            mod_date:[20020101 TO 20030101]
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Search for the range of terms (inclusive).
+                        </p>
+                    </div>
+                </div>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #12 Querying for an exclusive range of terms</b>
+                        </p>
+                    </div>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            title:{Aida to Carmen}
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Search for the range of terms (exclusive).
+                        </p>
+                    </div>
+                </div>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #13 Fuzzy searches</b>
+                        </p>
+                    </div>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            roam~
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Fuzzy search for the word "roam".
+                        </p>
+                    </div>
+                </div>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #14 Boolean searches</b>
+                        </p>
+                    </div>
+                    <div class="programlisting text">
+                        <div class="textcode">
+                            <div class="text" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            (framework OR library) AND php
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-contents">
+                        <p>
+                            Boolean query.
+                        </p>
+                    </div>
+                </div>
+                <p class="para">
+                    All supported queries can be constructed through <span class="classname">Zend_Search_Lucene</span>'s <a href="zend.search.lucene.query-api.html" class="link">query construction API</a>. Moreover, query parsing and query constructing may be combined:
+                </p>
+                <div class="example">
+                    <div class="info">
+                        <p>
+                            <b>Example #15 Combining parsed and constructed queries</b>
+                        </p>
+                    </div>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$userQuery</span> = Zend_Search_Lucene_Search_QueryParser::<span style="color: #006600;">parse</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$queryStr</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$query</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Search_Lucene_Search_Query_Boolean<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$query</span>-&gt;<span style="color: #006600;">addSubquery</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$userQuery</span>, <span style="color: #000000; font-weight: bold;">true</span>&nbsp; <span style="color: #808080; font-style: italic;">/* required */</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$query</span>-&gt;<span style="color: #006600;">addSubquery</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$constructedQuery</span>, <span style="color: #000000; font-weight: bold;">true</span>&nbsp; <span style="color: #808080; font-style: italic;">/* required */</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="learning.lucene.searching.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="learning.lucene.pagination.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="learning.lucene.html">Getting Started with Zend_Search_Lucene</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.lucene.intro.html">Zend_Search_Lucene Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.lucene.index-structure.html">Lucene Index Structure</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.lucene.index-opening.html">Index Opening and Creation</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.lucene.indexing.html">Indexing</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.lucene.searching.html">Searching</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="learning.lucene.queries.html">Supported queries</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="learning.lucene.pagination.html">Search result pagination</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

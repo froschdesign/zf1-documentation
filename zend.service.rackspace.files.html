@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Service_Rackspace_Files - Zend_Service &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.service.rackspace.files" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Service_Rackspace_Files
+                    </h1>
+                </div>
+                <div class="section" id="zend.service.rackspace.files.intro">
+                    <div class="info">
+                        <h2>
+                            Overview
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The <span class="classname">Zend_Service_Rackspace_Files</span> is a class that provides a simple <acronym class="acronym">API</acronym> to manage the <a href="http://www.rackspace.com/cloud/cloud_hosting_products/files/" class="link external">&raquo; Rackspace Cloud Files</a>.
+                    </p>
+                </div>
+                <div class="section" id="zend.service.rackspace.files.quick-start">
+                    <div class="info">
+                        <h2>
+                            Quick Start
+                        </h2>
+                    </div>
+                    <p class="para">
+                        To use this class you have to pass the username and the API's key of Rackspace in the construction of the class.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$user</span> = <span style="color: #ff0000;">'username'</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$key</span>&nbsp; = <span style="color: #ff0000;">'secret key'</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$rackspace</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Rackspace_Files<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$user</span>,<span style="color: #0000ff;">$key</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        A container is a storage compartment for your data and provides a way for you to organize your data. You can think of a container as a folder in Windows&Acirc;&reg; or a directory in UNIX&Acirc;&reg;. The primary difference between a container and these other file system concepts is that containers cannot be nested. You can, however, create an unlimited number of containers within your account. Data must be stored in a container so you must have at least one container defined in your account prior to uploading data.
+                    </p>
+                    <p class="para">
+                        The only restrictions on container names is that they cannot contain a forward slash (/) and must be less than 256 bytes in length (please note that the length restriction applies to the name using the URL encoded format).
+                    </p>
+                    <p class="para">
+                        The containers are managed using the class <span class="classname">Zend_Service_Rackspace_Files_Container</span>.
+                    </p>
+                    <p class="para">
+                        An object (file) is the basic storage entity and any optional metadata that represents the files you store in the Cloud Files system. When you upload data to Cloud Files, the data is stored as-is (no compression or encryption) and consists of a location (container), the object's name, and any metadata consisting of key/value pairs. For instance, you may chose to store a backup of your digital photos and organize them into albums. In this case, each object could be tagged with metadata such as Album : Caribbean Cruise or Album : Aspen Ski Trip.
+                    </p>
+                    <p class="para">
+                        The only restriction on object names is that they must be less than 1024 bytes in length after URL encoding. Cloud Files has a limit on the size of a single uploaded object; by default this is 5 GB. For metadata, you should not exceed 90 individual key/value pairs for any one object and the total byte length of all key/value pairs should not exceed 4KB (4096 bytes).
+                    </p>
+                    <p class="para">
+                        The objects are managed using the class <span class="classname">Zend_Service_Rackspace_Files_Object</span>.
+                    </p>
+                    <p class="para">
+                        To create a new container you can use the <em class="emphasis">createContainer</em> method.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$container</span>= <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">createContainer</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/die"><span style="color: #000066;">die</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'ERROR: '</span>.<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Name: %s"</span>,<span style="color: #0000ff;">$container</span>-&gt;<span style="color: #006600;">getName</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        This example create a container with name <em class="emphasis">test</em>. The result of <em class="emphasis">createContainer</em> is a new instance of <span class="classname">Zend_Service_Rackspace_Files_Container</span>.
+                    </p>
+                    <p class="para">
+                        To store an object (file) in a container you can use the <em class="emphasis">storeObject</em> method.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$name</span>= <span style="color: #ff0000;">'example.jpg'</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$file</span>= <a href="http://www.php.net/file_get_contents"><span style="color: #000066;">file_get_contents</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$name</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$metadata</span>= <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a> <span style="color: #66cc66;">(</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <span style="color: #ff0000;">'foo'</span> =&gt; <span style="color: #ff0000;">'bar'</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">storeObject</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test'</span>,<span style="color: #0000ff;">$name</span>,<span style="color: #0000ff;">$file</span>,<span style="color: #0000ff;">$metadata</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">'Object stored successfully'</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span> <span style="color: #b1b100;">else</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"ERROR: %s"</span>,<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        This example store a file image <em class="emphasis">example.jpg</em> in the container <em class="emphasis">test</em> with the metadata specified in the array <em class="emphasis">$metadata</em>.
+                    </p>
+                    <p class="para">
+                        To delete an object (file) you can use the <em class="emphasis">deleteObject</em> method.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">deleteObject</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test'</span>,<span style="color: #ff0000;">'example.jpg'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">'Object deleted successfully'</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span> <span style="color: #b1b100;">else</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"ERROR: %s"</span>,<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        This example delete the object <em class="emphasis">example.jpg</em> in the container <em class="emphasis">test</em>.
+                    </p>
+                    <p class="para">
+                        To publish a container as <acronym class="acronym">CDN</acronym> (Content Delivery Network) you can use the <em class="emphasis">enableCdnContainer</em> method.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$cdnInfo</span>= <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">enableCdnContainer</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/print_r"><span style="color: #000066;">print_r</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$cdnInfo</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span> <span style="color: #b1b100;">else</span> <span style="color: #66cc66;">{</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp; &nbsp; <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"ERROR: %s"</span>,<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #66cc66;">}</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        This example publish the container <em class="emphasis">test</em> as <acronym class="acronym">CDN</acronym>. If the operation is successfull returns an associative arrays with the following values:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">cdn_uri</em>, the url of the CDN container;
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <em class="emphasis">cdn_uri_ssl</em>, the ssl url of the CDN container;
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.service.rackspace.files.methods">
+                    <div class="info">
+                        <h2>
+                            Available Methods
+                        </h2>
+                    </div>
+                    <dl>
+                        <dt id="zend.service.rackspace.files.methods.copy-object"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">copyObject</span> <span class="methodparam">( string $container_source,string $obj_source,string $container_dest,string $obj_dest,$metadata=array(),string $content_type=null )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Copy an object from a container to another. The return is <em class="emphasis">true</em> in case of success and <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container_source</em> is the name of the source container.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$obj_source</em> is the name of the source object.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container_dest</em> is the name of the destination container.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$obj_dest</em> is the name of the destination object.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$metadata</em> array contains the metadata information related to the destination object.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$content_type</em> is the optional content type of the destination object (file).
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.create-container"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">createContainer</span> <span class="methodparam">( string $container, $metadata=array() )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Create a container. The return is an instance of <span class="classname">Zend_Service_Rackspace_Files_Container</span>. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container</em> is the name of the container to create.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$metadata</em> array contains the metadata information related to the container.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.delete-container"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">deleteContainer</span> <span class="methodparam">( string $container )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Delete a container. The return is <em class="emphasis">true</em> in case of success and <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container</em> is the name of the container to delete.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.delete-object"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">deleteObject</span> <span class="methodparam">( string $container,string $object )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Delete an object in a specific container. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container</em> is the name of the container.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$object</em> is the name of the object to delete.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.enable-cdn-container"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">enableCdnContainer</span> <span class="methodparam">( string $container,integer $ttl=900 )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Publish a container as <acronym class="acronym">CDN</acronym> (Content Delivery Network). Return an associative array contains the CDN url and SSL url. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container</em> is the name of the container.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$ttl</em> is the time to live for the CDN cache content. The default value is 15 minutes (900 seconds). The minimum TTL that can be set is 15 minutes (900 seconds); the maximum TTL is 50 years (range of 900 to 1577836800 seconds).
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-cdn-containers"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getCdnContainers</span> <span class="methodparam">( $options=array() )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Returns all the CDN containers available. The return is an instance of <span class="classname">Zend_Service_Rackspace_Files_ContainerList</span>. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$options</em> contains the following optional parameters:
+                            </p>
+                            <ul class="itemizedlist">
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">limit</em>, for an integer value n, limits the number of results to at most n values.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">marker</em>, given a string value x, return object names greater in value than the specified marker.
+                                    </p>
+                                </li>
+                            </ul>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-containers"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getContainers</span> <span class="methodparam">( $options=array() )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Returns all the containers available. The return is an instance of <span class="classname">Zend_Service_Rackspace_Files_ContainerList</span> In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$options</em> contains the following optional parameters:
+                            </p>
+                            <ul class="itemizedlist">
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">limit</em>, for an integer value n, limits the number of results to at most n values.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">marker</em>, given a string value x, return object names greater in value than the specified marker.
+                                    </p>
+                                </li>
+                            </ul>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-container"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getContainer</span> <span class="methodparam">( string $container )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Returns the container specified as instance of <span class="classname">Zend_Service_Rackspace_Files_Container</span> In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container</em> is the name of the container.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-count-containers"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getCountContainers</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return the total count of containers.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-count-objects"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getCountObjects</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return the count of objects contained in all the containers.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-info-cdn-container"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getInfoCdnContainer</span> <span class="methodparam">( string $container )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Get the information of a CDN container. The result is an associative array with all the CDN information. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container</em> is the name of the container.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-info-containers"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getInfoContainers</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Get the information about all the containers available. Return an associative array with the following values:
+                            </p>
+                            <ul class="itemizedlist">
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">tot_containers</em>, the total number of containers stored
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">size_containers</em>, the total size, in byte, of all the containers.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">tot_objects</em>, the total number of objects (file) stored in all the containers.
+                                    </p>
+                                </li>
+                            </ul>In case of error the return is <em class="emphasis">false</em>.
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-metadata-container"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getMetadataContainer</span> <span class="methodparam">( string $container )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Get the metadata information of a container. The result is an associative array with all the metadata keys/values. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container</em> is the name of the container.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-metadata-object"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getMetadataObject</span> <span class="methodparam">( string $container, string $object )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Get the metadata information of an object. The result is an associative array with all the metadata keys/values. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container</em> is the name of the container.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$object</em> is the name of the object.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-objects"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getObjects</span> <span class="methodparam">( string $container, $options=array() )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Returns all the objects of a container. The return is an instance of <span class="classname">Zend_Service_Rackspace_Files_ObjectList</span> In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container</em> is the name of the container.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$options</em> contains the following optional parameters:
+                            </p>
+                            <ul class="itemizedlist">
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">limit</em>, for an integer value n, limits the number of results to at most n values.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">marker</em>, given a string value x, return object names greater in value than the specified marker.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">prefix</em>, for a string value x, causes the results to be limited to object names beginning with the substring x.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">path</em>, for a string value x, return the object names nested in the pseudo path.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">delimiter</em>, for a character c, return all the object names nested in the container (without the need for the directory marker objects).
+                                    </p>
+                                </li>
+                            </ul>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-object"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getObject</span> <span class="methodparam">( string $container, string $object, $headers=array() )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Returns an object of a container. The return is an instance of <span class="classname">Zend_Service_Rackspace_Files_Object</span> In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container</em> is the name of the container.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$object</em> is the name of the object.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$headers</em> contains the following optional parameters (See the <a href="http://www.ietf.org/rfc/rfc2616.txt" class="link external">&raquo; RFC-2616</a> for more info):
+                            </p>
+                            <ul class="itemizedlist">
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">If-Match</em>, a client that has one or more entities previously obtained from the resource can verify that one of those entities is current by including a list of their associated entity tags in the If-Match header field.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">If-None-Match</em>, a client that has one or more entities previously obtained from the resource can verify that none of those entities is current by including a list of their associated entity tags in the If-None-Match header field.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">If-Modified-Since</em>, if the requested variant has not been modified since the time specified in this field, an entity will not be returned from the server.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">If-Unmodified-Since</em>, if the requested resource has not been modified since the time specified in this field, the server SHOULD perform the requested operation as if the If-Unmodified-Since header were not present.
+                                    </p>
+                                </li>
+                                <li class="listitem">
+                                    <p class="para">
+                                        <em class="emphasis">Range</em>, Rackspace supports a sub-set of Range and do not adhere to the full RFC-2616 specification. We support specifying OFFSET-LENGTH where either OFFSET or LENGTH can be optional (not both at the same time). The following are supported forms of the header:
+                                    </p>
+                                    <ul class="itemizedlist">
+                                        <li class="listitem">
+                                            <p class="para">
+                                                <em class="emphasis">Range: bytes=-5</em>, last five bytes of the object
+                                            </p>
+                                        </li>
+                                        <li class="listitem">
+                                            <p class="para">
+                                                <em class="emphasis">Range: bytes=10-15</em>, the five bytes after a 10-byte offset
+                                            </p>
+                                        </li>
+                                        <li class="listitem">
+                                            <p class="para">
+                                                <em class="emphasis">Range: bytes=32-</em>, all data after the first 32 bytes of the object
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.get-size-containers"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">getSizeContainers</span> <span class="methodparam">( )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Return the size, in bytes, of all the containers.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.set-metadata-object"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">setMetadataObject</span> <span class="methodparam">( string $container,string $object, array $metadata )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Update metadata information to the object (all the previous metadata will be deleted). Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container</em> is the name of the container.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$object</em> is the name of the object to store.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$metadata</em> array contains the metadata information related to the object.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.store-object"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">storeObject</span> <span class="methodparam">( string $container,string $object,string $file,$metadata=array() )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Store an object in a specific container. Return <em class="emphasis">true</em> in case of success, <em class="emphasis">false</em> in case of error.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container</em> is the name of the container.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$object</em> is the name of the object to store.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$file</em> is the content of the object to store.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$metadata</em> array contains the metadata information related to the object to store.
+                            </p>
+                        </dd>
+                        <dt id="zend.service.rackspace.files.methods.update-cdn-container"></dt>
+                        <dd>
+                            <div class="methodsynopsis dc-description">
+                                <span class="methodname">updateCdnContainer</span> <span class="methodparam">( string $container,integer $ttl=null,$cdn_enabled=null,$log=null )</span>
+                            </div>
+                        </dd>
+                        <dd>
+                            <p class="para">
+                                Update the attribute of a <acronym class="acronym">CDN</acronym> container. Return an associative array contains the CDN url and SSL url. In case of error the return is <em class="emphasis">false</em>.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$container</em> is the name of the container.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$ttl</em> is the time to live for the CDN cache content. The default value is 15 minutes (900 seconds). The minimum TTL that can be set is 15 minutes (900 seconds); the maximum TTL is 50 years (range of 900 to 1577836800 seconds).
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$cdn_enabled</em> is the flag to swith on/off the CDN. <em class="emphasis">True</em> switch on, <em class="emphasis">false</em> switch off.
+                            </p>
+                            <p class="para">
+                                The <em class="emphasis">$log</em> enable or disable the log retention. <em class="emphasis">True</em> switch on, <em class="emphasis">false</em> switch off.
+                            </p>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="section" id="zend.service.rackspace.files.examples">
+                    <div class="info">
+                        <h2>
+                            Examples
+                        </h2>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #1 Authenticate</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Check if the username and the key are valid for the Rackspace authentication.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$user</span> = <span style="color: #ff0000;">'username'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$key</span>&nbsp; = <span style="color: #ff0000;">'secret key'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$rackspace</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Rackspace_Files<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$user</span>,<span style="color: #0000ff;">$key</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">authenticate</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"Authenticated with token: %s"</span>,<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getToken</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span> <span style="color: #b1b100;">else</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">"ERROR: %s"</span>,<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #2 Get an object</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Get an image file (<em class="emphasis">example.gif</em>) from the cloud and render it in the browser
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$user</span> = <span style="color: #ff0000;">'username'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$key</span>&nbsp; = <span style="color: #ff0000;">'secret key'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$rackspace</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Rackspace_Files<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$user</span>,<span style="color: #0000ff;">$key</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$object</span>= <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getObject</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test'</span>,<span style="color: #ff0000;">'example.gif'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/die"><span style="color: #000066;">die</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'ERROR: '</span>.<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/header"><span style="color: #000066;">header</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Content-type: image/gif'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$object</span>-&gt;<span style="color: #006600;">getFile</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #3 Create a container with metadata</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Create a container (<em class="emphasis">test</em>) with some metadata information (<em class="emphasis">$metadata</em>)
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$user</span> = <span style="color: #ff0000;">'username'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$key</span>&nbsp; = <span style="color: #ff0000;">'secret key'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$rackspace</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Rackspace_Files<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$user</span>,<span style="color: #0000ff;">$key</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$metadata</span>= <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a> <span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'foo'</span>&nbsp; =&gt; <span style="color: #ff0000;">'bar'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'foo2'</span> =&gt; <span style="color: #ff0000;">'bar2'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$container</span>= <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">createContainer</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test'</span>,<span style="color: #0000ff;">$metadata</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">'Container created successfully'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #4 Get the metadata of a container</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Get the metadata of the container <em class="emphasis">test</em>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$user</span> = <span style="color: #ff0000;">'username'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$key</span>&nbsp; = <span style="color: #ff0000;">'secret key'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$rackspace</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Rackspace_Files<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$user</span>, <span style="color: #0000ff;">$key</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$container</span>= <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getContainer</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/die"><span style="color: #000066;">die</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'ERROR: '</span> . <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$metadata</span>= <span style="color: #0000ff;">$container</span>-&gt;<span style="color: #006600;">getMetadata</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/print_r"><span style="color: #000066;">print_r</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$metadata</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #5 Store an object in a container</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Store an object using a <span class="classname">Zend_Service_Rackspace_Files_Container</span> instance
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$user</span> = <span style="color: #ff0000;">'username'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$key</span>&nbsp; = <span style="color: #ff0000;">'secret key'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$rackspace</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Rackspace_Files<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$user</span>, <span style="color: #0000ff;">$key</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$container</span>= <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getContainer</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/die"><span style="color: #000066;">die</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'ERROR: '</span> . <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$file</span>&nbsp; &nbsp; &nbsp;= <a href="http://www.php.net/file_get_contents"><span style="color: #000066;">file_get_contents</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test.jpg'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$metadata</span> = <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a> <span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">'foo'</span> =&gt; <span style="color: #ff0000;">'bar'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$container</span>-&gt;<span style="color: #006600;">addObject</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test.jpg'</span>, <span style="color: #0000ff;">$file</span>, <span style="color: #0000ff;">$metadata</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">'Object stored successfully'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #6 Check if a container is CDN enabled</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Check if the <em class="emphasis">test</em> container is CDN enabled. If it is not we enable it.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$user</span> = <span style="color: #ff0000;">'username'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$key</span>&nbsp; = <span style="color: #ff0000;">'secret key'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$rackspace</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Rackspace_Files<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$user</span>, <span style="color: #0000ff;">$key</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$container</span>= <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getContainer</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">isSuccessful</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/die"><span style="color: #000066;">die</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'ERROR: '</span> . <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$container</span>-&gt;<span style="color: #006600;">isCdnEnabled</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>!<span style="color: #0000ff;">$container</span>-&gt;<span style="color: #006600;">enableCdn</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.php.net/die"><span style="color: #000066;">die</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'ERROR: '</span> . <span style="color: #0000ff;">$rackspace</span>-&gt;<span style="color: #006600;">getErrorMsg</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/printf"><span style="color: #000066;">printf</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #ff0000;">"The container is CDN enabled with the following URLs:<span style="color: #000099; font-weight: bold;">\n</span> %s<span style="color: #000099; font-weight: bold;">\n</span> %s<span style="color: #000099; font-weight: bold;">\n</span>"</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #0000ff;">$container</span>-&gt;<span style="color: #006600;">getCdnUri</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #0000ff;">$container</span>-&gt;<span style="color: #006600;">getCdnUriSsl</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.service.rackspace.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.service.rackspace.servers.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.service.html">Zend_Service</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.akismet.html">Zend_Service_Akismet</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.html">Zend_Service_Amazon</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.html">Zend_Service_Amazon_Ec2</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.instance.html">Zend_Service_Amazon_Ec2: Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.windows.instance.html">Zend_Service_Amazon_Ec2: Windows Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.reserved.instance.html">Zend_Service_Amazon_Ec2: Reserved Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.cloudwatch.html">Zend_Service_Amazon_Ec2: CloudWatch Monitoring</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.images.html">Zend_Service_Amazon_Ec2: Amazon Machine Images (AMI)</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.ebs.html">Zend_Service_Amazon_Ec2: Elastic Block Storage (EBS)</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.elasticip.html">Zend_Service_Amazon_Ec2: Elastic IP Addresses</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.keypairs.html">Zend_Service_Amazon_Ec2: Keypairs</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.zones.html">Zend_Service_Amazon_Ec2: Regions and Availability Zones</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.securitygroups.html">Zend_Service_Amazon_Ec2: Security Groups</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.s3.html">Zend_Service_Amazon_S3</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.sqs.html">Zend_Service_Amazon_Sqs</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.audioscrobbler.html">Zend_Service_Audioscrobbler</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.delicious.html">Zend_Service_Delicious</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.ebay.html">Zend_Service_Ebay</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.ebay.finding.html">Zend_Service_Ebay_Finding</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.flickr.html">Zend_Service_Flickr</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.livedocx.html">Zend_Service_LiveDocx</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.rackspace.html">Zend_Service_Rackspace</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.service.rackspace.files.html">Zend_Service_Rackspace_Files</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.rackspace.servers.html">Zend_Service_Rackspace_Servers</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.recaptcha.html">Zend_Service_ReCaptcha</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.short-url.html">Zend_Service_ShortUrl</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.slideshare.html">Zend_Service_SlideShare</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.html">Zend_Service_StrikeIron</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.bundled-services.html">Zend_Service_StrikeIron: Bundled Services</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.advanced-uses.html">Zend_Service_StrikeIron: Advanced Uses</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.twitter.html">Zend_Service_Twitter</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.html">Zend_Service_WindowsAzure</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.blob.html">Zend_Service_WindowsAzure_Storage_Blob</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.diagnostics.manager.html">Zend_Service_WindowsAzure_Diagnostics_Manager</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.queue.html">Zend_Service_WindowsAzure_Storage_Queue</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.table.html">Zend_Service_WindowsAzure_Storage_Table</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.yahoo.html">Zend_Service_Yahoo</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

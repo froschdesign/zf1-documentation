@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Loading Files and Classes Dynamically - Zend_Loader &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.loader.load" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Loading Files and Classes Dynamically
+                    </h1>
+                </div>
+                <p class="para">
+                    The <span class="classname">Zend_Loader</span> class includes methods to help you load files dynamically.
+                </p>
+                <div class="tip">
+                    <b class="tip">Tip</b>
+                    <div class="info">
+                        <h2>
+                            Zend_Loader vs. require_once()
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The <span class="classname">Zend_Loader</span> methods are best used if the filename you need to load is variable. For example, if it is based on a parameter from user input or method argument. If you are loading a file or a class whose name is constant, there is no benefit to using <span class="classname">Zend_Loader</span> over using traditional <acronym class="acronym">PHP</acronym> functions such as <a href="http://php.net/require_once" class="link external">&raquo; <span class="methodname">require_once()</span></a>.
+                    </p>
+                </div>
+                <div class="section" id="zend.loader.load.file">
+                    <div class="info">
+                        <h2>
+                            Loading Files
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The static method <span class="methodname">Zend_Loader::loadFile()</span> loads a <acronym class="acronym">PHP</acronym> file. The file loaded may contain any <acronym class="acronym">PHP</acronym> code. The method is a wrapper for the <acronym class="acronym">PHP</acronym> function <a href="http://php.net/include" class="link external">&raquo; <span class="methodname">include()</span></a>, which emits a <acronym class="acronym">PHP</acronym> warning on failure, for example if the specified file does not exist.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #1 Example of the loadFile() Method</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                Zend_Loader::<span style="color: #006600;">loadFile</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$filename</span>, <span style="color: #0000ff;">$dirs</span>=<span style="color: #000000; font-weight: bold;">null</span>, <span style="color: #0000ff;">$once</span>=<span style="color: #000000; font-weight: bold;">false</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        The <var class="varname">$filename</var> argument specifies the filename to load, which must not contain any path information. A security check is performed on <var class="varname">$filename</var>. The <var class="varname">$filename</var> may only contain alphanumeric characters, dashes ("-"), underscores ("_"), or periods ("."). No such restriction is placed on the <var class="varname">$dirs</var> argument.
+                    </p>
+                    <p class="para">
+                        The <var class="varname">$dirs</var> argument specifies which directories to search for the file in. If the value is <b><tt>NULL</tt></b>, only the include_path is searched; if the value is a string or an array, the directory or directories specified will be searched, followed by the <span class="property">include_path</span>.
+                    </p>
+                    <p class="para">
+                        The <var class="varname">$once</var> argument is a boolean. If <b><tt>TRUE</tt></b>, <span class="methodname">Zend_Loader::loadFile()</span> uses the <acronym class="acronym">PHP</acronym> function <a href="http://php.net/include" class="link external">&raquo; <span class="methodname">include_once()</span></a> for loading the file, otherwise the <acronym class="acronym">PHP</acronym> function <a href="http://php.net/include_once" class="link external">&raquo; <span class="methodname">include()</span></a> is used.
+                    </p>
+                </div>
+                <div class="section" id="zend.loader.load.class">
+                    <div class="info">
+                        <h2>
+                            Loading Classes
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The static method <span class="methodname">Zend_Loader::loadClass($class, $dirs)</span> loads a <acronym class="acronym">PHP</acronym> file and then checks for the existence of the class.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #2 Example of the loadClass() Method</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                Zend_Loader::<span style="color: #006600;">loadClass</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Container_Tree'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/array"><span style="color: #000066;">array</span></a><span style="color: #66cc66;">(</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'/home/production/mylib'</span>,
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">'/home/production/myapp'</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        The string specifying the class is converted to a relative path by substituting underscores with directory separators for your OS, and appending '.php'. In the example above, 'Container_Tree' becomes 'Container\\Tree.php' on Windows.
+                    </p>
+                    <p class="para">
+                        If <var class="varname">$dirs</var> is a string or an array, <span class="methodname">Zend_Loader::loadClass()</span> searches the directories in the order supplied. The first matching file is loaded. If the file does not exist in the specified <var class="varname">$dirs</var>, then the <span class="property">include_path</span> for the <acronym class="acronym">PHP</acronym> environment is searched.
+                    </p>
+                    <p class="para">
+                        If the file is not found or the class does not exist after the load, <span class="methodname">Zend_Loader::loadClass()</span> throws a <span class="classname">Zend_Exception</span>.
+                    </p>
+                    <p class="para">
+                        <span class="methodname">Zend_Loader::loadFile()</span> is used for loading, so the class name may only contain alphanumeric characters and the hyphen ('-'), underscore ('_'), and period ('.').
+                    </p>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: <span class="info"><b>Loading Classes from PHP Namespaces</b><br></span> Starting in version 1.10.0, Zend Framework now allows loading classes from <acronym class="acronym">PHP</acronym> namespaces. This support follows the same guidelines and implementation as that found in the <a href="http://groups.google.com/group/php-standards/web/psr-0-final-proposal" class="link external">&raquo; PHP Framework Interop Group PSR-0</a> reference implementation.<br>
+                            Under this guideline, the following rules apply:<br>
+                        </p>
+                        <ul class="itemizedlist">
+                            <li class="listitem">
+                                <p class="para">
+                                    Each namespace separator is converted to a <b><tt>DIRECTORY_SEPARATOR</tt></b> when loading from the file system.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    Each "_" character in the <em class="emphasis">CLASS NAME</em> is converted to a <b><tt>DIRECTORY_SEPARATOR</tt></b>. The "_" character has no special meaning in the namespace.
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    The fully-qualified namespace and class is suffixed with ".php" when loading from the file system.
+                                </p>
+                            </li>
+                        </ul>As examples:<br>
+                        <ul class="itemizedlist">
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="classname">\Doctrine\Common\IsolatedClassLoader</span> =&gt; <var class="filename">/path/to/project/lib/vendor/Doctrine/Common/IsolatedClassLoader.php</var>
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="classname">\namespace\package\Class_Name</span> =&gt; <var class="filename">/path/to/project/lib/vendor/namespace/package/Class/Name.php</var>
+                                </p>
+                            </li>
+                            <li class="listitem">
+                                <p class="para">
+                                    <span class="classname">\namespace\package_name\Class_Name</span> =&gt; <var class="filename">/path/to/project/lib/vendor/namespace/package_name/Class/Name.php</var>
+                                </p>
+                            </li>
+                        </ul>
+                    </blockquote>
+                </div>
+                <div class="section" id="zend.loader.load.isreadable">
+                    <div class="info">
+                        <h2>
+                            Testing if a File is Readable
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The static method <span class="methodname">Zend_Loader::isReadable($pathname)</span> returns <b><tt>TRUE</tt></b> if a file at the specified pathname exists and is readable, <b><tt>FALSE</tt></b> otherwise.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #3 Example of isReadable() method</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span>Zend_Loader::<span style="color: #006600;">isReadable</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$filename</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #808080; font-style: italic;">// do something with $filename</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        The <var class="varname">$filename</var> argument specifies the filename to check. This may contain path information. This method is a wrapper for the <acronym class="acronym">PHP</acronym> function <a href="http://php.net/is_readable" class="link external">&raquo; <span class="methodname">is_readable()</span></a>. The <acronym class="acronym">PHP</acronym> function does not search the <span class="property">include_path</span>, while <span class="methodname">Zend_Loader::isReadable()</span> does.
+                    </p>
+                </div>
+                <div class="section" id="zend.loader.load.autoload">
+                    <div class="info">
+                        <h2>
+                            Using the Autoloader
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The <span class="classname">Zend_Loader</span> class contains a method you can register with the <acronym class="acronym">PHP</acronym> SPL autoloader. <span class="methodname">Zend_Loader::autoload()</span> is the callback method. As a convenience, <span class="classname">Zend_Loader</span> provides the <span class="methodname">registerAutoload()</span> function to register its <span class="methodname">autoload()</span> method. If the <span class="property">spl_autoload</span> extension is not present in your <acronym class="acronym">PHP</acronym> environment, then the <span class="methodname">registerAutoload()</span> method throws a <span class="classname">Zend_Exception</span>.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #4 Example of registering the autoloader callback method</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                Zend_Loader::<span style="color: #006600;">registerAutoload</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        After registering the Zend Framework autoload callback, you can reference classes from Zend Framework without having to load them explicitly. The <span class="methodname">autoload()</span> method uses <span class="methodname">Zend_Loader::loadClass()</span> automatically when you reference a class.
+                    </p>
+                    <p class="para">
+                        If you have extended the <span class="classname">Zend_Loader</span> class, you can give an optional argument to <span class="methodname">registerAutoload()</span>, to specify the class from which to register an <span class="methodname">autoload()</span> method.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #5 Example of registering the autoload callback method from an extended class</b>
+                            </p>
+                        </div>
+                        <div class="example-contents">
+                            <p>
+                                Because of the semantics of static function references in <acronym class="acronym">PHP</acronym>, you must implement code for both <span class="methodname">loadClass()</span> and <span class="methodname">autoload()</span>, and the <span class="methodname">autoload()</span> must call <span class="methodname">self::loadClass()</span>. If your <span class="methodname">autoload()</span> method delegates to its parent to call <span class="methodname">self::loadClass()</span>, then it calls the method of that name in the parent class, not the subclass.
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #000000; font-weight: bold;">class</span> My_Loader <span style="color: #000000; font-weight: bold;">extends</span> Zend_Loader
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <a href="http://www.php.net/static"><span style="color: #000066;">static</span></a> <span style="color: #000000; font-weight: bold;">function</span> loadClass<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$class</span>, <span style="color: #0000ff;">$dirs</span> = <span style="color: #000000; font-weight: bold;">null</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; parent::<span style="color: #006600;">loadClass</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$class</span>, <span style="color: #0000ff;">$dirs</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">public</span> <a href="http://www.php.net/static"><span style="color: #000066;">static</span></a> <span style="color: #000000; font-weight: bold;">function</span> autoload<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$class</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; try <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; self::<span style="color: #006600;">loadClass</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$class</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">return</span> <span style="color: #0000ff;">$class</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">}</span> catch <span style="color: #66cc66;">(</span>Exception <span style="color: #0000ff;">$e</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #b1b100;">return</span> <span style="color: #000000; font-weight: bold;">false</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                Zend_Loader::<span style="color: #006600;">registerAutoload</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'My_Loader'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        You can remove an autoload callback. The <span class="methodname">registerAutoload()</span> has an optional second argument, which is <b><tt>TRUE</tt></b> by default. If this argument is <b><tt>FALSE</tt></b>, the autoload callback is unregistered from the SPL autoload stack.
+                    </p>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.loader.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.loader.autoloader.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.loader.html">Zend_Loader</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.loader.load.html">Loading Files and Classes Dynamically</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.autoloader.html">The Autoloader</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.autoloader-resource.html">Resource Autoloaders</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.pluginloader.html">Loading Plugins</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.spl-autoloader.html">The SplAutoloader Interface</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.autoloader-factory.html">The AutoloaderFactory</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.standard-autoloader.html">The StandardAutoloader</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.class-map-autoloader.html">The ClassMapAutoloader</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.loader.classmap-generator.html">The Class Map Generator utility: bin/classmap_generator.php</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

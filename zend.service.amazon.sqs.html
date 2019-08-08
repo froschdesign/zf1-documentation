@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Service_Amazon_Sqs - Zend_Service &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.service.amazon.sqs" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Service_Amazon_Sqs
+                    </h1>
+                </div>
+                <div class="section" id="zend.service.amazon.sqs.introduction">
+                    <div class="info">
+                        <h2>
+                            Introduction
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <a href="http://aws.amazon.com/sqs/" class="link external">&raquo; Amazon Simple Queue Service (Amazon SQS)</a> offers a reliable, highly scalable, hosted queue for storing messages as they travel between computers. By using Amazon SQS, developers can simply move data between distributed components of their applications that perform different tasks, without losing messages or requiring each component to be always available. Amazon SQS makes it easy to build an automated workflow, working in close conjunction with the Amazon Elastic Compute Cloud (Amazon EC2) and the other <acronym class="acronym">AWS</acronym> infrastructure web services.
+                    </p>
+                    <p class="para">
+                        Amazon SQS works by exposing Amazon's web-scale messaging infrastructure as a web service. Any computer on the Internet can add or read messages without any installed software or special firewall configurations. Components of applications using Amazon SQS can run independently, and do not need to be on the same network, developed with the same technologies, or running at the same time.
+                    </p>
+                </div>
+                <div class="section" id="zend.service.amazon.sqs.registering">
+                    <div class="info">
+                        <h2>
+                            Registering with Amazon SQS
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Before you can get started with <span class="classname">Zend_Service_Amazon_Sqs</span>, you must first register for an account. Please see the <a href="http://aws.amazon.com/sqs/faqs/" class="link external">&raquo; SQS FAQ</a> page on the Amazon website for more information.
+                    </p>
+                    <p class="para">
+                        After registering, you will receive an application key and a secret key. You will need both to access the SQS service.
+                    </p>
+                </div>
+                <div class="section" id="zend.service.amazon.sqs.apiDocumentation">
+                    <div class="info">
+                        <h2>
+                            API Documentation
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The <span class="classname">Zend_Service_Amazon_Sqs</span> class provides the <acronym class="acronym">PHP</acronym> wrapper to the Amazon SQS REST interface. Please consult the <a href="http://developer.amazonwebservices.com/connect/kbcategory.jspa?categoryID=31" class="link external">&raquo; Amazon SQS documentation</a> for detailed description of the service. You will need to be familiar with basic concepts in order to use this service.
+                    </p>
+                </div>
+                <div class="section" id="zend.service.amazon.sqs.features">
+                    <div class="info">
+                        <h2>
+                            Features
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Service_Amazon_Sqs</span> provides the following functionality:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                A single point for configuring your amazon.sqs authentication credentials that can be used across the amazon.sqs namespaces.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                A proxy object that is more convenient to use than an <acronym class="acronym">HTTP</acronym> client alone, mostly removing the need to manually construct <acronym class="acronym">HTTP</acronym> POST requests to access the REST service.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                A response wrapper that parses each response body and throws an exception if an error occurred, alleviating the need to repeatedly check the success of many commands.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                Additional convenience methods for some of the more common operations.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.service.amazon.sqs.storing-your-first">
+                    <div class="info">
+                        <h2>
+                            Getting Started
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Once you have registered with Amazon SQS, you're ready to create your queue and store some messages on SQS. Each queue can contain unlimited amount of messages, identified by name.
+                    </p>
+                    <p class="para">
+                        The following example demonstrates creating a queue, storing and retrieving messages.
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #1 Zend_Service_Amazon_Sqs Usage Example</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$sqs</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Amazon_Sqs<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$my_aws_key</span>, <span style="color: #0000ff;">$my_aws_secret_key</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$queue_url</span> = <span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">create</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$message</span> = <span style="color: #ff0000;">'this is a test'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$message_id</span> = <span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">send</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$queue_url</span>, <span style="color: #0000ff;">$message</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">foreach</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">receive</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$queue_url</span><span style="color: #66cc66;">)</span> <span style="color: #b1b100;">as</span> <span style="color: #0000ff;">$message</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$message</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'body'</span><span style="color: #66cc66;">]</span>.<span style="color: #ff0000;">'&lt;br/&gt;'</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        Since the <span class="classname">Zend_Service_Amazon_Sqs</span> service requires authentication, you should pass your credentials (AWS key and secret key) to the constructor. If you only use one account, you can set default credentials for the service:
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            Zend_Service_Amazon_Sqs::<span style="color: #006600;">setKeys</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$my_aws_key</span>, <span style="color: #0000ff;">$my_aws_secret_key</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$sqs</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Amazon_Sqs<span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.service.amazon.sqs.queues">
+                    <div class="info">
+                        <h2>
+                            Queue operations
+                        </h2>
+                    </div>
+                    <p class="para">
+                        All messages SQS are stored in queues. A queue has to be created before any message operations. Queue names must be unique under your access key and secret key.
+                    </p>
+                    <p class="para">
+                        Queue names can contain lowercase letters, digits, periods (.), underscores (_), and dashes (-). No other symbols allowed. Queue names can be a maximum of 80 characters.
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">create()</span> creates a new queue.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">delete()</span> removes all messages in the queue.
+                            </p>
+                            <div class="example">
+                                <div class="info">
+                                    <p>
+                                        <b>Example #2 Zend_Service_Amazon_Sqs Queue Removal Example</b>
+                                    </p>
+                                </div>
+                                <div class="programlisting php">
+                                    <div class="phpcode">
+                                        <div class="php" style="font-family: monospace;">
+                                            <ol>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$sqs</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Amazon_Sqs<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$my_aws_key</span>, <span style="color: #0000ff;">$my_aws_secret_key</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$queue_url</span> = <span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">create</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test_1'</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">delete</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$queue_url</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">count()</span> gets the approximate number of messages in the queue.
+                            </p>
+                            <div class="example">
+                                <div class="info">
+                                    <p>
+                                        <b>Example #3 Zend_Service_Amazon_Sqs Queue Count Example</b>
+                                    </p>
+                                </div>
+                                <div class="programlisting php">
+                                    <div class="phpcode">
+                                        <div class="php" style="font-family: monospace;">
+                                            <ol>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$sqs</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Amazon_Sqs<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$my_aws_key</span>, <span style="color: #0000ff;">$my_aws_secret_key</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$queue_url</span> = <span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">create</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test_1'</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">send</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$queue_url</span>, <span style="color: #ff0000;">'this is a test'</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$count</span> = <span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">count</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$queue_url</span><span style="color: #66cc66;">)</span>; <span style="color: #808080; font-style: italic;">// Returns '1'</span>
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getQueues()</span> returns the list of the names of all queues belonging to the user.
+                            </p>
+                            <div class="example">
+                                <div class="info">
+                                    <p>
+                                        <b>Example #4 Zend_Service_Amazon_Sqs Queue Listing Example</b>
+                                    </p>
+                                </div>
+                                <div class="programlisting php">
+                                    <div class="phpcode">
+                                        <div class="php" style="font-family: monospace;">
+                                            <ol>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$sqs</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Amazon_Sqs<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$my_aws_key</span>, <span style="color: #0000ff;">$my_aws_secret_key</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$list</span> = <span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">getQueues</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #b1b100;">foreach</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$list</span> <span style="color: #b1b100;">as</span> <span style="color: #0000ff;">$queue</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp; &nbsp;<a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"I have queue $queue<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #66cc66;">}</span>
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.service.amazon.sqs.messages">
+                    <div class="info">
+                        <h2>
+                            Message operations
+                        </h2>
+                    </div>
+                    <p class="para">
+                        After a queue is created, simple messages can be sent into the queue then received at a later point in time. Messages can be up to 8KB in length. If longer messages are needed please see <a href="http://framework.zend.com/manual/en/zend.service.amazon.s3.html" class="link external">&raquo; S3</a>. There is no limit to the number of messages a queue can contain.
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">sent($queue_url, $message)</span> send the <var class="varname">$message</var> to the <var class="varname">$queue_url</var> SQS queue <acronym class="acronym">URL</acronym>.
+                            </p>
+                            <div class="example">
+                                <div class="info">
+                                    <p>
+                                        <b>Example #5 Zend_Service_Amazon_Sqs Message Send Example</b>
+                                    </p>
+                                </div>
+                                <div class="programlisting php">
+                                    <div class="phpcode">
+                                        <div class="php" style="font-family: monospace;">
+                                            <ol>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$sqs</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Amazon_Sqs<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$my_aws_key</span>, <span style="color: #0000ff;">$my_aws_secret_key</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$queue_url</span> = <span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">create</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test_queue'</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">send</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$queue_url</span>, <span style="color: #ff0000;">'this is a test message'</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">receive($queue_url)</span> retrieves messages from the queue.
+                            </p>
+                            <div class="example">
+                                <div class="info">
+                                    <p>
+                                        <b>Example #6 Zend_Service_Amazon_Sqs Message Receive Example</b>
+                                    </p>
+                                </div>
+                                <div class="programlisting php">
+                                    <div class="phpcode">
+                                        <div class="php" style="font-family: monospace;">
+                                            <ol>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$sqs</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Amazon_Sqs<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$my_aws_key</span>, <span style="color: #0000ff;">$my_aws_secret_key</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$queue_url</span> = <span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">create</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test_queue'</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">send</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$queue_url</span>, <span style="color: #ff0000;">'this is a test message'</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #b1b100;">foreach</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">receive</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$queue_url</span><span style="color: #66cc66;">)</span> <span style="color: #b1b100;">as</span> <span style="color: #0000ff;">$message</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"got message "</span>.<span style="color: #0000ff;">$message</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'body'</span><span style="color: #66cc66;">]</span>.<span style="color: #ff0000;">'&lt;br/&gt;'</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #66cc66;">}</span>
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">deleteMessage($queue_url, $handle)</span> deletes a message from a queue. A message must first be received using the <span class="methodname">receive()</span> method before it can be deleted.
+                            </p>
+                            <div class="example">
+                                <div class="info">
+                                    <p>
+                                        <b>Example #7 Zend_Service_Amazon_Sqs Message Delete Example</b>
+                                    </p>
+                                </div>
+                                <div class="programlisting php">
+                                    <div class="phpcode">
+                                        <div class="php" style="font-family: monospace;">
+                                            <ol>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$sqs</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Service_Amazon_Sqs<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$my_aws_key</span>, <span style="color: #0000ff;">$my_aws_secret_key</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$queue_url</span> = <span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">create</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'test_queue'</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">send</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$queue_url</span>, <span style="color: #ff0000;">'this is a test message'</span><span style="color: #66cc66;">)</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #b1b100;">foreach</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">receive</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$queue_url</span><span style="color: #66cc66;">)</span> <span style="color: #b1b100;">as</span> <span style="color: #0000ff;">$message</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"got message "</span>.<span style="color: #0000ff;">$message</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'body'</span><span style="color: #66cc66;">]</span>.<span style="color: #ff0000;">'&lt;br/&gt;'</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp; &nbsp; <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$sqs</span>-&gt;<span style="color: #006600;">deleteMessage</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$queue_url</span>, <span style="color: #0000ff;">$message</span><span style="color: #66cc66;">[</span><span style="color: #ff0000;">'handle'</span><span style="color: #66cc66;">]</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"Message deleted"</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp; &nbsp; <span style="color: #b1b100;">else</span> <span style="color: #66cc66;">{</span>
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"Message not deleted"</span>;
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        &nbsp; &nbsp; <span style="color: #66cc66;">}</span>
+                                                    </div>
+                                                </li>
+                                                <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                                    <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                        <span style="color: #66cc66;">}</span>
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.service.amazon.s3.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.service.audioscrobbler.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.service.html">Zend_Service</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.akismet.html">Zend_Service_Akismet</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.html">Zend_Service_Amazon</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.html">Zend_Service_Amazon_Ec2</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.instance.html">Zend_Service_Amazon_Ec2: Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.windows.instance.html">Zend_Service_Amazon_Ec2: Windows Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.reserved.instance.html">Zend_Service_Amazon_Ec2: Reserved Instances</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.cloudwatch.html">Zend_Service_Amazon_Ec2: CloudWatch Monitoring</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.images.html">Zend_Service_Amazon_Ec2: Amazon Machine Images (AMI)</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.ebs.html">Zend_Service_Amazon_Ec2: Elastic Block Storage (EBS)</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.elasticip.html">Zend_Service_Amazon_Ec2: Elastic IP Addresses</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.keypairs.html">Zend_Service_Amazon_Ec2: Keypairs</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.zones.html">Zend_Service_Amazon_Ec2: Regions and Availability Zones</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.ec2.securitygroups.html">Zend_Service_Amazon_Ec2: Security Groups</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.amazon.s3.html">Zend_Service_Amazon_S3</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.service.amazon.sqs.html">Zend_Service_Amazon_Sqs</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.audioscrobbler.html">Zend_Service_Audioscrobbler</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.delicious.html">Zend_Service_Delicious</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.ebay.html">Zend_Service_Ebay</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.ebay.finding.html">Zend_Service_Ebay_Finding</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.flickr.html">Zend_Service_Flickr</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.livedocx.html">Zend_Service_LiveDocx</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.rackspace.html">Zend_Service_Rackspace</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.rackspace.files.html">Zend_Service_Rackspace_Files</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.rackspace.servers.html">Zend_Service_Rackspace_Servers</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.recaptcha.html">Zend_Service_ReCaptcha</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.short-url.html">Zend_Service_ShortUrl</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.slideshare.html">Zend_Service_SlideShare</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.html">Zend_Service_StrikeIron</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.bundled-services.html">Zend_Service_StrikeIron: Bundled Services</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.strikeiron.advanced-uses.html">Zend_Service_StrikeIron: Advanced Uses</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.twitter.html">Zend_Service_Twitter</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.html">Zend_Service_WindowsAzure</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.blob.html">Zend_Service_WindowsAzure_Storage_Blob</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.diagnostics.manager.html">Zend_Service_WindowsAzure_Diagnostics_Manager</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.queue.html">Zend_Service_WindowsAzure_Storage_Queue</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.windowsazure.storage.table.html">Zend_Service_WindowsAzure_Storage_Table</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.service.yahoo.html">Zend_Service_Yahoo</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

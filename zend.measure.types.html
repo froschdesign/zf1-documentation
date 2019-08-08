@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Types of measurements - Zend_Measure &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.measure.types" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Types of measurements
+                    </h1>
+                </div>
+                <p class="para">
+                    All supported measurement types are listed below, each with an example of the standard usage for such measurements.
+                </p>
+                <div class="info"></div>
+                <table class="doctable table">
+                    <caption>
+                        <b>List of measurement types</b>
+                    </caption>
+                    <thead valign="middle">
+                        <tr valign="middle">
+                            <th>
+                                Typ
+                            </th>
+                            <th>
+                                Class
+                            </th>
+                            <th>
+                                Standardunit
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody valign="middle" class="tbody">
+                        <tr valign="middle">
+                            <td align="left">
+                                Acceleration
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Acceleration
+                            </td>
+                            <td align="left">
+                                Meter per square second | <code class="code">m/s&Acirc;&sup2;</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Acceleration</span> covers the physical factor of acceleration.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Angle
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Angle
+                            </td>
+                            <td align="left">
+                                Radiant | <code class="code">rad</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Angle</span> covers angular dimensions.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Area
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Area
+                            </td>
+                            <td align="left">
+                                Square meter | <code class="code">m&Acirc;&sup2;</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Area</span> covers square measures.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Binary
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Binary
+                            </td>
+                            <td align="left">
+                                Byte | <code class="code">b</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Binary</span> covers binary conversions.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Capacitance
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Capacitance
+                            </td>
+                            <td align="left">
+                                Farad | <code class="code">F</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Capacitance</span> covers physical factor of capacitance.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Cooking volumes
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Cooking_Volume
+                            </td>
+                            <td align="left">
+                                Cubic meter | <code class="code">m&Acirc;&sup3;</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Cooking_Volume</span> covers volumes which are used for cooking or written in cookbooks.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Cooking weights
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Cooking_Weight
+                            </td>
+                            <td align="left">
+                                Gram | <code class="code">g</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Cooking_Weight</span> covers the weights which are used for cooking or written in cookbooks.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Current
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Current
+                            </td>
+                            <td align="left">
+                                Ampere | <code class="code">A</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Current</span> covers the physical factor of current.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Density
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Density
+                            </td>
+                            <td align="left">
+                                Kilogram per cubic meter | <code class="code">kg/m&Acirc;&sup3;</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Density</span> covers the physical factor of density.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Energy
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Energy
+                            </td>
+                            <td align="left">
+                                Joule | <code class="code">J</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Energy</span> covers the physical factor of energy.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Force
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Force
+                            </td>
+                            <td align="left">
+                                Newton | <code class="code">N</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Force</span> covers the physical factor of force.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Flow (mass)
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Flow_Mass
+                            </td>
+                            <td align="left">
+                                Kilogram per second | <code class="code">kg/s</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Flow_Mass</span> covers the physical factor of flow rate. The weight of the flowing mass is used as reference point within this class.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Flow (mole)
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Flow_Mole
+                            </td>
+                            <td align="left">
+                                Mole per second | <code class="code">mol/s</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Flow_Mole</span> covers the physical factor of flow rate. The density of the flowing mass is used as reference point within this class.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Flow (volume)
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Flow_Volume
+                            </td>
+                            <td align="left">
+                                Cubic meter per second | <code class="code">m&Acirc;&sup3;/s</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Flow_Volume</span> covers the physical factor of flow rate. The volume of the flowing mass is used as reference point within this class.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Frequency
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Frequency
+                            </td>
+                            <td align="left">
+                                Hertz | <code class="code">Hz</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Frequency</span> covers the physical factor of frequency.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Illumination
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Illumination
+                            </td>
+                            <td align="left">
+                                Lux | <code class="code">lx</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Illumination</span> covers the physical factor of light density.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Length
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Length
+                            </td>
+                            <td align="left">
+                                Meter | <code class="code">m</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Length</span> covers the physical factor of length.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Lightness
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Lightness
+                            </td>
+                            <td align="left">
+                                Candela per square meter | <code class="code">cd/m&Acirc;&sup2;</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Ligntness</span> covers the physical factor of light energy.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Number
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Number
+                            </td>
+                            <td align="left">
+                                Decimal | <code class="code">(10)</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Number</span> converts between number formats.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Power
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Power
+                            </td>
+                            <td align="left">
+                                Watt | <code class="code">W</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Power</span> covers the physical factor of power.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Pressure
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Pressure
+                            </td>
+                            <td align="left">
+                                Newton per square meter | <code class="code">N/m&Acirc;&sup2;</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Pressure</span> covers the physical factor of pressure.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Speed
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Speed
+                            </td>
+                            <td align="left">
+                                Meter per second | <code class="code">m/s</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Speed</span> covers the physical factor of speed.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Temperature
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Temperature
+                            </td>
+                            <td align="left">
+                                Kelvin | <code class="code">K</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Temperature</span> covers the physical factor of temperature.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Time
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Time
+                            </td>
+                            <td align="left">
+                                Second | <code class="code">s</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Time</span> covers the physical factor of time.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Torque
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Torque
+                            </td>
+                            <td align="left">
+                                Newton meter | <code class="code">Nm</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Torque</span> covers the physical factor of torque.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Viscosity (dynamic)
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Viscosity_Dynamic
+                            </td>
+                            <td align="left">
+                                Kilogram per meter second | <code class="code">kg/ms</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Viscosity_Dynamic</span> covers the physical factor of viscosity. The weight of the fluid is used as reference point within this class.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Viscosity (kinematic)
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Viscosity_Kinematic
+                            </td>
+                            <td align="left">
+                                Square meter per second | <code class="code">m&Acirc;&sup2;/s</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Viscosity_Kinematic</span> covers the physical factor of viscosity. The distance of the flown fluid is used as reference point within this class.
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Volume
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Volume
+                            </td>
+                            <td align="left">
+                                Cubic meter | <code class="code">m&Acirc;&sup3;</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Volume</span> covers the physical factor of volume (content).
+                            </td>
+                        </tr>
+                        <tr valign="middle">
+                            <td align="left">
+                                Weight
+                            </td>
+                            <td align="left">
+                                Zend_Measure_Weight
+                            </td>
+                            <td align="left">
+                                Kilogram | <code class="code">kg</code>
+                            </td>
+                            <td align="left">
+                                <span class="classname">Zend_Measure_Weight</span> covers the physical factor of weight.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="section" id="zend.measure.types.binary">
+                    <div class="info">
+                        <h2>
+                            Hints for Zend_Measure_Binary
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Some popular binary conventions, include terms like kilo-, mega-, giga, etc. in normal language use imply base 10, such as 1000 or 10&Acirc;&sup3;. However, in the binary format for computers these terms have to be seen for a conversion factor of 1024 instead of 1000. To preclude confusions a few years ago the notation BI was introduced. Instead of kilobyte, kibibyte for kilo-binary-byte should be used.
+                    </p>
+                    <p class="para">
+                        In the class BINARY both notations can be found, such as <code class="code">KILOBYTE = 1024 - binary conputer conversion KIBIBYTE = 1024 - new notation KILO_BINARY_BYTE = 1024 - new</code>, or the notation, long format <code class="code">KILOBYTE_SI = 1000 - SI notation for kilo (1000)</code>. DVDs for example are marked with the SI-notation, but almost all harddisks are marked in computer binary notation.
+                    </p>
+                </div>
+                <div class="section" id="zend.measure.types.decimal">
+                    <div class="info">
+                        <h2>
+                            Hints for Zend_Measure_Number
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The best known number format is the decimal system. Additionally this class supports the octal system, the hexadecimal system, the binary system, the roman number system and some other less popular systems. Note that only the decimal part of numbers is handled. Any fractional part will be stripped.
+                    </p>
+                </div>
+                <div class="section" id="zend.measure.types.roman">
+                    <div class="info">
+                        <h2>
+                            Roman numbers
+                        </h2>
+                    </div>
+                    <p class="para">
+                        For the roman number system digits greater 4000 are supported. In reality these digits are shown with a crossbeam on top of the digit. As the crossbeam can not be shown within the computer, an underline has to be used instead of it.
+                    </p>
+                    <div class="programlisting php">
+                        <div class="phpcode">
+                            <div class="php" style="font-family: monospace;">
+                                <ol>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$great</span> = <span style="color: #ff0000;">'_X'</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$locale</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Locale<span style="color: #66cc66;">(</span><span style="color: #ff0000;">'en'</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #0000ff;">$unit</span> = <span style="color: #000000; font-weight: bold;">new</span> Zend_Measure_Number<span style="color: #66cc66;">(</span><span style="color: #0000ff;">$great</span>,Zend_Measure_Number::<span style="color: #006600;">ROMAN</span>, <span style="color: #0000ff;">$locale</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <span style="color: #808080; font-style: italic;">// convert to the decimal system</span>
+                                        </div>
+                                    </li>
+                                    <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                        <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                            <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$unit</span>-&gt;<span style="color: #006600;">convertTo</span><span style="color: #66cc66;">(</span>Zend_Measure_Number::<span style="color: #006600;">DECIMAL</span><span style="color: #66cc66;">)</span>;
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.measure.edit.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.memory.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.measure.html">Zend_Measure</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.measure.introduction.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.measure.creation.html">Creation of Measurements</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.measure.output.html">Outputting measurements</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.measure.edit.html">Manipulating Measurements</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.measure.types.html">Types of measurements</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>

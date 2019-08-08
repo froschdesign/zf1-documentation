@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    Zend_Http_Response - Zend_Http &ndash; Documentation of ZF1 - Zend Framework
+</title>
+    <link rel="stylesheet" href="https://froschdesign.github.io/zend-documentation-showcase/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body id="page-top">
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="https://docs.zendframework.com/tutorials/img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+                    <small class="header__subtitle">ZF1</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        
+    
+<div class="col-md-9 col-xs-12 content" role="main"><p class="alert alert-warning" role="alert">
+    <strong>Caution:</strong> The documentation you are viewing is
+    for an older version of Zend Framework.<br>
+    You can find the documentation of the current version at:
+    <br>
+    <a href="https://docs.zendframework.com/">
+        https://docs.zendframework.com/    </a>
+</p>
+            <div id="zend.http.response" class="section">
+                <div class="info">
+                    <h1 class="title">
+                        Zend_Http_Response
+                    </h1>
+                </div>
+                <div class="section" id="zend.http.response.introduction">
+                    <div class="info">
+                        <h2>
+                            Introduction
+                        </h2>
+                    </div>
+                    <p class="para">
+                        <span class="classname">Zend_Http_Response</span> provides easy access to an <acronym class="acronym">HTTP</acronym> responses message, as well as a set of static methods for parsing <acronym class="acronym">HTTP</acronym> response messages. Usually, <span class="classname">Zend_Http_Response</span> is used as an object returned by a <span class="classname">Zend_Http_Client</span> request.
+                    </p>
+                    <p class="para">
+                        In most cases, a <span class="classname">Zend_Http_Response</span> object will be instantiated using the fromString() method, which reads a string containing a <acronym class="acronym">HTTP</acronym> response message, and returns a new <span class="classname">Zend_Http_Response</span> object:
+                    </p>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #1 Instantiating a Zend_Http_Response Object Using the Factory Method</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$str</span> = <span style="color: #ff0000;">''</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$sock</span> = <a href="http://www.php.net/fsockopen"><span style="color: #000066;">fsockopen</span></a><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'www.example.com'</span>, <span style="color: #cc66cc;">80</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$req</span> =&nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">"GET / HTTP/1.1<span style="color: #000099; font-weight: bold;">\r</span><span style="color: #000099; font-weight: bold;">\n</span>"</span> .
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">"Host: www.example.com<span style="color: #000099; font-weight: bold;">\r</span><span style="color: #000099; font-weight: bold;">\n</span>"</span> .
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">"Connection: close<span style="color: #000099; font-weight: bold;">\r</span><span style="color: #000099; font-weight: bold;">\n</span>"</span> .
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\r</span><span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/fwrite"><span style="color: #000066;">fwrite</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$sock</span>, <span style="color: #0000ff;">$req</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">while</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$buff</span> = <a href="http://www.php.net/fread"><span style="color: #000066;">fread</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$sock</span>, <span style="color: #cc66cc;">1024</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; <span style="color: #0000ff;">$str</span> .= <span style="color: #0000ff;">$sock</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$response</span> = Zend_Http_Response::<span style="color: #006600;">fromString</span><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$str</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="para">
+                        You can also use the contractor method to create a new response object, by specifying all the parameters of the response:
+                    </p>
+                    <p class="para">
+                        <strong class="command">public function __construct($code, $headers, $body = null, $version = '1.1', $message = null)</strong>
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <var class="varname">$code</var>: The <acronym class="acronym">HTTP</acronym> response code (eg. 200, 404, etc.)
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <var class="varname">$headers</var>: An associative array of <acronym class="acronym">HTTP</acronym> response headers (eg. 'Host' =&gt; 'example.com')
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <var class="varname">$body</var>: The response body as a string
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <var class="varname">$version</var>: The <acronym class="acronym">HTTP</acronym> response version (usually 1.0 or 1.1)
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <var class="varname">$message</var>: The <acronym class="acronym">HTTP</acronym> response message (eg 'OK', 'Internal Server Error'). If not specified, the message will be set according to the response code
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="section" id="zend.http.response.testers">
+                    <div class="info">
+                        <h2>
+                            Boolean Tester Methods
+                        </h2>
+                    </div>
+                    <p class="para">
+                        Once a <span class="classname">Zend_Http_Response</span> object is instantiated, it provides several methods that can be used to test the type of the response. These all return Boolean <b><tt>TRUE</tt></b> or <b><tt>FALSE</tt></b>:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">isSuccessful()</span>: Whether the request was successful or not. Returns <b><tt>TRUE</tt></b> for <acronym class="acronym">HTTP</acronym> 1xx and 2xx response codes
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">isError()</span>: Whether the response code implies an error or not. Returns <b><tt>TRUE</tt></b> for <acronym class="acronym">HTTP</acronym> 4xx (client errors) and 5xx (server errors) response codes
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">isRedirect()</span>: Whether the response is a redirection response or not. Returns <b><tt>TRUE</tt></b> for <acronym class="acronym">HTTP</acronym> 3xx response codes
+                            </p>
+                        </li>
+                    </ul>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #2 Using the isError() method to validate a response</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">isError</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"Error transmitting data.<span style="color: #000099; font-weight: bold;">\n</span>"</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"Server reply was: "</span> . <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">getStatus</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span> .
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #ff0000;">" "</span> . <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">getMessage</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">"<span style="color: #000099; font-weight: bold;">\n</span>"</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #808080; font-style: italic;">// .. process the response here...</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.http.response.acessors">
+                    <div class="info">
+                        <h2>
+                            Accessor Methods
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The main goal of the response object is to provide easy access to various response parameters.
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getStatus()</span>: Get the <acronym class="acronym">HTTP</acronym> response status code (eg. 200, 504, etc.)
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getMessage()</span>: Get the <acronym class="acronym">HTTP</acronym> response status message (eg. "Not Found", "Authorization Required")
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getBody()</span>: Get the fully decoded <acronym class="acronym">HTTP</acronym> response body
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getRawBody()</span>: Get the raw, possibly encoded <acronym class="acronym">HTTP</acronym> response body. if the body was decoded using GZIP encoding for example, it will not be decoded.
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getHeaders()</span>: Get the <acronym class="acronym">HTTP</acronym> response headers as an associative array (eg. 'Content-type' =&gt; 'text/html')
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getHeader($header)</span>: Get a specific <acronym class="acronym">HTTP</acronym> response header, specified by $header
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">getHeadersAsString($status_line, $br)</span>: Get the entire set of headers as a string. If <var class="varname">$status_line</var> is <b><tt>TRUE</tt></b> (default), the first status line (eg. "HTTP/1.1 200 OK") will also be returned. Lines are broken with the <var class="varname">$br</var> parameter (Can be, for example, "&lt;br /&gt;". Default "\n")
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">asString($br)</span>: Get the entire response message as a string. Lines are broken with the $br parameter (Can be, for example, "&lt;br /&gt;". Default "\n"). You can also use the magic method <span class="methodname">__toString()</span> when casting the object as a string. It will then proxy to <span class="methodname">asString()</span>.
+                            </p>
+                        </li>
+                    </ul>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #3 Using Zend_Http_Response Accessor Methods</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">getStatus</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span> == <span style="color: #cc66cc;">200</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"The request returned the following information:&lt;br /&gt;"</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">getBody</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span> <span style="color: #b1b100;">else</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #ff0000;">"An error occurred while fetching data:&lt;br /&gt;"</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">getStatus</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span> . <span style="color: #ff0000;">": "</span> . <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">getMessage</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <blockquote>
+                        <p>
+                            <b class="note">Note</b>: <span class="info"><b>Always check return value</b><br></span> Since a response can contain several instances of the same header, the getHeader() method and getHeaders() method may return either a single string, or an array of strings for each header. You should always check whether the returned value is a string or array.<br>
+                        </p>
+                    </blockquote>
+                    <div class="example">
+                        <div class="info">
+                            <p>
+                                <b>Example #4 Accessing Response Headers</b>
+                            </p>
+                        </div>
+                        <div class="programlisting php">
+                            <div class="phpcode">
+                                <div class="php" style="font-family: monospace;">
+                                    <ol>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$ctype</span> = <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">getHeader</span><span style="color: #66cc66;">(</span><span style="color: #ff0000;">'Content-type'</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><a href="http://www.php.net/is_array"><span style="color: #000066;">is_array</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$ctype</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span> <span style="color: #0000ff;">$ctype</span> = <span style="color: #0000ff;">$ctype</span><span style="color: #66cc66;">[</span><span style="color: #cc66cc;">0</span><span style="color: #66cc66;">]</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #0000ff;">$body</span> = <span style="color: #0000ff;">$response</span>-&gt;<span style="color: #006600;">getBody</span><span style="color: #66cc66;">(</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #b1b100;">if</span> <span style="color: #66cc66;">(</span><span style="color: #0000ff;">$ctype</span> == <span style="color: #ff0000;">'text/html'</span> || <span style="color: #0000ff;">$ctype</span> == <span style="color: #ff0000;">'text/xml'</span><span style="color: #66cc66;">)</span> <span style="color: #66cc66;">{</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp; <span style="color: #0000ff;">$body</span> = <a href="http://www.php.net/htmlentities"><span style="color: #000066;">htmlentities</span></a><span style="color: #66cc66;">(</span><span style="color: #0000ff;">$body</span><span style="color: #66cc66;">)</span>;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <span style="color: #66cc66;">}</span>
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                &nbsp;
+                                            </div>
+                                        </li>
+                                        <li style="font-family: 'Courier New', Courier, monospace; color: black; font-weight: normal; font-style: normal;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-weight: normal;">
+                                                <a href="http://www.php.net/echo"><span style="color: #000066;">echo</span></a> <span style="color: #0000ff;">$body</span>;
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" id="zend.http.response.static_parsers">
+                    <div class="info">
+                        <h2>
+                            Static HTTP Response Parsers
+                        </h2>
+                    </div>
+                    <p class="para">
+                        The <span class="classname">Zend_Http_Response</span> class also includes several internally-used methods for processing and parsing <acronym class="acronym">HTTP</acronym> response messages. These methods are all exposed as static methods, which means they can be used externally, even if you do not need to instantiate a response object, and just want to extract a specific part of the response.
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Http_Response::extractCode($response_str)</span>: Extract and return the <acronym class="acronym">HTTP</acronym> response code (eg. 200 or 404) from <var class="varname">$response_str</var>
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Http_Response::extractMessage($response_str)</span>: Extract and return the <acronym class="acronym">HTTP</acronym> response message (eg. "OK" or "File Not Found") from <var class="varname">$response_str</var>
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Http_Response::extractVersion($response_str)</span>: Extract and return the <acronym class="acronym">HTTP</acronym> version (eg. 1.1 or 1.0) from <var class="varname">$response_str</var>
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Http_Response::extractHeaders($response_str)</span>: Extract and return the <acronym class="acronym">HTTP</acronym> response headers from <var class="varname">$response_str</var> as an array
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Http_Response::extractBody($response_str)</span>: Extract and return the <acronym class="acronym">HTTP</acronym> response body from <var class="varname">$response_str</var>
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Http_Response::responseCodeAsText($code, $http11)</span>: Get the standard <acronym class="acronym">HTTP</acronym> response message for a response code $code. For example, will return "Internal Server Error" if <var class="varname">$code</var> is 500. If <var class="varname">$http11</var> is <b><tt>TRUE</tt></b> (default), will return <acronym class="acronym">HTTP</acronym>/1.1 standard messages - otherwise <acronym class="acronym">HTTP</acronym>/1.0 messages will be returned. If <var class="varname">$code</var> is not specified, this method will return all known <acronym class="acronym">HTTP</acronym> response codes as an associative (code =&gt; message) array.
+                            </p>
+                        </li>
+                    </ul>
+                    <p class="para">
+                        Apart from parser methods, the class also includes a set of decoders for common <acronym class="acronym">HTTP</acronym> response transfer encodings:
+                    </p>
+                    <ul class="itemizedlist">
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Http_Response::decodeChunkedBody($body)</span>: Decode a complete "Content-Transfer-Encoding: Chunked" body
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Http_Response::decodeGzip($body)</span>: Decode a "Content-Encoding: gzip" body
+                            </p>
+                        </li>
+                        <li class="listitem">
+                            <p class="para">
+                                <span class="methodname">Zend_Http_Response::decodeDeflate($body)</span>: Decode a "Content-Encoding: deflate" body
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <nav>
+    <ul class="page-nav hidden-print">
+        <li class="page-nav__item"><a rel="prev" class="page-nav__link page-nav__link--prev" href="zend.http.cookies.html">
+                <i class="fa fa-chevron-left"></i> Previous
+            </a></li>
+        <li class="page-nav__item"><a rel="next" class="page-nav__link page-nav__link--next" href="zend.http.user-agent.html">
+                Next <i class="fa fa-chevron-right"></i>
+            </a></li>
+    </ul>
+</nav></div>
+<div class="col-md-3 col-xs-12 sidebar">
+<div class="subnavigation"><div class="component-selector">
+<h5 class="component-selector__subtitle">Version 1.12</h5></div><h4 class="subnavigation__title"><a href="zend.http.html">Zend_Http</a></h4><ul class="subnavigation__list">
+                
+                
+                
+                
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.client.html">Introduction</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.client.advanced.html">Zend_Http_Client - Advanced Usage</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.client.adapters.html">Zend_Http_Client - Connection Adapters</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.cookies.html">Zend_Http_Cookie and Zend_Http_CookieJar</a>
+                </li>
+                <li class="subnavigation__list-item subnavigation__list-item--active">
+                    <a class="subnavigation__link" href="zend.http.response.html">Zend_Http_Response</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent.html">Zend_Http_UserAgent</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent-device.html">The UserAgent Device Interface</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent-features.html">The UserAgent Features Adapter</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent-features-browscap.html">The Browscap UserAgent Features Adapter</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent-features-device-atlas.html">The DeviceAtlas UserAgent Features Adapter</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent-features-tera-wurfl.html">The TeraWurfl UserAgent Features Adapter</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent-storage.html">The UserAgent Storage Interface</a>
+                </li>
+                <li class="subnavigation__list-item">
+                    <a class="subnavigation__link" href="zend.http.user-agent-storage-session.html">The Session UserAgent Storage Adapter</a>
+                </li>
+            </ul></div></div>
+
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>© 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://framework.zend.com/js/scripts-9871b49c70.js"></script>
+</body>
+</html>
